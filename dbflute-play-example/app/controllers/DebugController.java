@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.index;
 
 public class DebugController extends Controller {
 
@@ -16,7 +15,7 @@ public class DebugController extends Controller {
     }
 
     public Result index() {
-        return ok(index.render("DEBUG Your new application is ready."));
+        return ok(views.html.debug.render("DEBUG Your new application is ready."));
     }
 
 }
