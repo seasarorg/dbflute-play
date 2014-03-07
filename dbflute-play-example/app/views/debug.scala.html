@@ -1,4 +1,4 @@
-@(message: String)
+@(message: String, meta: java.sql.DatabaseMetaData)
 
 @main("debug") {
 
@@ -30,5 +30,48 @@
 		</tr>
 	</table>
 
+	<h1>DatabaseMetaData</h1>
+	<table>
+		<tr>
+			<th>URL</th>
+			<td>@meta.getURL()<td>
+		</tr>
+		<tr>
+			<th>UserName</th>
+			<td>@meta.getUserName()</td>
+		</tr>
+		<tr>
+			<th>DatabaseProductName</th>
+			<td>@meta.getDatabaseProductName()</td>
+		</tr>
+		<tr>
+			<th>DatabaseProductVersion</th>
+			<td>@meta.getDatabaseProductVersion()</td>
+		</tr>
+		<tr>
+			<th>DatabaseMajorVersion</th>
+			<td>@meta.getDatabaseMajorVersion()</td>
+		</tr>
+		<tr>
+			<th>DatabaseMinorVersion</th>
+			<td>@meta.getDatabaseMinorVersion()</td>
+		</tr>
+		<tr>
+			<th>DriverName</th>
+			<td>@meta.getDriverName()</td>
+		</tr>
+		<tr>
+			<th>DriverVersion</th>
+			<td>@meta.getDriverVersion()</td>
+		</tr>
+		<tr>
+			<th>DriverMajorVersion</th>
+			<td>@meta.getDriverMajorVersion()</td>
+		</tr>
+		<tr>
+			<th>DriverMinorVersion</th>
+			<td>@meta.getDriverMinorVersion()</td>
+		</tr>
+	</table>
 
 }
