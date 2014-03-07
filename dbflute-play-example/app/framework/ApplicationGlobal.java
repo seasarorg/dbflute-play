@@ -41,7 +41,7 @@ public class ApplicationGlobal extends GlobalSettings {
 
     @Override
     public Action onRequest(final Request request, final Method actionMethod) {
-        logger.debug("onRequest: {}", request);
+        logger.debug("onRequest: {} ({})", request, actionMethod);
         final Action action = super.onRequest(request, actionMethod);
         return new AppAction(action);
     }
