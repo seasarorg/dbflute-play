@@ -38,7 +38,7 @@ import com.example.dbflute.sastruts.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.sastruts.dbflute.exbhv.MemberStatusBhv;
 import com.example.dbflute.sastruts.dbflute.exentity.Member;
 import com.example.dbflute.sastruts.dbflute.exentity.MemberStatus;
-import com.example.dbflute.sastruts.web.member.ListForm;
+import com.example.dbflute.sastruts.web.member.MemberListForm;
 import com.example.dbflute.sastruts.web.member.MemberWebBean;
 
 /**
@@ -56,7 +56,7 @@ public class MemberListAction {
     //                                          ------------
     //    @ActionForm
     @Resource
-    protected ListForm listForm;
+    protected MemberListForm listForm;
 
     @Resource
     protected MemberBhv memberBhv;

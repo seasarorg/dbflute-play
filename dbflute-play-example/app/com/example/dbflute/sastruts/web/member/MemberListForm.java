@@ -28,7 +28,7 @@ import org.seasar.framework.container.annotation.tiger.InstanceType;
  * @author jflute (extends it)
  */
 @Component(instance = InstanceType.SESSION)
-public class ListForm implements Serializable {
+public class MemberListForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
