@@ -29,6 +29,7 @@ import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.coption.LikeSearchOption;
 import org.seasar.dbflute.util.DfTypeUtil;
 
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -58,7 +59,7 @@ public class MemberListController extends Controller {
     //                                          DI Component
     //                                          ------------
     //    @ActionForm
-    @Resource
+    //    @Resource
     protected MemberListForm listForm;
 
     @Resource
@@ -80,6 +81,8 @@ public class MemberListController extends Controller {
     //    @Execute(validator = false, urlPattern = "{pageNumber}")
     public Result index() {
         prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
+        final Form<MemberListForm> form = Form.form(MemberListForm.class).bindFromRequest();
+        listForm = form.get();
         if (listForm.pageNumber != null && listForm.pageNumber > 0) { // 検索対象ページ番号が指定されていれば
             // /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = [TIPS by jflute]
             // Beansなんとかなど、リフレクションによる詰め替えは「絶対に利用しない」こと
@@ -109,7 +112,7 @@ public class MemberListController extends Controller {
             // = = = = = = = = = =/
             pagingNavi.prepare(memberPage);
         }
-        return null;//"index.jsp";
+        return ok(views.html.index.render("Your new application is ready."));//"index.jsp";
     }
 
     //    @Execute(validator = true, input = "index.jsp")
