@@ -31,6 +31,13 @@ public class ApplicationGlobal extends GlobalSettings {
     }
 
     @Override
+    public <A> A getControllerInstance(final Class<A> controllerClass) throws Exception {
+        logger.debug("getControllerInstance: {}", controllerClass);
+        return controllerClass.newInstance();
+        //return super.getControllerInstance(controllerClass);
+    }
+
+    @Override
     public Action onRequest(final Request request, final Method actionMethod) {
         logger.debug("onRequest: {}", request);
         return super.onRequest(request, actionMethod);
