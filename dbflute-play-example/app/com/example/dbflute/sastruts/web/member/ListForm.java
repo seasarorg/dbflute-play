@@ -19,9 +19,9 @@ import java.io.Serializable;
 
 import org.seasar.framework.container.annotation.tiger.Component;
 import org.seasar.framework.container.annotation.tiger.InstanceType;
-import org.seasar.struts.annotation.Arg;
-import org.seasar.struts.annotation.DateType;
-import org.seasar.struts.annotation.Msg;
+//import org.seasar.struts.annotation.Arg;
+//import org.seasar.struts.annotation.DateType;
+//import org.seasar.struts.annotation.Msg;
 
 /**
  * @author mokkouyou (initial making)
@@ -49,10 +49,10 @@ public class ListForm implements Serializable {
     public String purchaseProductName;
     public boolean unpaid;
 
-    @DateType(datePatternStrict = "yyyy/MM/dd", arg0 = @Arg(key = "正式会員日From", resource = false), msg = @Msg(key = "errors.date.strict", resource = true))
+    //    @DateType(datePatternStrict = "yyyy/MM/dd", arg0 = @Arg(key = "正式会員日From", resource = false), msg = @Msg(key = "errors.date.strict", resource = true))
     public String formalizedDateFrom;
 
-    @DateType(datePatternStrict = "yyyy/MM/dd", arg0 = @Arg(key = "正式会員日To", resource = false), msg = @Msg(key = "errors.date.strict", resource = true))
+    //    @DateType(datePatternStrict = "yyyy/MM/dd", arg0 = @Arg(key = "正式会員日To", resource = false), msg = @Msg(key = "errors.date.strict", resource = true))
     public String formalizedDateTo;
 
     // ===================================================================================
