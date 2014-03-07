@@ -15,14 +15,18 @@
  */
 package controllers;
 
+import play.mvc.Controller;
+import play.mvc.Result;
+
 /**
  * Index画面への遷移のためのAction。
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-public class RootController {
+public class RootController extends Controller {
 
-    public String index() {
-        return "/member/list/?redirect=true";
+    public Result index() {
+        return redirect(controllers.member.routes.MemberListController.index());
     }
+
 }

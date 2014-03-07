@@ -29,6 +29,9 @@ import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.coption.LikeSearchOption;
 import org.seasar.dbflute.util.DfTypeUtil;
 
+import play.mvc.Controller;
+import play.mvc.Result;
+
 import com.example.dbflute.sastruts.common.PagingNavi;
 import com.example.dbflute.sastruts.dbflute.allcommon.CDef;
 import com.example.dbflute.sastruts.dbflute.cbean.MemberCB;
@@ -46,7 +49,7 @@ import com.example.dbflute.sastruts.web.member.MemberWebBean;
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-public class MemberListController {
+public class MemberListController extends Controller {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -75,7 +78,7 @@ public class MemberListController {
     //                                                                             Execute
     //                                                                             =======
     //    @Execute(validator = false, urlPattern = "{pageNumber}")
-    public String index() {
+    public Result index() {
         prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
         if (listForm.pageNumber != null && listForm.pageNumber > 0) { // 検索対象ページ番号が指定されていれば
             // /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = [TIPS by jflute]
@@ -106,11 +109,11 @@ public class MemberListController {
             // = = = = = = = = = =/
             pagingNavi.prepare(memberPage);
         }
-        return "index.jsp";
+        return null;//"index.jsp";
     }
 
     //    @Execute(validator = true, input = "index.jsp")
-    public String doSearch() {
+    public Result doSearch() {
         listForm.pageNumber = 1;
         return index();
     }

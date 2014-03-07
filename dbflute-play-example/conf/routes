@@ -3,7 +3,8 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                          @controllers.RootController.index()
+GET     /member/list/              @controllers.member.MemberListController.index()
 GET     /debug                     @controllers.DebugController.index()
 
 # Map static resources from the /public folder to the /assets URL path
