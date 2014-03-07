@@ -112,7 +112,7 @@ public class MemberListController extends Controller {
             // = = = = = = = = = =/
             pagingNavi.prepare(memberPage);
         }
-        return ok(views.html.member.memberList.render("MEMBER Your new application is ready."));
+        return ok(views.html.member.memberList.render(form));
     }
 
     //    @Execute(validator = true, input = "index.jsp")

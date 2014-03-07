@@ -1,8 +1,57 @@
-@(message: String)
+@(form: Form[com.example.dbflute.sastruts.web.member.MemberListForm])
 
 @main("Welcome to Play") {
 
-    @message
+<div class="contents">
+	<h2>会員一覧</h2>
+	<div class="condition">
+		@helper.form(action = controllers.member.routes.MemberListController.doSearch()) {
+			<table>
+				<tr>
+					<td><label>会員名</label></td>
+					<td>
+					<input type="text" name="memberName" value=@form.data.get("memberName")>
+					</td>
+				</tr>
+				<tr>
+					<td><label>購入商品名</label></td>
+					<td>
+					<input type="text" name="purchaseProductName" value=@form.data.get("purchaseProductName")>
+					</td>
+				</tr>
+				<tr>
+					<td><label>会員ステータス</label></td>
+					<td>
+					@*
+						<html:select property="memberStatus">
+							<c:forEach var="status" items="${memberStatusMap}">
+								<html:option value="${f:h(status.key)}">${f:h(status.value)}</html:option>
+							</c:forEach>
+						</html:select>
+					*@
+					</td>
+				</tr>
+				<tr>
+					<td><label>未払いあり</label></td>
+					<td>
+					@*<html:checkbox property="unpaid"/>
+					*@
+					</td>
+				</tr>
+				<tr>
+					<td><label>正式会員日</label></td>
+					<td>
+					@*
+					<html:text property="formalizedDateFrom" size="14"/>～
+					<html:text property="formalizedDateTo" size="14"/>
+					*@
+					</td>
+				</tr>
+			</table>
+			<input type="submit" name="doSearch" value="検索"></input>
+		}
+	</div>
+</div>
 
 }
 
