@@ -5,8 +5,9 @@ version := "1.0-SNAPSHOT"
 libraryDependencies ++= Seq(
   javaJdbc,
   javaEbean,
-  cache
-)     
+  cache,
+  "org.seasar.dbflute" % "dbflute-runtime" % "1.0.5A"
+)
 
 play.Project.playJavaSettings
 
