@@ -13,18 +13,15 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package com.example.dbflute.sastruts.web;
-
-import org.seasar.struts.annotation.Execute;
+package controllers;
 
 /**
  * Index画面への遷移のためのAction。
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-public class IndexAction {
+public class RootController {
 
-    @Execute(validator = false)
     public String index() {
         return "/member/list/?redirect=true";
     }
