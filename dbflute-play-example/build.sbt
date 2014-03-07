@@ -9,3 +9,5 @@ libraryDependencies ++= Seq(
 )     
 
 play.Project.playJavaSettings
+
+resolvers += "The Seasar Foundation Maven2 Repository" at "http://maven.seasar.org/maven2"
