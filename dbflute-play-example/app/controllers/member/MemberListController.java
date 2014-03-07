@@ -46,7 +46,7 @@ import com.example.dbflute.sastruts.web.member.MemberWebBean;
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-public class MemberListAction {
+public class MemberListController {
 
     // ===================================================================================
     //                                                                           Attribute
