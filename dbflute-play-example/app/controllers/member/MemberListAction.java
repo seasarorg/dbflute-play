@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package com.example.dbflute.sastruts.web.member;
+package controllers.member;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,8 +28,6 @@ import org.seasar.dbflute.cbean.PagingResultBean;
 import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.coption.LikeSearchOption;
 import org.seasar.dbflute.util.DfTypeUtil;
-import org.seasar.struts.annotation.ActionForm;
-import org.seasar.struts.annotation.Execute;
 
 import com.example.dbflute.sastruts.common.PagingNavi;
 import com.example.dbflute.sastruts.dbflute.allcommon.CDef;
@@ -40,13 +38,15 @@ import com.example.dbflute.sastruts.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.sastruts.dbflute.exbhv.MemberStatusBhv;
 import com.example.dbflute.sastruts.dbflute.exentity.Member;
 import com.example.dbflute.sastruts.dbflute.exentity.MemberStatus;
+import com.example.dbflute.sastruts.web.member.ListForm;
+import com.example.dbflute.sastruts.web.member.MemberWebBean;
 
 /**
  * 会員一覧アクション。
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-public class ListAction {
+public class MemberListAction {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -54,7 +54,7 @@ public class ListAction {
     // -----------------------------------------------------
     //                                          DI Component
     //                                          ------------
-    @ActionForm
+    //    @ActionForm
     @Resource
     protected ListForm listForm;
 
@@ -74,7 +74,7 @@ public class ListAction {
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
-    @Execute(validator = false, urlPattern = "{pageNumber}")
+    //    @Execute(validator = false, urlPattern = "{pageNumber}")
     public String index() {
         prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
         if (listForm.pageNumber != null && listForm.pageNumber > 0) { // 検索対象ページ番号が指定されていれば
@@ -109,7 +109,7 @@ public class ListAction {
         return "index.jsp";
     }
 
-    @Execute(validator = true, input = "index.jsp")
+    //    @Execute(validator = true, input = "index.jsp")
     public String doSearch() {
         listForm.pageNumber = 1;
         return index();
