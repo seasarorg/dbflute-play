@@ -18,6 +18,11 @@ memberStatusMap: Map[String, String]
 				<tr>
 					<td><label>購入商品名</label></td>
 					<td>
+					@*
+					この2つの書き方は同じ結果になるのかな。
+					@form.data.get("purchaseProductName")
+					@form("purchaseProductName").value
+					*@
 					<input type="text" name="purchaseProductName" value="@form.data.get("purchaseProductName")" />
 					</td>
 				</tr>
@@ -35,8 +40,7 @@ memberStatusMap: Map[String, String]
 				<tr>
 					<td><label>未払いあり</label></td>
 					<td>
-					@*<html:checkbox property="unpaid"/>
-					*@
+					<input type="checkbox" name="unpaid" value="on" @if(form("unpaid").value == "on"){checked="checked"} />
 					</td>
 				</tr>
 				<tr>
