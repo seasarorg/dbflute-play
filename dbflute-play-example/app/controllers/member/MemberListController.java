@@ -70,27 +70,27 @@ public class MemberListController extends Controller {
     //                                          ------------
     public List<MemberWebBean> beanList;
     public PagingNavi pagingNavi = new PagingNavi();
-    public Map<String, String> memberStatusMap;
 
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
     //    @Execute(validator = false, urlPattern = "{pageNumber}")
     public Result index() {
-        prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
+        Map<String, String> memberStatusMap = prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
         final Form<MemberListForm> form = Form.form(MemberListForm.class).bindFromRequest();
         final MemberListForm listForm = form.get();
         searchIfNeed(listForm);
-        return ok(views.html.member.memberList.render(form));
+        return ok(views.html.member.memberList.render(form, memberStatusMap));
     }
 
     //    @Execute(validator = true, input = "index.jsp")
     public Result doSearch() {
+        Map<String, String> memberStatusMap = prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
         final Form<MemberListForm> form = Form.form(MemberListForm.class).bindFromRequest();
         final MemberListForm listForm = form.get();
         listForm.pageNumber = 1;
         searchIfNeed(listForm);
-        return ok(views.html.member.memberList.render(form));
+        return ok(views.html.member.memberList.render(form, memberStatusMap));
     }
 
     private void searchIfNeed(final MemberListForm listForm) {
@@ -128,7 +128,7 @@ public class MemberListController extends Controller {
     // ===================================================================================
     //                                                                               Logic
     //                                                                               =====
-    protected void prepareListBox() { // ここはアプリによって色々かと by jflute
+    protected Map<String, String> prepareListBox() { // ここはアプリによって色々かと by jflute
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         statusMap.put("", "選択してください");
         MemberStatusCB cb = new MemberStatusCB();
@@ -137,7 +137,7 @@ public class MemberListController extends Controller {
         for (MemberStatus status : memberStatusList) {
             statusMap.put(status.getMemberStatusCode(), status.getMemberStatusName());
         }
-        memberStatusMap = statusMap;
+        return statusMap;
     }
 
     protected PagingResultBean<Member> selectMemberPage(MemberListForm listForm) { // ここはまさしくDBFlute by jflute

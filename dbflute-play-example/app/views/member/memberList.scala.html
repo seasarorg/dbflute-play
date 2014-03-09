@@ -1,4 +1,6 @@
-@(form: Form[com.example.dbflute.sastruts.web.member.MemberListForm])
+@(form: Form[com.example.dbflute.sastruts.web.member.MemberListForm], 
+memberStatusMap: Map[String, String]
+)
 
 @main("Welcome to Play") {
 
@@ -22,13 +24,12 @@
 				<tr>
 					<td><label>会員ステータス</label></td>
 					<td>
-					@*
-						<html:select property="memberStatus">
-							<c:forEach var="status" items="${memberStatusMap}">
-								<html:option value="${f:h(status.key)}">${f:h(status.value)}</html:option>
-							</c:forEach>
-						</html:select>
-					*@
+					<select name="memberStatus">
+						@* scala.Tuple2クラス *@
+						@for(status <- memberStatusMap){
+							<option value="@status._1">@status._2</option>
+						}
+					</select>
 					</td>
 				</tr>
 				<tr>
