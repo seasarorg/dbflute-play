@@ -21,8 +21,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.seasar.dbflute.cbean.PagingResultBean;
-import org.seasar.struts.annotation.ActionForm;
-import org.seasar.struts.annotation.Execute;
+
+import play.mvc.Controller;
 
 import com.example.dbflute.sastruts.common.PagingNavi;
 import com.example.dbflute.sastruts.dbflute.cbean.MemberCB;
@@ -32,12 +32,14 @@ import com.example.dbflute.sastruts.dbflute.exbhv.PurchaseBhv;
 import com.example.dbflute.sastruts.dbflute.exentity.Member;
 import com.example.dbflute.sastruts.dbflute.exentity.Purchase;
 import com.example.dbflute.sastruts.web.member.MemberWebBean;
+import com.example.dbflute.sastruts.web.member.purchase.MemberPurchaseListForm;
+import com.example.dbflute.sastruts.web.member.purchase.MemberPurchaseWebBean;
 
 /**
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-public class MemberPurchaseListController {
+public class MemberPurchaseListController extends Controller {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -45,9 +47,9 @@ public class MemberPurchaseListController {
     // -----------------------------------------------------
     //                                          DI Component
     //                                          ------------
-    @ActionForm
+    //    @ActionForm
     @Resource
-    protected ListForm listForm;
+    protected MemberPurchaseListForm listForm;
 
     @Resource
     protected MemberBhv memberBhv;
@@ -65,7 +67,7 @@ public class MemberPurchaseListController {
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
-    @Execute(validator = false, urlPattern = "{memberId}/{pageNumber}")
+    //    @Execute(validator = false, urlPattern = "{memberId}/{pageNumber}")
     public String index() {
         Integer memberId = listForm.memberId;
         if (memberId == null) {
@@ -98,7 +100,7 @@ public class MemberPurchaseListController {
         return "index.jsp";
     }
 
-    @Execute(validator = false)
+    //    @Execute(validator = false)
     public String doDelete() {
         Integer memberId = listForm.memberId;
         if (memberId == null) {
