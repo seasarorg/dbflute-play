@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>${param.title}</title>
-	<link rel="stylesheet" type="text/css" href="${ctx}/css/main.css"/>
-</head>
-<body>
-<!-- header start -->
+<!-- header begin -->
 <header>
 	<div>
 		<hgroup>
-			<h1><a href="${ctx}/">DBFlute SAStruts Example</a></h1>
+			<h1><a href="@controllers.routes.RootController.index()">DBFlute SAStruts Example</a></h1>
 		</hgroup>
+		<p class="nameHeader">こんにちは、ゲストさん</p>
+		@* 元のsampleにuserWebBeanが居ないので、直値で埋めておく
 		<c:choose>
 			<c:when test="${userWebBean.login}"><p class="nameHeader">こんにちは、${f:h(userWebBean.name)}さん</p></c:when>
 			<c:otherwise><p class="nameHeader">こんにちは、ゲストさん</p></c:otherwise>
 		</c:choose>
+		*@
 	</div>
 </header>
 <!-- header end -->
