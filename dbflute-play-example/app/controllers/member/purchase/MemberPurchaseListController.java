@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package com.example.dbflute.sastruts.web.member.purchase;
+package controllers.member.purchase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ import com.example.dbflute.sastruts.web.member.MemberWebBean;
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-public class ListAction {
+public class MemberPurchaseListController {
 
     // ===================================================================================
     //                                                                           Attribute
