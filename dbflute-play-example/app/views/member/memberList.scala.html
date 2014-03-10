@@ -1,6 +1,7 @@
 @(form: Form[com.example.dbflute.sastruts.web.member.MemberListForm], 
 memberStatusMap: Map[String, String],
-beanList: List[com.example.dbflute.sastruts.web.member.MemberWebBean]
+beanList: List[com.example.dbflute.sastruts.web.member.MemberWebBean],
+pagingNavi: com.example.dbflute.sastruts.common.PagingNavi
 )
 
 @formatDate(date: java.util.Date, format1: String) = {
@@ -98,9 +99,7 @@ beanList: List[com.example.dbflute.sastruts.web.member.MemberWebBean]
 			}
 		</tbody>
 	</table>
-	@*
-	<c:import url="${viewPrefix}/common/paging_navi.jsp"/>
-	*@
+	@pagingNavigation(pagingNavi)
 </div>
 @footer()
 }

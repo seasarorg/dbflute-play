@@ -76,7 +76,7 @@ public class MemberListController extends Controller {
         final List<MemberWebBean> beanList = new ArrayList<MemberWebBean>();
         final PagingNavi pagingNavi = new PagingNavi();
         searchIfNeed(listForm, beanList, pagingNavi);
-        return ok(views.html.member.memberList.render(form, memberStatusMap, beanList));
+        return ok(views.html.member.memberList.render(form, memberStatusMap, beanList, pagingNavi));
     }
 
     //    @Execute(validator = true, input = "index.jsp")
@@ -88,7 +88,7 @@ public class MemberListController extends Controller {
         final List<MemberWebBean> beanList = new ArrayList<MemberWebBean>();
         final PagingNavi pagingNavi = new PagingNavi();
         searchIfNeed(listForm, beanList, pagingNavi);
-        return ok(views.html.member.memberList.render(form, memberStatusMap, beanList));
+        return ok(views.html.member.memberList.render(form, memberStatusMap, beanList, pagingNavi));
     }
 
     private void searchIfNeed(final MemberListForm listForm, final List<MemberWebBean> beanList,

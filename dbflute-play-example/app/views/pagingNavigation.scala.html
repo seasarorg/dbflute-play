@@ -1,24 +1,20 @@
-<%@page pageEncoding="UTF-8"%>
-<%-- 
-pagingNavi という名前で Action から PagingNavi が取得できることが前提
---%> 
-<c:if test="${pagingNavi.displayPagingNavi}">
+@(pagingNavi: com.example.dbflute.sastruts.common.PagingNavi)
+@if(pagingNavi.displayPagingNavi) {
 <div class="paging-navi">
-	検索結果${f:h(pagingNavi.allRecordCount)}件
-	<c:if test="${pagingNavi.existPrePage}">
-		<s:link href="${f:h(pagingNavi.prePageLinkHref)}">前へ</s:link>
-	</c:if>
-	<c:forEach var="links" items="${pagingNavi.pageNumberLinkList}">
-		<c:if test="${!links.current}">
-			<span id="pageNumberElement"><s:link href="${f:h(links.pageNumberLinkHref)}">${f:h(links.pageNumberElement)}</s:link></span>
-		</c:if>
-		<c:if test="${links.current}">
-			<span id="pageNumberElement">${f:h(links.pageNumberElement)}</span>
-		</c:if>
-	</c:forEach>
-	[${f:h(pagingNavi.currentPageNumber)}/${f:h(pagingNavi.allPageCount)}]
-	<c:if test="${pagingNavi.existNextPage}">
-		<s:link href="${f:h(pagingNavi.nextPageLinkHref)}">次へ</s:link>
-	</c:if>
+	検索結果@(pagingNavi.allRecordCount)件
+	@if(pagingNavi.existPrePage){
+		<a href="@pagingNavi.prePageLinkHref">前へ</a>
+	}
+	@for(links <- pagingNavi.pageNumberLinkList){
+		@if(links.isCurrent()){
+			<span id="pageNumberElement">@links.getPageNumberElement()</span>
+		} else {
+			<span id="pageNumberElement"><a href="@links.getPageNumberLinkHref()">@links.getPageNumberElement()</a></span>
+		}
+	}
+	[@pagingNavi.currentPageNumber/@pagingNavi.allPageCount]
+	@if(pagingNavi.existNextPage){
+		<a href="@pagingNavi.nextPageLinkHref">次へ</a>
+	}
 </div>
-</c:if>
+}
