@@ -46,10 +46,8 @@ memberStatusMap: Map[String, String]
 				<tr>
 					<td><label>正式会員日</label></td>
 					<td>
-					@*
-					<html:text property="formalizedDateFrom" size="14"/>～
-					<html:text property="formalizedDateTo" size="14"/>
-					*@
+					<input type="text" name="formalizedDateFrom" value="@form("formalizedDateFrom").value" size="14" />～
+					<input type="text" name="formalizedDateTo" value="@form("formalizedDateTo").value" size="14" />
 					</td>
 				</tr>
 			</table>
