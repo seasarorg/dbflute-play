@@ -85,10 +85,7 @@ beanList: List[com.example.dbflute.sastruts.web.member.MemberWebBean]
 					@if(bean.withdrawalMember){ 
 						編集不可
 					} else {
-						編集
-					@*
-						<s:link href="/member/edit/${f:h(bean.memberId)}/">編集</s:link>
-					*@
+						<a href="@controllers.member.routes.MemberEditController.index(bean.memberId)">編集</a>
 					}
 				</td>
 				<td>

@@ -6,7 +6,7 @@
 GET     /                          @controllers.RootController.index()
 GET     /member/list/              @controllers.member.MemberListController.index()
 POST    /member/list/              @controllers.member.MemberListController.doSearch()
-GET     /member/edit/:memberId     @controllers.member.MemberEditController.index(memberId: String)
+GET     /member/edit/:memberId     @controllers.member.MemberEditController.index(memberId: Integer)
 
 GET     /debug                     @controllers.DebugController.index()
 

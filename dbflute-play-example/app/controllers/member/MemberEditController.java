@@ -71,7 +71,7 @@ public class MemberEditController extends Controller {
     //                                                                             Execute
     //                                                                             =======
     //    @Execute(validator = false, urlPattern = "{memberId}")
-    public Result index(String memberId) {
+    public Result index(Integer memberId) {
         if (memberId == null) {
             return null; // TODO "/member/list/?redirect=true";
         }
