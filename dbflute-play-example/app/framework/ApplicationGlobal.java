@@ -1,6 +1,11 @@
 package framework;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
@@ -12,13 +17,20 @@ import play.Application;
 import play.GlobalSettings;
 import play.libs.F.Promise;
 import play.mvc.Action;
+import play.mvc.Http;
 import play.mvc.Http.Context;
 import play.mvc.Http.Request;
+import play.mvc.Http.Session;
 
 public class ApplicationGlobal extends GlobalSettings {
 
     private final Logger logger = LoggerFactory.getLogger(ApplicationGlobal.class);
     private S2Container container;
+
+    /**
+     * リクエスト通番(1オリジン)
+     */
+    private final AtomicLong requestCounter = new AtomicLong();
 
     public ApplicationGlobal() {
         logger.debug("<init>");
@@ -58,27 +70,69 @@ public class ApplicationGlobal extends GlobalSettings {
 
     @Override
     public Action onRequest(final Request request, final Method actionMethod) {
-        logger.debug("onRequest: {} ({})", request, actionMethod);
+        // 1始まりの通番
+        final long reqCount = requestCounter.incrementAndGet();
+        if (logger.isDebugEnabled()) {
+            final String sb = toString(request);
+            logger.debug(String
+                    .format("[%s] BEGIN: request=%s\n  action=%s\n  %s", reqCount, request, actionMethod, sb));
+        }
+
         final Action action = super.onRequest(request, actionMethod);
-        return new AppAction(action);
+        return new AppAction(action, reqCount);
+    }
+
+    private String toString(final Http.Request request) {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("uri=").append(request.uri());
+        sb.append(", method=").append(request.method());
+        sb.append(", version=").append(request.version());
+        sb.append(", host=").append(request.host());
+        sb.append(", path=").append(request.path());
+        sb.append(", remoteAddress=").append(request.remoteAddress());
+        sb.append(", headers=");
+        final Map<String, String[]> headers = request.headers();
+        for (final Entry<String, String[]> entry : new TreeMap<String, String[]>(headers).entrySet()) {
+            sb.append("\n");
+            sb.append("    ");
+            sb.append(entry.getKey());
+            sb.append("=");
+            final String[] values = entry.getValue();
+            if (values.length == 1) {
+                sb.append(values[0]);
+            } else {
+                sb.append("Array: " + Arrays.toString(values));
+            }
+        }
+        return sb.toString();
     }
 
     static class AppAction extends Action {
 
         private final Logger logger = LoggerFactory.getLogger(AppAction.class);
+        private final String COUNTER_KEY = AppAction.class.getName() + ".requestCounter";
+        private final long reqCount;
 
-        public AppAction(final Action delegate) {
+        public AppAction(final Action delegate, long reqCount) {
             this.delegate = delegate;
+            this.reqCount = reqCount;
         }
 
         @Override
         public Promise call(final Context ctx) throws Throwable {
-            logger.debug("call before");
+            ctx.args.put(COUNTER_KEY, reqCount);
+            if (logger.isDebugEnabled()) {
+                final Session session = ctx.session();
+                logger.debug(String.format("[%s] args=%s\n  session=%s", reqCount, ctx.args, session));
+            }
+            boolean success = false;
             try {
                 final Promise result = delegate.call(ctx);
+                success = true;
                 return result;
             } finally {
-                logger.debug("call after");
+                final String ret = success ? "Success" : "Failure";
+                logger.debug(String.format("[%s] END: %s, args=%s", reqCount, ret, ctx.args));
             }
         }
     }
