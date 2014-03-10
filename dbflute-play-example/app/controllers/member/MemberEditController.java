@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package com.example.dbflute.sastruts.web.member;
+package controllers.member;
 
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
@@ -25,8 +25,6 @@ import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.exception.EntityAlreadyDeletedException;
 import org.seasar.dbflute.util.DfTypeUtil;
-import org.seasar.struts.annotation.ActionForm;
-import org.seasar.struts.annotation.Execute;
 
 import com.example.dbflute.sastruts.dbflute.allcommon.CDef;
 import com.example.dbflute.sastruts.dbflute.cbean.MemberCB;
@@ -36,13 +34,14 @@ import com.example.dbflute.sastruts.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.sastruts.dbflute.exbhv.MemberStatusBhv;
 import com.example.dbflute.sastruts.dbflute.exentity.Member;
 import com.example.dbflute.sastruts.dbflute.exentity.MemberStatus;
+import com.example.dbflute.sastruts.web.member.MemberForm;
 
 /**
  * 会員編集アクション。
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-public class EditAction {
+public class MemberEditController {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -50,7 +49,7 @@ public class EditAction {
     // -----------------------------------------------------
     //                                          DI Component
     //                                          ------------
-    @ActionForm
+    //    @ActionForm
     @Resource
     public MemberForm memberForm;
 
@@ -68,7 +67,7 @@ public class EditAction {
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
-    @Execute(validator = false, urlPattern = "{memberId}")
+    //    @Execute(validator = false, urlPattern = "{memberId}")
     public String index() {
         String memberId = memberForm.memberId;
         if (memberId == null) {
@@ -98,7 +97,7 @@ public class EditAction {
         return "index.jsp";
     }
 
-    @Execute(validator = true, input = "index.jsp")
+    //    @Execute(validator = true, input = "index.jsp")
     public String doUpdate() {
         Member member = new Member();
         member.setMemberId(Integer.valueOf(memberForm.memberId));
@@ -120,7 +119,7 @@ public class EditAction {
         return memberForm.memberId;
     }
 
-    @Execute(validator = true, input = "index.jsp")
+    //    @Execute(validator = true, input = "index.jsp")
     public String doDelete() {
         Member member = new Member();
         member.setMemberId(Integer.valueOf(memberForm.memberId));
