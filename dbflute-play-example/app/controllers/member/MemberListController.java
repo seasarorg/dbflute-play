@@ -29,6 +29,7 @@ import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.cbean.coption.LikeSearchOption;
 import org.seasar.dbflute.util.DfTypeUtil;
 
+import play.api.mvc.Call;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -74,9 +75,19 @@ public class MemberListController extends Controller {
         final Form<MemberListForm> form = Form.form(MemberListForm.class).bindFromRequest();
         final MemberListForm listForm = form.get();
         final List<MemberWebBean> beanList = new ArrayList<MemberWebBean>();
-        final PagingNavi pagingNavi = new PagingNavi();
+        final PagingNavi pagingNavi = newPagingNavi();
         searchIfNeed(listForm, beanList, pagingNavi);
         return ok(views.html.member.memberList.render(form, memberStatusMap, beanList, pagingNavi));
+    }
+
+    private PagingNavi newPagingNavi() {
+        return new PagingNavi() {
+            @Override
+            protected String createTargetPageNumberLink(int pageNumber, Object[] linkPaths) {
+                final Call paging = controllers.member.routes.MemberListController.paging(pageNumber);
+                return paging.url();
+            }
+        };
     }
 
     public Result paging(final Integer pageNumber) {
@@ -85,7 +96,7 @@ public class MemberListController extends Controller {
         final MemberListForm listForm = form.get();
         listForm.pageNumber = pageNumber;
         final List<MemberWebBean> beanList = new ArrayList<MemberWebBean>();
-        final PagingNavi pagingNavi = new PagingNavi();
+        final PagingNavi pagingNavi = newPagingNavi();
         searchIfNeed(listForm, beanList, pagingNavi);
         return ok(views.html.member.memberList.render(form, memberStatusMap, beanList, pagingNavi));
     }
@@ -97,7 +108,7 @@ public class MemberListController extends Controller {
         final MemberListForm listForm = form.get();
         listForm.pageNumber = 1;
         final List<MemberWebBean> beanList = new ArrayList<MemberWebBean>();
-        final PagingNavi pagingNavi = new PagingNavi();
+        final PagingNavi pagingNavi = newPagingNavi();
         searchIfNeed(listForm, beanList, pagingNavi);
         return ok(views.html.member.memberList.render(form, memberStatusMap, beanList, pagingNavi));
     }
@@ -130,9 +141,7 @@ public class MemberListController extends Controller {
             //   o ページングナビゲーション処理を局所化してバグの発生を抑える (自動テストも一箇所で済む)
             //   o PagingResultBeanの利用を開発者に隠蔽する (誰か一人が最初に作れば良い)
             // = = = = = = = = = =/
-            // TODO routesから取りたい
-            //controllers.member.routes.MemberListController.paging(1);
-            pagingNavi.prepare(memberPage, "/member/list");
+            pagingNavi.prepare(memberPage);
         }
     }
 
