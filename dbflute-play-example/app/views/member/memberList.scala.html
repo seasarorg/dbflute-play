@@ -3,6 +3,11 @@ memberStatusMap: Map[String, String],
 beanList: List[com.example.dbflute.sastruts.web.member.MemberWebBean]
 )
 
+@formatDate(date: java.util.Date, format1: String) = {
+	@if(date != null) {
+		@date.format(format1)
+	}
+}
 @main("Welcome to Play") {
 
 <div class="contents">
@@ -74,8 +79,8 @@ beanList: List[com.example.dbflute.sastruts.web.member.MemberWebBean]
 				<td>@bean.memberId</td>
 				<td>@bean.memberName</td>
 				<td>@bean.memberStatusName</td>
-				<td>@bean.formalizedDatetime.format("yyyy/MM/dd")</td>
-				<td>@bean.updateDatetime.format("yyyy/MM/dd HH:mm:ss")</td>
+				<td>@formatDate(bean.formalizedDatetime, "yyyy/MM/dd")</td>
+				<td>@formatDate(bean.updateDatetime, "yyyy/MM/dd HH:mm:ss")</td>
 				<td>
 					@*
 					<c:if test="${!bean.withdrawalMember}">
