@@ -32,7 +32,7 @@ memberStatusMap: Map[String, String]
 					<select name="memberStatus">
 						@* scala.Tuple2クラス *@
 						@for(status <- memberStatusMap){
-							<option value="@status._1">@status._2</option>
+							<option value="@status._1" @if(form("memberStatus").value == status._1){selected="selected"}>@status._2</option>
 						}
 					</select>
 					</td>
