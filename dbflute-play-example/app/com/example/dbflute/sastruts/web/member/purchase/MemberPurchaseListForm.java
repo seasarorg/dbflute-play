@@ -17,20 +17,18 @@ package com.example.dbflute.sastruts.web.member.purchase;
 
 import java.io.Serializable;
 
-import org.seasar.struts.annotation.Required;
-
 /**
  * @author jflute
  */
-public class ListForm implements Serializable {
+public class MemberPurchaseListForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Required(target = "doDelete")
+    //    @Required(target = "doDelete")
     public Integer memberId;
 
     public Integer pageNumber = 0;
 
-    @Required(target = "doDelete")
+    //    @Required(target = "doDelete")
     public Long purchaseId;
 }
