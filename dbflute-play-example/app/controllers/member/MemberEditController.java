@@ -26,6 +26,9 @@ import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.exception.EntityAlreadyDeletedException;
 import org.seasar.dbflute.util.DfTypeUtil;
 
+import play.mvc.Controller;
+import play.mvc.Result;
+
 import com.example.dbflute.sastruts.dbflute.allcommon.CDef;
 import com.example.dbflute.sastruts.dbflute.cbean.MemberCB;
 import com.example.dbflute.sastruts.dbflute.cbean.MemberLoginCB;
@@ -41,7 +44,7 @@ import com.example.dbflute.sastruts.web.member.MemberForm;
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-public class MemberEditController {
+public class MemberEditController extends Controller {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -68,10 +71,9 @@ public class MemberEditController {
     //                                                                             Execute
     //                                                                             =======
     //    @Execute(validator = false, urlPattern = "{memberId}")
-    public String index() {
-        String memberId = memberForm.memberId;
+    public Result index(String memberId) {
         if (memberId == null) {
-            return "/member/list/?redirect=true";
+            return null; // TODO "/member/list/?redirect=true";
         }
         prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
 
@@ -94,7 +96,7 @@ public class MemberEditController {
         memberForm.previousStatusCode = member.getMemberStatusCode(); // to determine new formalized member
         memberForm.versionNo = member.getVersionNo().toString();
 
-        return "index.jsp";
+        return null; // TODO "index.jsp";
     }
 
     //    @Execute(validator = true, input = "index.jsp")
