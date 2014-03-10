@@ -1,5 +1,6 @@
 @(form: Form[com.example.dbflute.sastruts.web.member.MemberListForm], 
-memberStatusMap: Map[String, String]
+memberStatusMap: Map[String, String],
+beanList: List[com.example.dbflute.sastruts.web.member.MemberWebBean]
 )
 
 @main("Welcome to Play") {
@@ -54,6 +55,49 @@ memberStatusMap: Map[String, String]
 			<input type="submit" name="doSearch" value="検索"></input>
 		}
 	</div>
+	<hr />
+	<table>
+		<thead>
+			<tr>
+				<th>会員ID</th>
+				<th>会員名</th>
+				<th>会員ステータス</th>
+				<th>正式会員日</th>
+				<th>会員更新日時</th>
+				<th>編集</th>
+				<th>購入履歴</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for(bean <- beanList){
+			<tr>
+				<td>@bean.memberId</td>
+				<td>@bean.memberName</td>
+				<td>@bean.memberStatusName</td>
+				<td>@*<fmt:formatDate value="${bean.formalizedDatetime}" pattern="yyyy/MM/dd"/>*@</td>
+				<td>@*<fmt:formatDate value="${bean.updateDatetime}" pattern="yyyy/MM/dd HH:mm:ss"/>*@</td>
+				<td>
+					@*
+					<c:if test="${!bean.withdrawalMember}">
+						<s:link href="/member/edit/${f:h(bean.memberId)}/">編集</s:link>
+					</c:if>
+					<c:if test="${bean.withdrawalMember}">編集不可</c:if>
+					*@
+				</td>
+				<td>
+					@*
+					<c:if test="${bean.purchaseCount > 0}">
+						<s:link href="/member/purchase/list/${f:h(bean.memberId)}/1/">購入履歴</s:link>
+					</c:if>
+					*@
+				</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+	@*
+	<c:import url="${viewPrefix}/common/paging_navi.jsp"/>
+	*@
 </div>
 
 }

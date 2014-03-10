@@ -65,12 +65,6 @@ public class MemberListController extends Controller {
     @Resource
     protected MemberStatusBhv memberStatusBhv;
 
-    // -----------------------------------------------------
-    //                                          Display Data
-    //                                          ------------
-    public List<MemberWebBean> beanList;
-    public PagingNavi pagingNavi = new PagingNavi();
-
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
@@ -79,8 +73,10 @@ public class MemberListController extends Controller {
         Map<String, String> memberStatusMap = prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
         final Form<MemberListForm> form = Form.form(MemberListForm.class).bindFromRequest();
         final MemberListForm listForm = form.get();
-        searchIfNeed(listForm);
-        return ok(views.html.member.memberList.render(form, memberStatusMap));
+        final List<MemberWebBean> beanList = new ArrayList<MemberWebBean>();
+        final PagingNavi pagingNavi = new PagingNavi();
+        searchIfNeed(listForm, beanList, pagingNavi);
+        return ok(views.html.member.memberList.render(form, memberStatusMap, beanList));
     }
 
     //    @Execute(validator = true, input = "index.jsp")
@@ -89,18 +85,20 @@ public class MemberListController extends Controller {
         final Form<MemberListForm> form = Form.form(MemberListForm.class).bindFromRequest();
         final MemberListForm listForm = form.get();
         listForm.pageNumber = 1;
-        searchIfNeed(listForm);
-        return ok(views.html.member.memberList.render(form, memberStatusMap));
+        final List<MemberWebBean> beanList = new ArrayList<MemberWebBean>();
+        final PagingNavi pagingNavi = new PagingNavi();
+        searchIfNeed(listForm, beanList, pagingNavi);
+        return ok(views.html.member.memberList.render(form, memberStatusMap, beanList));
     }
 
-    private void searchIfNeed(final MemberListForm listForm) {
+    private void searchIfNeed(final MemberListForm listForm, final List<MemberWebBean> beanList,
+            final PagingNavi pagingNavi) {
         if (listForm.pageNumber != null && listForm.pageNumber > 0) { // 検索対象ページ番号が指定されていれば
             // /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = [TIPS by jflute]
             // Beansなんとかなど、リフレクションによる詰め替えは「絶対に利用しない」こと
             // http://dbflute.seasar.org/ja/tutorial/architect.html#entityset
             // = = = = = = = = = =/
             PagingResultBean<Member> memberPage = selectMemberPage(listForm); // ここで検索しまっさ
-            beanList = new ArrayList<MemberWebBean>();
             for (Member member : memberPage) { // 詰め詰め替え替え
                 MemberWebBean bean = new MemberWebBean(); // ここでは画面項目DTOをWebBeanと名付けています by jflute
                 bean.memberId = member.getMemberId();
