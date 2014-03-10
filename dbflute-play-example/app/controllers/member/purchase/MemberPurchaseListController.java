@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 import org.seasar.dbflute.cbean.PagingResultBean;
 
 import play.mvc.Controller;
+import play.mvc.Result;
 
 import com.example.dbflute.sastruts.common.PagingNavi;
 import com.example.dbflute.sastruts.dbflute.cbean.MemberCB;
@@ -68,14 +69,12 @@ public class MemberPurchaseListController extends Controller {
     //                                                                             Execute
     //                                                                             =======
     //    @Execute(validator = false, urlPattern = "{memberId}/{pageNumber}")
-    public String index() {
-        Integer memberId = listForm.memberId;
+    public Result index(Integer memberId, Integer pageNumber) {
         if (memberId == null) {
-            return "/member/list/?redirect=true";
+            return null; // TODO "/member/list/?redirect=true";
         }
-        Integer pageNumber = listForm.pageNumber;
         if (pageNumber == null) {
-            return "/member/list/?redirect=true";
+            return null; // TODO "/member/list/?redirect=true";
         }
 
         Member member = selectMember(memberId);
@@ -97,7 +96,7 @@ public class MemberPurchaseListController extends Controller {
         }
         pagingNavi.prepare(purchasePage, memberId);
 
-        return "index.jsp";
+        return null; // TODO "index.jsp";
     }
 
     //    @Execute(validator = false)
@@ -114,7 +113,7 @@ public class MemberPurchaseListController extends Controller {
         Purchase purchase = new Purchase();
         purchase.setPurchaseId(listForm.purchaseId);
         purchaseBhv.deleteNonstrict(purchase); // ここは排他制御なしの例 by jflute
-        return index();
+        return null; // index();
     }
 
     // ===================================================================================

@@ -7,6 +7,7 @@ GET     /                          @controllers.RootController.index()
 GET     /member/list/              @controllers.member.MemberListController.index()
 POST    /member/list/              @controllers.member.MemberListController.doSearch()
 GET     /member/edit/:memberId     @controllers.member.MemberEditController.index(memberId: Integer)
+GET     /member/purchase/list/:memberId/:pageNumber     @controllers.member.purchase.MemberPurchaseListController.index(memberId: Integer, pageNumber: Integer)
 
 GET     /debug                     @controllers.DebugController.index()
 
