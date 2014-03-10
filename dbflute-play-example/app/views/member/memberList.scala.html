@@ -74,8 +74,8 @@ beanList: List[com.example.dbflute.sastruts.web.member.MemberWebBean]
 				<td>@bean.memberId</td>
 				<td>@bean.memberName</td>
 				<td>@bean.memberStatusName</td>
-				<td>@*<fmt:formatDate value="${bean.formalizedDatetime}" pattern="yyyy/MM/dd"/>*@</td>
-				<td>@*<fmt:formatDate value="${bean.updateDatetime}" pattern="yyyy/MM/dd HH:mm:ss"/>*@</td>
+				<td>@bean.formalizedDatetime.format("yyyy/MM/dd")</td>
+				<td>@bean.updateDatetime.format("yyyy/MM/dd HH:mm:ss")</td>
 				<td>
 					@*
 					<c:if test="${!bean.withdrawalMember}">
