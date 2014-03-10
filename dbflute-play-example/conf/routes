@@ -5,6 +5,7 @@
 # Home page
 GET     /                          @controllers.RootController.index()
 GET     /member/list/              @controllers.member.MemberListController.index()
+GET     /member/list/:pageNumber/  @controllers.member.MemberListController.paging(pageNumber: Integer)
 POST    /member/list/              @controllers.member.MemberListController.doSearch()
 GET     /member/edit/:memberId     @controllers.member.MemberEditController.index(memberId: Integer)
 GET     /member/purchase/list/:memberId/:pageNumber     @controllers.member.purchase.MemberPurchaseListController.index(memberId: Integer, pageNumber: Integer)

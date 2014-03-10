@@ -79,6 +79,17 @@ public class MemberListController extends Controller {
         return ok(views.html.member.memberList.render(form, memberStatusMap, beanList, pagingNavi));
     }
 
+    public Result paging(final Integer pageNumber) {
+        Map<String, String> memberStatusMap = prepareListBox();
+        final Form<MemberListForm> form = Form.form(MemberListForm.class).bindFromRequest();
+        final MemberListForm listForm = form.get();
+        listForm.pageNumber = pageNumber;
+        final List<MemberWebBean> beanList = new ArrayList<MemberWebBean>();
+        final PagingNavi pagingNavi = new PagingNavi();
+        searchIfNeed(listForm, beanList, pagingNavi);
+        return ok(views.html.member.memberList.render(form, memberStatusMap, beanList, pagingNavi));
+    }
+
     //    @Execute(validator = true, input = "index.jsp")
     public Result doSearch() {
         Map<String, String> memberStatusMap = prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
@@ -119,7 +130,9 @@ public class MemberListController extends Controller {
             //   o ページングナビゲーション処理を局所化してバグの発生を抑える (自動テストも一箇所で済む)
             //   o PagingResultBeanの利用を開発者に隠蔽する (誰か一人が最初に作れば良い)
             // = = = = = = = = = =/
-            pagingNavi.prepare(memberPage);
+            // TODO routesから取りたい
+            //controllers.member.routes.MemberListController.paging(1);
+            pagingNavi.prepare(memberPage, "/member/list");
         }
     }
 
