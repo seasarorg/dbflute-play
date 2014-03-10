@@ -90,10 +90,7 @@ beanList: List[com.example.dbflute.sastruts.web.member.MemberWebBean]
 				</td>
 				<td>
 					@if(0 < bean.purchaseCount){
-						購入履歴
-					@*
-						<s:link href="/member/purchase/list/${f:h(bean.memberId)}/1/">購入履歴</s:link>
-					*@
+						<a href="@controllers.member.purchase.routes.MemberPurchaseListController.index(bean.memberId, 1)">購入履歴</a>
 					}
 				</td>
 			</tr>
