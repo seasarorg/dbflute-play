@@ -82,19 +82,22 @@ beanList: List[com.example.dbflute.sastruts.web.member.MemberWebBean]
 				<td>@formatDate(bean.formalizedDatetime, "yyyy/MM/dd")</td>
 				<td>@formatDate(bean.updateDatetime, "yyyy/MM/dd HH:mm:ss")</td>
 				<td>
+					@if(bean.withdrawalMember){ 
+						編集不可
+					} else {
+						編集
 					@*
-					<c:if test="${!bean.withdrawalMember}">
 						<s:link href="/member/edit/${f:h(bean.memberId)}/">編集</s:link>
-					</c:if>
-					<c:if test="${bean.withdrawalMember}">編集不可</c:if>
 					*@
+					}
 				</td>
 				<td>
+					@if(0 < bean.purchaseCount){
+						購入履歴
 					@*
-					<c:if test="${bean.purchaseCount > 0}">
 						<s:link href="/member/purchase/list/${f:h(bean.memberId)}/1/">購入履歴</s:link>
-					</c:if>
 					*@
+					}
 				</td>
 			</tr>
 			}
