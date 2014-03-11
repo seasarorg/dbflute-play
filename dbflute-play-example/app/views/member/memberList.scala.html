@@ -20,7 +20,7 @@ pagingNavi: com.example.dbflute.sastruts.common.PagingNavi
 				<tr>
 					<td><label>会員名</label></td>
 					<td>
-					<input type="text" name="memberName" value="@form.data.get("memberName")" />
+					<input type="text" name="memberName" value="@form("memberName").value" />
 					</td>
 				</tr>
 				<tr>
@@ -28,10 +28,12 @@ pagingNavi: com.example.dbflute.sastruts.common.PagingNavi
 					<td>
 					@*
 					この2つの書き方は同じ結果になるのかな。
+					前者だとrequestしたform側の値のみが取得できる。
+					後者の書き方だと、Form#fill(model)で渡したmodel側の値も取得できる。Form側の値(form.data)が優先されるようだ。
 					@form.data.get("purchaseProductName")
 					@form("purchaseProductName").value
 					*@
-					<input type="text" name="purchaseProductName" value="@form.data.get("purchaseProductName")" />
+					<input type="text" name="purchaseProductName" value="@form("purchaseProductName").value" />
 					</td>
 				</tr>
 				<tr>
