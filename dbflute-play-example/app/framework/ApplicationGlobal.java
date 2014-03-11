@@ -1,12 +1,14 @@
 package framework;
 
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.seasar.dbflute.AccessContext;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.container.servlet.S2ContainerDestroyer;
@@ -78,8 +80,12 @@ public class ApplicationGlobal extends GlobalSettings {
                     .format("[%s] BEGIN: request=%s\n  action=%s\n  %s", reqCount, request, actionMethod, sb));
         }
 
-        final Action action = super.onRequest(request, actionMethod);
-        return new AppAction(action, reqCount);
+        final Action origAction = super.onRequest(request, actionMethod);
+        final AppAction appAction = new AppAction(reqCount, request, actionMethod);
+        //dbFluteAction.delegate = origAction;
+        //appAction.delegate = dbFluteAction;
+        // delegateはplayによって設定されるようだ。
+        return appAction;
     }
 
     private String toString(final Http.Request request) {
@@ -112,10 +118,13 @@ public class ApplicationGlobal extends GlobalSettings {
         private final Logger logger = LoggerFactory.getLogger(AppAction.class);
         private final String COUNTER_KEY = AppAction.class.getName() + ".requestCounter";
         private final long reqCount;
+        private final Request request;
+        private final Method actionMethod;
 
-        public AppAction(final Action delegate, long reqCount) {
-            this.delegate = delegate;
+        public AppAction(long reqCount, final Request request, final Method actionMethod) {
             this.reqCount = reqCount;
+            this.request = request;
+            this.actionMethod = actionMethod;
         }
 
         @Override
@@ -125,14 +134,40 @@ public class ApplicationGlobal extends GlobalSettings {
                 final Session session = ctx.session();
                 logger.debug(String.format("[%s] args=%s\n  session=%s", reqCount, ctx.args, session));
             }
+
             boolean success = false;
             try {
-                final Promise result = delegate.call(ctx);
+                final Promise result = call0(ctx);
                 success = true;
                 return result;
             } finally {
                 final String ret = success ? "Success" : "Failure";
                 logger.debug(String.format("[%s] END: %s, args=%s", reqCount, ret, ctx.args));
+            }
+        }
+
+        /*
+         * DBFluteのAccessContextを設定するインタセプタ処理
+         * 
+         * 当初はDBFlute用のDBFluteActionを作って、GlobalでActionのchainにしようと考えたが、
+         * delegateはplay側に設定されるので、1段しか作れないようなので、
+         * 諦めて元のActionにDBFlute用ロジックも組み込んだ。
+         */
+        private Promise call0(final Context ctx) throws Throwable {
+            // ログインするシステムならばログイン者のID等にする
+            final String user = request.remoteAddress();
+            final String processName = String.format("%s#%s", actionMethod.getDeclaringClass().getSimpleName(),
+                    actionMethod.getName());
+            logger.debug("user={}, processName={}", user, processName);
+            final AccessContext context = new AccessContext();
+            context.setAccessTimestamp(new Timestamp(System.currentTimeMillis()));
+            context.setAccessUser(user);
+            context.setAccessProcess(processName);
+            try {
+                AccessContext.setAccessContextOnThread(context);
+                return delegate.call(ctx);
+            } finally {
+                AccessContext.clearAccessContextOnThread();
             }
         }
     }
