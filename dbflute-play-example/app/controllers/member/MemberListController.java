@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -31,12 +30,8 @@ import org.seasar.dbflute.cbean.coption.LikeSearchOption;
 import org.seasar.dbflute.util.DfTypeUtil;
 
 import play.api.mvc.Call;
-import play.cache.Cache;
 import play.data.Form;
 import play.mvc.Controller;
-import play.mvc.Http;
-import play.mvc.Http.Context;
-import play.mvc.Http.Session;
 import play.mvc.Result;
 
 import com.example.dbflute.sastruts.common.PagingNavi;
@@ -50,6 +45,8 @@ import com.example.dbflute.sastruts.dbflute.exentity.Member;
 import com.example.dbflute.sastruts.dbflute.exentity.MemberStatus;
 import com.example.dbflute.sastruts.web.member.MemberListForm;
 import com.example.dbflute.sastruts.web.member.MemberWebBean;
+
+import framework.UserSession;
 
 /**
  * 会員一覧アクション。
@@ -71,7 +68,6 @@ public class MemberListController extends Controller {
     @Resource
     protected MemberStatusBhv memberStatusBhv;
 
-    private final String SESSION_KEY = Session.class.getName();
     private final String FORM_KEY = MemberListForm.class.getName();
 
     // ===================================================================================
@@ -127,30 +123,11 @@ public class MemberListController extends Controller {
     }
 
     private MemberListForm getCache() {
-        final Context context = Http.Context.current();
-        final Session session = context.session();
-        String userKey = session.get(SESSION_KEY);
-        if (userKey == null) {
-            return null;
-        }
-        final MemberListForm obj = (MemberListForm) Cache.get(userKey + FORM_KEY);
-        if (obj != null) {
-            // timeout時間をリセット
-            setCache(obj);
-        }
-        return obj;
+        return UserSession.get().get(FORM_KEY);
     }
 
     private void setCache(final MemberListForm listForm) {
-        final Context context = Http.Context.current();
-        final Session session = context.session();
-        String userKey = session.get(SESSION_KEY);
-        if (userKey == null) {
-            userKey = UUID.randomUUID().toString();
-            session.put(SESSION_KEY, userKey);
-        }
-
-        Cache.set(userKey + FORM_KEY, listForm, 60);
+        UserSession.get().put(FORM_KEY, listForm);
     }
 
     private void searchIfNeed(final MemberListForm listForm, final List<MemberWebBean> beanList,
