@@ -72,7 +72,9 @@ public class MemberAddController extends Controller {
     //    @Execute(validator = true, input = "index.jsp")
     public Result doAdd() {
         Member member = new Member();
-        member.setMemberId(Integer.valueOf(memberForm.memberId));
+        if (memberForm.memberId != null) {
+            member.setMemberId(Integer.valueOf(memberForm.memberId));
+        }
         member.setMemberName(memberForm.memberName);
         member.setBirthdate(DfTypeUtil.toDate(memberForm.birthdate));
         member.setMemberStatusCodeAsMemberStatus(CDef.MemberStatus.codeOf(memberForm.memberStatusCode));
@@ -81,7 +83,9 @@ public class MemberAddController extends Controller {
             Timestamp currentTime = new Timestamp(System.currentTimeMillis()); // 実際のアプリでは現在日時取得は統一的に by jflute
             member.setFormalizedDatetime(currentTime);
         }
-        member.setVersionNo(Long.valueOf(memberForm.versionNo));
+        if (memberForm.versionNo != null) {
+            member.setVersionNo(Long.valueOf(memberForm.versionNo));
+        }
         memberBhv.insert(member);
         return null; // TODO "/member/add/&redirect=true";
     }
