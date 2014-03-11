@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package com.example.dbflute.sastruts.web.member;
+package controllers.member;
 
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
@@ -23,8 +23,6 @@ import javax.annotation.Resource;
 
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.util.DfTypeUtil;
-import org.seasar.struts.annotation.ActionForm;
-import org.seasar.struts.annotation.Execute;
 
 import com.example.dbflute.sastruts.dbflute.allcommon.CDef;
 import com.example.dbflute.sastruts.dbflute.cbean.MemberStatusCB;
@@ -32,13 +30,14 @@ import com.example.dbflute.sastruts.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.sastruts.dbflute.exbhv.MemberStatusBhv;
 import com.example.dbflute.sastruts.dbflute.exentity.Member;
 import com.example.dbflute.sastruts.dbflute.exentity.MemberStatus;
+import com.example.dbflute.sastruts.web.member.MemberForm;
 
 /**
  * 会員追加アクション。
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-public class AddAction {
+public class MemberAddController {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -46,7 +45,7 @@ public class AddAction {
     // -----------------------------------------------------
     //                                          DI Component
     //                                          ------------
-    @ActionForm
+    //    @ActionForm
     @Resource
     protected MemberForm memberForm;
 
@@ -64,13 +63,13 @@ public class AddAction {
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
-    @Execute(validator = false)
+    //    @Execute(validator = false)
     public String index() {
         prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
         return "index.jsp";
     }
 
-    @Execute(validator = true, input = "index.jsp")
+    //    @Execute(validator = true, input = "index.jsp")
     public String doAdd() {
         Member member = new Member();
         member.setMemberId(Integer.valueOf(memberForm.memberId));
