@@ -2,7 +2,8 @@
 
 @main("debug") {
 
-	<h1>request</h1>
+	<h1>Debug</h1>
+	<h2>request</h2>
 	<table>
 		<tr>
 			<th>request class</th><td>@request.getClass()</td>
@@ -30,7 +31,18 @@
 		</tr>
 	</table>
 
-	<h1>DatabaseMetaData</h1>
+	<h2>request headers</h2>
+	<table>
+	@defining(request.headers()) { headers =>
+		@for(header <- headers) {
+			<tr>
+				<th>@header._1</th><td>@header._2</td>
+			</tr>
+		}
+	}
+	</table>
+
+	<h2>DatabaseMetaData</h2>
 	<table>
 		<tr>
 			<th>URL</th>
