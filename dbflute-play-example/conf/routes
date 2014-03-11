@@ -3,16 +3,16 @@
 # ~~~~
 
 # Home page
-GET     /                          @controllers.RootController.index()
-GET     /member/list/              @controllers.member.MemberListController.index()
-GET     /member/list/:pageNumber/  @controllers.member.MemberListController.paging(pageNumber: Integer)
-POST    /member/list/              @controllers.member.MemberListController.doSearch()
-GET     /member/edit/:memberId     @controllers.member.MemberEditController.index(memberId: Integer)
-GET     /member/add/               @controllers.member.MemberAddController.index()
+GET    /                                             @controllers.RootController.index()
+GET    /member/list/                                 @controllers.member.MemberListController.index()
+GET    /member/list/:pageNumber/                     @controllers.member.MemberListController.paging(pageNumber: Integer)
+POST   /member/list/                                 @controllers.member.MemberListController.doSearch()
+GET    /member/edit/:memberId                        @controllers.member.MemberEditController.index(memberId: Integer)
+GET    /member/add/                                  @controllers.member.MemberAddController.index()
 
-GET     /member/purchase/list/:memberId/:pageNumber     @controllers.member.purchase.MemberPurchaseListController.index(memberId: Integer, pageNumber: Integer)
+GET    /member/purchase/list/:memberId/:pageNumber   @controllers.member.purchase.MemberPurchaseListController.index(memberId: Integer, pageNumber: Integer)
 
-GET     /debug                     @controllers.DebugController.index()
+GET    /debug                                        @controllers.DebugController.index()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET    /assets/*file                                 controllers.Assets.at(path="/public", file)
