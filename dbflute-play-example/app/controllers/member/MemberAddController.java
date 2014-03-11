@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.util.DfTypeUtil;
 
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -49,7 +50,7 @@ public class MemberAddController extends Controller {
     //                                          DI Component
     //                                          ------------
     //    @ActionForm
-    @Resource
+    //    @Resource
     protected MemberForm memberForm;
 
     @Resource
@@ -68,8 +69,9 @@ public class MemberAddController extends Controller {
     //                                                                             =======
     //    @Execute(validator = false)
     public Result index() {
-        prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
-        return null; // TODO "index.jsp";
+        prepareListBox();
+        final Form<MemberForm> form = Form.form(MemberForm.class).bindFromRequest();
+        return ok(views.html.member.memberAdd.render(form, memberStatusMap));
     }
 
     //    @Execute(validator = true, input = "index.jsp")
