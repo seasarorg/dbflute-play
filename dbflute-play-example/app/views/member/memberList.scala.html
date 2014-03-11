@@ -38,7 +38,7 @@ pagingNavi: com.example.dbflute.sastruts.common.PagingNavi
 					<td><label>会員ステータス</label></td>
 					<td>
 					<select name="memberStatus">
-						@* scala.Tuple2クラス *@
+						@* Mapの要素はscala.Tuple2クラスになるようだ。 *@
 						@for(status <- memberStatusMap){
 							<option value="@status._1" @if(form("memberStatus").value == status._1){selected="selected"}>@status._2</option>
 						}
