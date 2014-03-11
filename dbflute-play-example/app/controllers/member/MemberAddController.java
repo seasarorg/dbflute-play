@@ -75,7 +75,7 @@ public class MemberAddController extends Controller {
     }
 
     //    @Execute(validator = true, input = "index.jsp")
-    public String doAdd() {
+    public Result doAdd() {
         Member member = new Member();
         member.setMemberId(Integer.valueOf(memberForm.memberId));
         member.setMemberName(memberForm.memberName);
@@ -88,7 +88,7 @@ public class MemberAddController extends Controller {
         }
         member.setVersionNo(Long.valueOf(memberForm.versionNo));
         memberBhv.insert(member);
-        return "/member/add/&redirect=true";
+        return null; // TODO "/member/add/&redirect=true";
     }
 
     // ===================================================================================

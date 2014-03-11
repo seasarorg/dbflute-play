@@ -9,6 +9,7 @@ GET    /member/list/:pageNumber/                     @controllers.member.MemberL
 POST   /member/list/                                 @controllers.member.MemberListController.doSearch()
 GET    /member/edit/:memberId                        @controllers.member.MemberEditController.index(memberId: Integer)
 GET    /member/add/                                  @controllers.member.MemberAddController.index()
+POST   /member/add/                                  @controllers.member.MemberAddController.doAdd()
 
 GET    /member/purchase/list/:memberId/:pageNumber   @controllers.member.purchase.MemberPurchaseListController.index(memberId: Integer, pageNumber: Integer)
 
