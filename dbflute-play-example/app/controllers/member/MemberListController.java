@@ -30,6 +30,7 @@ import org.seasar.dbflute.cbean.coption.LikeSearchOption;
 import org.seasar.dbflute.util.DfTypeUtil;
 
 import play.api.mvc.Call;
+import play.cache.Cache;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -66,12 +67,14 @@ public class MemberListController extends Controller {
     @Resource
     protected MemberStatusBhv memberStatusBhv;
 
+    private final String FORM_KEY = MemberListForm.class.getName();
+
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
     //    @Execute(validator = false, urlPattern = "{pageNumber}")
     public Result index() {
-        Map<String, String> memberStatusMap = prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
+        final Map<String, String> memberStatusMap = prepareListBox();
         final Form<MemberListForm> form = Form.form(MemberListForm.class).bindFromRequest();
         final MemberListForm listForm = form.get();
         final List<MemberWebBean> beanList = new ArrayList<MemberWebBean>();
@@ -91,10 +94,13 @@ public class MemberListController extends Controller {
     }
 
     public Result paging(final Integer pageNumber) {
-        Map<String, String> memberStatusMap = prepareListBox();
-        final Form<MemberListForm> form = Form.form(MemberListForm.class).bindFromRequest();
-        final MemberListForm listForm = form.get();
+        final MemberListForm listForm = getCache();
+        if (listForm == null) {
+            return redirect(controllers.member.routes.MemberListController.index());
+        }
+        final Map<String, String> memberStatusMap = prepareListBox();
         listForm.pageNumber = pageNumber;
+        final Form<MemberListForm> form = Form.form(MemberListForm.class).fill(listForm);
         final List<MemberWebBean> beanList = new ArrayList<MemberWebBean>();
         final PagingNavi pagingNavi = newPagingNavi();
         searchIfNeed(listForm, beanList, pagingNavi);
@@ -103,14 +109,29 @@ public class MemberListController extends Controller {
 
     //    @Execute(validator = true, input = "index.jsp")
     public Result doSearch() {
-        Map<String, String> memberStatusMap = prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
+        final Map<String, String> memberStatusMap = prepareListBox();
         final Form<MemberListForm> form = Form.form(MemberListForm.class).bindFromRequest();
         final MemberListForm listForm = form.get();
         listForm.pageNumber = 1;
         final List<MemberWebBean> beanList = new ArrayList<MemberWebBean>();
         final PagingNavi pagingNavi = newPagingNavi();
+
+        setCache(listForm);
         searchIfNeed(listForm, beanList, pagingNavi);
         return ok(views.html.member.memberList.render(form, memberStatusMap, beanList, pagingNavi));
+    }
+
+    private MemberListForm getCache() {
+        final MemberListForm obj = (MemberListForm) Cache.get(FORM_KEY);
+        if (obj != null) {
+            // timeout時間をリセット
+            setCache(obj);
+        }
+        return obj;
+    }
+
+    private void setCache(final MemberListForm listForm) {
+        Cache.set(FORM_KEY, listForm, 60);
     }
 
     private void searchIfNeed(final MemberListForm listForm, final List<MemberWebBean> beanList,
