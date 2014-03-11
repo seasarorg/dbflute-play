@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -33,6 +34,9 @@ import play.api.mvc.Call;
 import play.cache.Cache;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http;
+import play.mvc.Http.Context;
+import play.mvc.Http.Session;
 import play.mvc.Result;
 
 import com.example.dbflute.sastruts.common.PagingNavi;
@@ -67,6 +71,7 @@ public class MemberListController extends Controller {
     @Resource
     protected MemberStatusBhv memberStatusBhv;
 
+    private final String SESSION_KEY = Session.class.getName();
     private final String FORM_KEY = MemberListForm.class.getName();
 
     // ===================================================================================
@@ -122,7 +127,13 @@ public class MemberListController extends Controller {
     }
 
     private MemberListForm getCache() {
-        final MemberListForm obj = (MemberListForm) Cache.get(FORM_KEY);
+        final Context context = Http.Context.current();
+        final Session session = context.session();
+        String userKey = session.get(SESSION_KEY);
+        if (userKey == null) {
+            return null;
+        }
+        final MemberListForm obj = (MemberListForm) Cache.get(userKey + FORM_KEY);
         if (obj != null) {
             // timeout時間をリセット
             setCache(obj);
@@ -131,7 +142,15 @@ public class MemberListController extends Controller {
     }
 
     private void setCache(final MemberListForm listForm) {
-        Cache.set(FORM_KEY, listForm, 60);
+        final Context context = Http.Context.current();
+        final Session session = context.session();
+        String userKey = session.get(SESSION_KEY);
+        if (userKey == null) {
+            userKey = UUID.randomUUID().toString();
+            session.put(SESSION_KEY, userKey);
+        }
+
+        Cache.set(userKey + FORM_KEY, listForm, 60);
     }
 
     private void searchIfNeed(final MemberListForm listForm, final List<MemberWebBean> beanList,
