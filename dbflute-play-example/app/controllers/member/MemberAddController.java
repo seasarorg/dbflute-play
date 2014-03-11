@@ -59,17 +59,12 @@ public class MemberAddController extends Controller {
     @Resource
     protected MemberStatusBhv memberStatusBhv;
 
-    // -----------------------------------------------------
-    //                                          Display Data
-    //                                          ------------
-    public Map<String, String> memberStatusMap;
-
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
     //    @Execute(validator = false)
     public Result index() {
-        prepareListBox();
+        final Map<String, String> memberStatusMap = prepareListBox();
         final Form<MemberForm> form = Form.form(MemberForm.class).bindFromRequest();
         return ok(views.html.member.memberAdd.render(form, memberStatusMap));
     }
@@ -94,7 +89,7 @@ public class MemberAddController extends Controller {
     // ===================================================================================
     //                                                                               Logic
     //                                                                               =====
-    protected void prepareListBox() { // ここはアプリによって色々かと by jflute
+    protected Map<String, String> prepareListBox() { // ここはアプリによって色々かと by jflute
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         MemberStatusCB cb = new MemberStatusCB();
         cb.query().addOrderBy_DisplayOrder_Asc();
@@ -102,6 +97,6 @@ public class MemberAddController extends Controller {
         for (MemberStatus status : statusList) {
             statusMap.put(status.getMemberStatusCode(), status.getMemberStatusName());
         }
-        memberStatusMap = statusMap;
+        return statusMap;
     }
 }
