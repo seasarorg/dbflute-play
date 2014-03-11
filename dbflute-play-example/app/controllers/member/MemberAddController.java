@@ -24,6 +24,9 @@ import javax.annotation.Resource;
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.util.DfTypeUtil;
 
+import play.mvc.Controller;
+import play.mvc.Result;
+
 import com.example.dbflute.sastruts.dbflute.allcommon.CDef;
 import com.example.dbflute.sastruts.dbflute.cbean.MemberStatusCB;
 import com.example.dbflute.sastruts.dbflute.exbhv.MemberBhv;
@@ -37,7 +40,7 @@ import com.example.dbflute.sastruts.web.member.MemberForm;
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-public class MemberAddController {
+public class MemberAddController extends Controller {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -64,9 +67,9 @@ public class MemberAddController {
     //                                                                             Execute
     //                                                                             =======
     //    @Execute(validator = false)
-    public String index() {
+    public Result index() {
         prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
-        return "index.jsp";
+        return null; // TODO "index.jsp";
     }
 
     //    @Execute(validator = true, input = "index.jsp")
