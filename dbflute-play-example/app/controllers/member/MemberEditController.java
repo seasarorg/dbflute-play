@@ -53,7 +53,7 @@ public class MemberEditController extends Controller {
     //                                          DI Component
     //                                          ------------
     //    @ActionForm
-    @Resource
+    //    @Resource
     public MemberForm memberForm;
 
     @Resource

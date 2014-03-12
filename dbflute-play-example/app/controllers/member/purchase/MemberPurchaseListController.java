@@ -49,7 +49,7 @@ public class MemberPurchaseListController extends Controller {
     //                                          DI Component
     //                                          ------------
     //    @ActionForm
-    @Resource
+    //    @Resource
     protected MemberPurchaseListForm listForm;
 
     @Resource
