@@ -1,5 +1,6 @@
 package framework;
 
+import org.seasar.framework.container.ComponentCustomizer;
 import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.creator.ComponentCreatorImpl;
 import org.seasar.framework.container.deployer.InstanceDefFactory;
@@ -26,6 +27,14 @@ public class ControllerCreator extends ComponentCreatorImpl {
         }
         final ComponentDef cd = super.createComponentDef(componentClass);
         return cd;
+    }
+
+    public ComponentCustomizer getControllerCustomizer() {
+        return getCustomizer();
+    }
+
+    public void setControllerCustomizer(final ComponentCustomizer customizer) {
+        setCustomizer(customizer);
     }
 
 }
