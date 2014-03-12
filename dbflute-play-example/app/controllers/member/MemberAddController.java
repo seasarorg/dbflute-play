@@ -49,9 +49,6 @@ public class MemberAddController extends Controller {
     // -----------------------------------------------------
     //                                          DI Component
     //                                          ------------
-    //    @ActionForm
-    //    @Resource
-    protected MemberForm memberForm;
 
     @Resource
     protected MemberBhv memberBhv;
@@ -71,6 +68,8 @@ public class MemberAddController extends Controller {
 
     //    @Execute(validator = true, input = "index.jsp")
     public Result doAdd() {
+        final Form<MemberForm> form = Form.form(MemberForm.class).bindFromRequest();
+        final MemberForm memberForm = form.get();
         Member member = new Member();
         if (memberForm.memberId != null) {
             member.setMemberId(Integer.valueOf(memberForm.memberId));
@@ -87,7 +86,7 @@ public class MemberAddController extends Controller {
             member.setVersionNo(Long.valueOf(memberForm.versionNo));
         }
         memberBhv.insert(member);
-        return null; // TODO "/member/add/&redirect=true";
+        return redirect(controllers.member.routes.MemberAddController.index());
     }
 
     // ===================================================================================
