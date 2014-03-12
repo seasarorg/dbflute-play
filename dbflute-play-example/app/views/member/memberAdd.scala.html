@@ -12,7 +12,11 @@ memberStatusMap: Map[String, String]
 			<ul style="color: red">
 			@for(errList <- form.errors().map(v => v._2)) {
 				@for(err <- errList) {
-					<li>@Messages(err.key): @Messages(err.message)</li>
+					@if(err.key == "") {
+						<li>@Messages(err.message)</li>
+					} else {
+						<li>@Messages(err.key): @Messages(err.message)</li>
+					}
 				}
 			}
 			</ul>
