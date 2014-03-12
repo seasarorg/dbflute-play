@@ -7,6 +7,7 @@ memberStatusMap: Map[String, String]
 @header()
 <div class="contents">
 	<h2>会員追加</h2>
+	@flash.get("success")
 	@helper.form(action = controllers.member.routes.MemberAddController.doAdd()) {
 		@if(form.hasErrors()) {
 			<ul style="color: red">

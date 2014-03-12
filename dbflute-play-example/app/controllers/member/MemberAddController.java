@@ -90,6 +90,7 @@ public class MemberAddController extends Controller {
             member.setVersionNo(Long.valueOf(memberForm.versionNo));
         }
         memberBhv.insert(member);
+        flash("success", String.format("会員[%s (ID:%s)]を作成しました", member.getMemberName(), member.getMemberId()));
         return redirect(controllers.member.routes.MemberAddController.index());
     }
 
