@@ -69,6 +69,10 @@ public class MemberAddController extends Controller {
     //    @Execute(validator = true, input = "index.jsp")
     public Result doAdd() {
         final Form<MemberForm> form = Form.form(MemberForm.class).bindFromRequest();
+        if (form.hasErrors()) {
+            final Map<String, String> memberStatusMap = prepareListBox();
+            return badRequest(views.html.member.memberAdd.render(form, memberStatusMap));
+        }
         final MemberForm memberForm = form.get();
         Member member = new Member();
         if (memberForm.memberId != null) {
