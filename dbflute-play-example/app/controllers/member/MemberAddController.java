@@ -23,8 +23,7 @@ import javax.annotation.Resource;
 
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.util.DfTypeUtil;
-import org.seasar.extension.tx.TransactionCallback;
-import org.seasar.extension.tx.TransactionManagerAdapter;
+import org.seasar.extension.tx.annotation.RequiredTx;
 
 import play.data.Form;
 import play.mvc.Controller;
@@ -58,9 +57,6 @@ public class MemberAddController extends Controller {
     @Resource
     protected MemberStatusBhv memberStatusBhv;
 
-    @Resource
-    protected TransactionManagerAdapter transactionManagerAdapter;
-
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
@@ -72,7 +68,8 @@ public class MemberAddController extends Controller {
     }
 
     //    @Execute(validator = true, input = "index.jsp")
-    public Result doAdd() throws Throwable {
+    @RequiredTx
+    public Result doAdd() {
         final Form<MemberForm> form = Form.form(MemberForm.class).bindFromRequest();
         if (form.hasErrors()) {
             final Map<String, String> memberStatusMap = prepareListBox();
@@ -94,13 +91,7 @@ public class MemberAddController extends Controller {
         if (memberForm.versionNo != null) {
             member.setVersionNo(Long.valueOf(memberForm.versionNo));
         }
-        transactionManagerAdapter.required(new TransactionCallback() {
-            @Override
-            public Object execute(TransactionManagerAdapter adapter) {
-                memberBhv.insert(member);
-                return null;
-            }
-        });
+        memberBhv.insert(member);
         flash("success", String.format("会員[%s (ID:%s)]を作成しました", member.getMemberName(), member.getMemberId()));
         return redirect(controllers.member.routes.MemberAddController.index());
     }
