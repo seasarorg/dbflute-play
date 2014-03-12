@@ -22,6 +22,7 @@ import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Http.Context;
 import play.mvc.Http.Request;
+import play.mvc.Http.RequestBody;
 import play.mvc.Http.Session;
 
 public class ApplicationGlobal extends GlobalSettings {
@@ -110,6 +111,12 @@ public class ApplicationGlobal extends GlobalSettings {
                 sb.append("Array: " + Arrays.toString(values));
             }
         }
+
+        sb.append("\n");
+        sb.append("  ");
+        sb.append("body=");
+        final RequestBody body = request.body();
+        sb.append(body.toString());
         return sb.toString();
     }
 
