@@ -16,9 +16,6 @@
 package com.example.dbflute.sastruts.web.member;
 
 import java.io.Serializable;
-
-import org.seasar.framework.container.annotation.tiger.Component;
-import org.seasar.framework.container.annotation.tiger.InstanceType;
 //import org.seasar.struts.annotation.Arg;
 //import org.seasar.struts.annotation.DateType;
 //import org.seasar.struts.annotation.Msg;
@@ -27,7 +24,6 @@ import org.seasar.framework.container.annotation.tiger.InstanceType;
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
  */
-@Component(instance = InstanceType.SESSION)
 public class MemberListForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,4 +57,5 @@ public class MemberListForm implements Serializable {
     public void reset() {
         unpaid = false;
     }
+
 }
