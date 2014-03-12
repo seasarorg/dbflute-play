@@ -8,9 +8,15 @@ memberStatusMap: Map[String, String]
 <div class="contents">
 	<h2>会員追加</h2>
 	@helper.form(action = controllers.member.routes.MemberAddController.doAdd()) {
-		@*
-		<html:errors/>
-		*@
+		@if(form.hasErrors()) {
+			<ul style="color: red">
+			@for(errList <- form.errors().map(v => v._2)) {
+				@for(err <- errList) {
+					<li>@Messages(err.key): @Messages(err.message)</li>
+				}
+			}
+			</ul>
+		}
 		<table>
 			<tr>
 				<td>会員名</td>
