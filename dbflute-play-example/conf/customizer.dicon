@@ -24,18 +24,22 @@
 	  		<!-- you can throw exception with message in action -->
 			<arg>"aop.actionMessagesThrowsInterceptor"</arg>
 	  	</initMethod>
+		<!--
 	  	<initMethod name="addCustomizer">
 			<arg>
-				<!-- public methods (@Execute and doValidate...) have transaction -->
+				public methods (@Execute and doValidate...) have transaction
 				<component class="org.seasar.framework.container.customizer.TxAttributeCustomizer"/>
 			</arg>
 	  	</initMethod>
+		-->
+		<!--
 	  	<initMethod name="addCustomizer">
 			<arg>
-				<!-- XxxAction classes under action package can be treated as Action -->
+				XxxAction classes under action package can be treated as Action
 				<component class="org.seasar.struts.customizer.ActionCustomizer"/>
 			</arg>
 	  	</initMethod>
+		-->
 
 		<!-- = = = = = = = = = = -->
 		<!-- Application Aspect	 -->
@@ -48,6 +52,7 @@
 	<!-- _/_/_/_/_/_/_/_/ -->
 	<!-- _/   Service  _/ -->
 	<!-- _/_/_/_/_/_/_/_/ -->
+	<!--
 	<component name="serviceCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
 	  	<initMethod name="addCustomizer">
 			<arg>
@@ -55,10 +60,12 @@
 			</arg>
 	  	</initMethod>
 	</component>
+	-->
 
 	<!-- _/_/_/_/_/_/_/_/ -->
 	<!-- _/    Logic   _/ -->
 	<!-- _/_/_/_/_/_/_/_/ -->
+	<!--
 	<component name="logicCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
 		<initMethod name="addCustomizer">
 			<arg>
@@ -66,6 +73,7 @@
 			</arg>
 		</initMethod>
 	</component>
+	-->
 
 	<!-- _/_/_/_/_/_/_/_/ -->
 	<!-- _/   Helper   _/ -->
