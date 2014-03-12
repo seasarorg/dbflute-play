@@ -62,7 +62,7 @@ public class MemberAddController extends Controller {
     //    @Execute(validator = false)
     public Result index() {
         final Map<String, String> memberStatusMap = prepareListBox();
-        final Form<MemberForm> form = Form.form(MemberForm.class).bindFromRequest();
+        final Form<MemberForm> form = Form.form(MemberForm.class);
         return ok(views.html.member.memberAdd.render(form, memberStatusMap));
     }
 
