@@ -1,8 +1,17 @@
-<c:import url="${viewPrefix}/common/header.jsp">
-	<c:param name="title" value="会員編集"/>
-</c:import>
+@(form: Form[com.example.dbflute.sastruts.web.member.MemberForm], 
+memberStatusMap: Map[String, String]
+)
+
+@main("会員編集") {
+
+@header()
 <div class="contents">
 	<h2>会員編集</h2>
+</div>
+@footer()
+}
+
+@*
 	<s:form>
 		<html:errors/>
 		<table>
@@ -53,5 +62,4 @@
 	<div class="listback">
 		<s:link href="/member/list/">会員一覧へ</s:link>
 	</div>
-</div>
-<c:import url="${viewPrefix}/common/footer.jsp"/>
+*@

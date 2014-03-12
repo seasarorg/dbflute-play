@@ -26,6 +26,7 @@ import org.seasar.dbflute.cbean.SubQuery;
 import org.seasar.dbflute.exception.EntityAlreadyDeletedException;
 import org.seasar.dbflute.util.DfTypeUtil;
 
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -62,11 +63,6 @@ public class MemberEditController extends Controller {
     @Resource
     protected MemberStatusBhv memberStatusBhv;
 
-    // -----------------------------------------------------
-    //                                          Display Data
-    //                                          ------------
-    public Map<String, String> memberStatusMap;
-
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
@@ -75,13 +71,15 @@ public class MemberEditController extends Controller {
         if (memberId == null) {
             return null; // TODO "/member/list/?redirect=true";
         }
-        prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
+
+        final Map<String, String> memberStatusMap = prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
 
         // /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = [TIPS by jflute]
         // Beansなんとかなど、リフレクションによる詰め替えは「絶対に利用しない」こと
         // http://dbflute.seasar.org/ja/tutorial/architect.html#entityset
         // = = = = = = = = = =/
-        Member member = selectMember(Integer.valueOf(memberId));
+        final Member member = selectMember(Integer.valueOf(memberId));
+        final MemberForm memberForm = new MemberForm();
         memberForm.memberId = member.getMemberId().toString();
         memberForm.memberName = member.getMemberName();
         memberForm.memberAccount = member.getMemberAccount();
@@ -96,12 +94,14 @@ public class MemberEditController extends Controller {
         memberForm.previousStatusCode = member.getMemberStatusCode(); // to determine new formalized member
         memberForm.versionNo = member.getVersionNo().toString();
 
-        return null; // TODO "index.jsp";
+        final Form<MemberForm> form = Form.form(MemberForm.class).fill(memberForm);
+
+        return ok(views.html.member.memberEdit.render(form, memberStatusMap));
     }
 
     //    @Execute(validator = true, input = "index.jsp")
-    public String doUpdate() {
-        Member member = new Member();
+    public Result doUpdate(final Integer memberId) {
+        final Member member = new Member();
         member.setMemberId(Integer.valueOf(memberForm.memberId));
         member.setMemberName(memberForm.memberName);
         member.setBirthdate(DfTypeUtil.toDate(memberForm.birthdate));
@@ -118,7 +118,7 @@ public class MemberEditController extends Controller {
         }
         member.setVersionNo(Long.valueOf(memberForm.versionNo));
         memberBhv.update(member);
-        return memberForm.memberId;
+        return null; // TODO memberForm.memberId;
     }
 
     //    @Execute(validator = true, input = "index.jsp")
@@ -151,7 +151,7 @@ public class MemberEditController extends Controller {
         return memberBhv.selectEntityWithDeletedCheck(cb);
     }
 
-    protected void prepareListBox() { // ここはアプリによって色々かと by jflute
+    protected Map<String, String> prepareListBox() { // ここはアプリによって色々かと by jflute
         Map<String, String> statusMap = new LinkedHashMap<String, String>();
         MemberStatusCB cb = new MemberStatusCB();
         cb.query().addOrderBy_DisplayOrder_Asc();
@@ -159,6 +159,6 @@ public class MemberEditController extends Controller {
         for (MemberStatus status : statusList) {
             statusMap.put(status.getMemberStatusCode(), status.getMemberStatusName());
         }
-        memberStatusMap = statusMap;
+        return statusMap;
     }
 }
