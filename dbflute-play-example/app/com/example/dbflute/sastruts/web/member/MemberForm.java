@@ -1,5 +1,6 @@
 package com.example.dbflute.sastruts.web.member;
 
+import play.data.validation.Constraints.Required;
 
 /**
  * @author mokkouyou (initial making)
@@ -11,9 +12,11 @@ public class MemberForm {
     public String memberId;
 
     //    @Required(arg0 = @Arg(key = "会員名", resource = false))
+    @Required
     public String memberName;
 
     //    @Required(arg0 = @Arg(key = "会員アカウント", resource = false))
+    @Required
     public String memberAccount;
 
     //    @Required(arg0 = @Arg(key = "会員ステータス", resource = false))
