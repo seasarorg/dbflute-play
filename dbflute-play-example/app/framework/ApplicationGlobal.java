@@ -77,8 +77,8 @@ public class ApplicationGlobal extends GlobalSettings {
         final long reqCount = requestCounter.incrementAndGet();
         if (logger.isDebugEnabled()) {
             final String sb = toString(request);
-            logger.debug(String
-                    .format("[%s] BEGIN: request=%s\n  action=%s\n  %s", reqCount, request, actionMethod, sb));
+            logger.debug(String.format("[%s] BEGIN: request={%s}\n  action=%s\n  %s", reqCount, request, actionMethod,
+                    sb));
         }
 
         final Action origAction = super.onRequest(request, actionMethod);
