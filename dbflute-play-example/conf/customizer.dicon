@@ -80,4 +80,17 @@
 	<!-- _/_/_/_/_/_/_/_/ -->
 	<component name="helperCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
 	</component>
+
+	<component name="controllerCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+		<initMethod name="addCustomizer">
+			<arg>
+				<component class="framework.ControllerAspectCustomizer">
+					<initMethod name="addInterceptorName">
+						<arg>"j2ee.requiredTx"</arg>
+					</initMethod>
+				</component>
+			</arg>
+		</initMethod>
+	</component>
+
 </components>
