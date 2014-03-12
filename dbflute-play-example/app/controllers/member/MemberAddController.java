@@ -23,7 +23,6 @@ import javax.annotation.Resource;
 
 import org.seasar.dbflute.cbean.ListResultBean;
 import org.seasar.dbflute.util.DfTypeUtil;
-import org.seasar.extension.tx.annotation.RequiredTx;
 
 import play.data.Form;
 import play.mvc.Controller;
@@ -68,7 +67,6 @@ public class MemberAddController extends Controller {
     }
 
     //    @Execute(validator = true, input = "index.jsp")
-    @RequiredTx
     public Result doAdd() {
         final Form<MemberForm> form = Form.form(MemberForm.class).bindFromRequest();
         if (form.hasErrors()) {
