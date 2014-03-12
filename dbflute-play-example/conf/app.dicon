@@ -6,12 +6,9 @@
 	<include path="convention.dicon"/>
 	<include path="aop.dicon"/>
 -->
+	<include path="cooldeploy-autoregister.dicon"/>
 	<include path="dbflute.dicon"/>
 
 	<include path="j2ee.dicon" />
-	<component class="controllers.RootController" />
-	<component class="controllers.member.MemberListController" />
-	<component class="controllers.member.MemberAddController" />
-	<component class="controllers.DebugController" />
 
 </components>
