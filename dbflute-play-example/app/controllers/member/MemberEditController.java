@@ -38,6 +38,7 @@ import com.example.dbflute.sastruts.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.sastruts.dbflute.exbhv.MemberStatusBhv;
 import com.example.dbflute.sastruts.dbflute.exentity.Member;
 import com.example.dbflute.sastruts.dbflute.exentity.MemberStatus;
+import com.example.dbflute.sastruts.web.DoUpdate;
 import com.example.dbflute.sastruts.web.member.MemberForm;
 
 /**
@@ -99,7 +100,14 @@ public class MemberEditController extends Controller {
     //    @Execute(validator = true, input = "index.jsp")
     public Result doUpdate(final Integer memberId) {
         final Member member = new Member();
-        member.setMemberId(Integer.valueOf(memberForm.memberId));
+        member.setMemberId(memberId);
+        final Form<MemberForm> form = Form.form(MemberForm.class, DoUpdate.class).bindFromRequest();
+        if (form.hasErrors()) {
+            final Map<String, String> memberStatusMap = prepareListBox();
+            return badRequest(views.html.member.memberEdit.render(form, memberStatusMap, member));
+        }
+
+        final MemberForm memberForm = form.get();
         member.setMemberName(memberForm.memberName);
         member.setBirthdate(DfTypeUtil.toDate(memberForm.birthdate));
         member.setMemberStatusCodeAsMemberStatus(CDef.MemberStatus.codeOf(memberForm.memberStatusCode));
@@ -115,7 +123,8 @@ public class MemberEditController extends Controller {
         }
         member.setVersionNo(Long.valueOf(memberForm.versionNo));
         memberBhv.update(member);
-        return null; // TODO memberForm.memberId;
+        flash("success", String.format("会員[%s (ID:%s)]を更新しました", member.getMemberName(), member.getMemberId()));
+        return redirect(controllers.member.routes.MemberEditController.index(memberId));
     }
 
     //    @Execute(validator = true, input = "index.jsp")
