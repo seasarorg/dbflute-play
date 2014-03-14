@@ -53,9 +53,6 @@ public class MemberEditController extends Controller {
     // -----------------------------------------------------
     //                                          DI Component
     //                                          ------------
-    //    @ActionForm
-    //    @Resource
-    public MemberForm memberForm;
 
     @Resource
     protected MemberBhv memberBhv;
@@ -123,7 +120,9 @@ public class MemberEditController extends Controller {
 
     //    @Execute(validator = true, input = "index.jsp")
     public String doDelete() {
-        Member member = new Member();
+        final Form<MemberForm> form = Form.form(MemberForm.class).bindFromRequest();
+        final MemberForm memberForm = form.get();
+        final Member member = new Member();
         member.setMemberId(Integer.valueOf(memberForm.memberId));
         member.setMemberStatusCode_退会会員();
         member.setVersionNo(Long.valueOf(memberForm.versionNo));
