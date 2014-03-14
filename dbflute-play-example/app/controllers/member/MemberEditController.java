@@ -38,6 +38,7 @@ import com.example.dbflute.sastruts.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.sastruts.dbflute.exbhv.MemberStatusBhv;
 import com.example.dbflute.sastruts.dbflute.exentity.Member;
 import com.example.dbflute.sastruts.dbflute.exentity.MemberStatus;
+import com.example.dbflute.sastruts.web.DoDelete;
 import com.example.dbflute.sastruts.web.DoUpdate;
 import com.example.dbflute.sastruts.web.member.MemberForm;
 
@@ -83,10 +84,10 @@ public class MemberEditController extends Controller {
         memberForm.memberAccount = member.getMemberAccount();
         memberForm.memberStatusCode = member.getMemberStatusCode();
         // 日付フォーマットのやり方はアプリによって色々かと by jflute
-        String ymd = "yyyy/MM/dd";
+        final String ymd = "yyyy/MM/dd";
         memberForm.birthdate = DfTypeUtil.toString(member.getBirthdate(), ymd);
         memberForm.formalizedDate = DfTypeUtil.toString(member.getFormalizedDatetime(), ymd);
-        String ymdhms = "yyyy/MM/dd HH:mm:ss";
+        final String ymdhms = "yyyy/MM/dd HH:mm:ss";
         memberForm.latestLoginDatetime = DfTypeUtil.toString(member.getLatestLoginDatetime(), ymdhms);
         memberForm.updateDatetime = DfTypeUtil.toString(member.getUpdateDatetime(), ymdhms);
         memberForm.previousStatusCode = member.getMemberStatusCode(); // to determine new formalized member
@@ -99,9 +100,13 @@ public class MemberEditController extends Controller {
 
     //    @Execute(validator = true, input = "index.jsp")
     public Result doUpdate(final Integer memberId) {
+        final Form<MemberForm> form = Form.form(MemberForm.class, DoUpdate.class).bindFromRequest();
+        // 押下されたsubmitボタンを判断する
+        if (form.data().containsKey("doDelete")) {
+            return doDelete(memberId);
+        }
         final Member member = new Member();
         member.setMemberId(memberId);
-        final Form<MemberForm> form = Form.form(MemberForm.class, DoUpdate.class).bindFromRequest();
         if (form.hasErrors()) {
             final Map<String, String> memberStatusMap = prepareListBox();
             return badRequest(views.html.member.memberEdit.render(form, memberStatusMap, member));
@@ -127,16 +132,16 @@ public class MemberEditController extends Controller {
         return redirect(controllers.member.routes.MemberEditController.index(memberId));
     }
 
-    //    @Execute(validator = true, input = "index.jsp")
-    public String doDelete() {
-        final Form<MemberForm> form = Form.form(MemberForm.class).bindFromRequest();
+    private Result doDelete(final Integer memberId) {
+        final Form<MemberForm> form = Form.form(MemberForm.class, DoDelete.class).bindFromRequest();
         final MemberForm memberForm = form.get();
         final Member member = new Member();
-        member.setMemberId(Integer.valueOf(memberForm.memberId));
+        member.setMemberId(memberId);
         member.setMemberStatusCode_退会会員();
         member.setVersionNo(Long.valueOf(memberForm.versionNo));
         memberBhv.update(member);
-        return "/member/list/?redirect=true";
+        flash("success", String.format("会員[%s (ID:%s)]を退会しました", member.getMemberName(), member.getMemberId()));
+        return redirect(controllers.member.routes.MemberListController.index());
     }
 
     // ===================================================================================
@@ -169,4 +174,5 @@ public class MemberEditController extends Controller {
         }
         return statusMap;
     }
+
 }

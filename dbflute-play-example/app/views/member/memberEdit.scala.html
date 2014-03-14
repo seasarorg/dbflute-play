@@ -65,9 +65,7 @@ member: com.example.dbflute.sastruts.dbflute.exentity.Member
 		<input type="hidden" name="previousStatusCode" value="@form("previousStatusCode").value" />
 		<input type="hidden" name="versionNo" value="@form("versionNo").value" />
 		<input type="submit" name="doUpdate" value="更新" />
-		@*
-		<s:submit property="doDelete" value="強制退会"/>
-		*@
+		<input type="submit" name="doDelete" value="強制退会" />
 	}
 	<div class="listback">
 		<a href="@controllers.member.routes.MemberListController.index">会員一覧へ</a>
