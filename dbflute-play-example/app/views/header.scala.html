@@ -12,5 +12,8 @@
 		</c:choose>
 		*@
 	</div>
+	@if(flash.containsKey("success")) {
+		<div style="color: green; background-color: white; padding: 4px;">@flash.get("success")</div>
+	}
 </header>
 <!-- header end -->

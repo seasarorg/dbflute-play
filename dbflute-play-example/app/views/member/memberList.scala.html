@@ -14,7 +14,6 @@ pagingNavi: com.example.dbflute.sastruts.common.PagingNavi
 @header()
 <div class="contents">
 	<h2>会員一覧</h2>
-	@flash.get("success")
 	<div class="condition">
 		@helper.form(action = controllers.member.routes.MemberListController.doSearch()) {
 			<table>
