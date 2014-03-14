@@ -1,5 +1,6 @@
 @(form: Form[com.example.dbflute.sastruts.web.member.MemberForm], 
-memberStatusMap: Map[String, String]
+memberStatusMap: Map[String, String],
+member: com.example.dbflute.sastruts.dbflute.exentity.Member
 )
 
 @main("会員編集") {
@@ -7,49 +8,48 @@ memberStatusMap: Map[String, String]
 @header()
 <div class="contents">
 	<h2>会員編集</h2>
-</div>
-@footer()
-}
-
-@*
-	<s:form>
+	@helper.form(action = controllers.member.routes.MemberEditController.doUpdate(member.getMemberId())) {
+		@*
 		<html:errors/>
+		*@
 		<table>
 			<tr>
 				<td>会員名</td>
-				<td><html:text property="memberName"/></td>
+				<td><input type="text" name="memberName" value="@form("memberName").value" /></td>
 			</tr>
 			<tr>
 				<td>誕生日</td>
-				<td><html:text property="birthdate"/></td>
+				<td><input type="text" name="birthdate" value="@form("birthdate").value" /></td>
 			</tr>
 			<tr>
 				<td>会員ステータス</td>
 				<td>
-					<html:select property="memberStatusCode">
-						<c:forEach var="status" items="${memberStatusMap}">
-							<html:option value="${f:h(status.key)}">${f:h(status.value)}</html:option>
-						</c:forEach>
-					</html:select>
+					<select name="memberStatusCode">
+						@for(status <- memberStatusMap){
+							<option value="@status._1" @if(form("memberStatusCode").value == status._1){selected="selected"}>@status._2</option>
+						}
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>会員アカウント</td>
-				<td><html:text property="memberAccount"/></td>
+				<td><input type="text" name="memberAccount" value="@form("memberAccount").value" /></td>
 			</tr>
 			<tr>
 				<td>正式会員日</td>
-				<td>${f:h(formalizedDate)}</td>
+				<td>@form("formalizedDate").value</td>
 			</tr>
 			<tr>
 				<td>最終ログイン日時</td>
-				<td>${f:h(latestLoginDatetime)}</td>
+				<td>@form("latestLoginDatetime").value</td>
 			</tr>
 			<tr>
 				<td>更新日時</td>
-				<td>${f:h(updateDatetime)}</td>
+				<td>@form("updateDatetime").value</td>
 			</tr>
 		</table>
+
+		@*
 		<html:hidden property="memberId"/>
 		<html:hidden property="formalizedDate"/>
 		<html:hidden property="latestLoginDatetime"/>
@@ -58,8 +58,11 @@ memberStatusMap: Map[String, String]
 		<html:hidden property="versionNo"/>
 		<s:submit property="doUpdate" value="更新"/>
 		<s:submit property="doDelete" value="強制退会"/>
-	</s:form>
+		*@
+	}
 	<div class="listback">
-		<s:link href="/member/list/">会員一覧へ</s:link>
+		<a href="@controllers.member.routes.MemberListController.index">会員一覧へ</a>
 	</div>
-*@
+</div>
+@footer()
+}

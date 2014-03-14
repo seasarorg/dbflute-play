@@ -96,7 +96,7 @@ public class MemberEditController extends Controller {
 
         final Form<MemberForm> form = Form.form(MemberForm.class).fill(memberForm);
 
-        return ok(views.html.member.memberEdit.render(form, memberStatusMap));
+        return ok(views.html.member.memberEdit.render(form, memberStatusMap, member));
     }
 
     //    @Execute(validator = true, input = "index.jsp")
