@@ -34,6 +34,7 @@ import com.example.dbflute.sastruts.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.sastruts.dbflute.exbhv.MemberStatusBhv;
 import com.example.dbflute.sastruts.dbflute.exentity.Member;
 import com.example.dbflute.sastruts.dbflute.exentity.MemberStatus;
+import com.example.dbflute.sastruts.web.DoCreate;
 import com.example.dbflute.sastruts.web.member.MemberForm;
 
 /**
@@ -68,7 +69,7 @@ public class MemberAddController extends Controller {
 
     //    @Execute(validator = true, input = "index.jsp")
     public Result doAdd() {
-        final Form<MemberForm> form = Form.form(MemberForm.class).bindFromRequest();
+        final Form<MemberForm> form = Form.form(MemberForm.class, DoCreate.class).bindFromRequest();
         if (form.hasErrors()) {
             final Map<String, String> memberStatusMap = prepareListBox();
             return badRequest(views.html.member.memberAdd.render(form, memberStatusMap));

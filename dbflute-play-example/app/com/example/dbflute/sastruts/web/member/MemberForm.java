@@ -2,6 +2,10 @@ package com.example.dbflute.sastruts.web.member;
 
 import play.data.validation.Constraints.Required;
 
+import com.example.dbflute.sastruts.web.DoCreate;
+import com.example.dbflute.sastruts.web.DoDelete;
+import com.example.dbflute.sastruts.web.DoUpdate;
+
 /**
  * @author mokkouyou (initial making)
  * @author jflute (extends it)
@@ -12,14 +16,15 @@ public class MemberForm {
     public String memberId;
 
     //    @Required(arg0 = @Arg(key = "会員名", resource = false))
-    @Required
+    @Required(groups = { DoCreate.class, DoUpdate.class })
     public String memberName;
 
     //    @Required(arg0 = @Arg(key = "会員アカウント", resource = false))
-    @Required
+    @Required(groups = { DoCreate.class, DoUpdate.class })
     public String memberAccount;
 
     //    @Required(arg0 = @Arg(key = "会員ステータス", resource = false))
+    @Required(groups = { DoCreate.class, DoUpdate.class })
     public String memberStatusCode;
 
     //    @DateType(datePatternStrict = "yyyy/MM/dd", msg = @Msg(key = "errors.date", resource = true), arg0 = @Arg(key = "生年月日", resource = false))
@@ -31,9 +36,10 @@ public class MemberForm {
 
     public String updateDatetime;
 
-    //    @Required(target = "doUpdate")
+    @Required(groups = { DoUpdate.class })
     public String previousStatusCode;
 
-    //    @Required(target = "doUpdate, doDelete")
+    @Required(groups = { DoUpdate.class, DoDelete.class })
     public String versionNo;
+
 }
