@@ -75,9 +75,6 @@ public class MemberAddController extends Controller {
         }
         final MemberForm memberForm = form.get();
         final Member member = new Member();
-        if (memberForm.memberId != null) {
-            member.setMemberId(Integer.valueOf(memberForm.memberId));
-        }
         member.setMemberName(memberForm.memberName);
         member.setBirthdate(DfTypeUtil.toDate(memberForm.birthdate));
         member.setMemberStatusCodeAsMemberStatus(CDef.MemberStatus.codeOf(memberForm.memberStatusCode));
@@ -85,9 +82,6 @@ public class MemberAddController extends Controller {
         if (member.isMemberStatusCode正式会員()) { // 区分値の判定は Entity の isなんとか() メソッドで by jflute
             Timestamp currentTime = new Timestamp(System.currentTimeMillis()); // 実際のアプリでは現在日時取得は統一的に by jflute
             member.setFormalizedDatetime(currentTime);
-        }
-        if (memberForm.versionNo != null) {
-            member.setVersionNo(Long.valueOf(memberForm.versionNo));
         }
         memberBhv.insert(member);
         flash("success", String.format("会員[%s (ID:%s)]を作成しました", member.getMemberName(), member.getMemberId()));
