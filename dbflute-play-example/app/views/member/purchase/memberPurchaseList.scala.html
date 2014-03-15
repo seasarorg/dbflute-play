@@ -1,8 +1,16 @@
-<c:import url="${viewPrefix}/common/header.jsp">
-	<c:param name="title" value="会員購入一覧"/>
-</c:import>
+@main("会員購入一覧") {
+
+@header()
 <div class="contents">
 	<h2>会員購入一覧</h2>
+
+	<div class="listback">
+		<a href="@controllers.member.routes.MemberListController.index">会員一覧へ</a>
+	</div>
+</div>
+@footer()
+}
+@*
 	<html:errors/>
 	<div class="condition">
 		<table>
@@ -51,8 +59,4 @@
 		</tbody>
 	</table>
 	<c:import url="${viewPrefix}/common/paging_navi.jsp"/>
-	<div class="listback">
-		<s:link href="/member/list/">会員一覧へ</s:link>
-	</div>
-</div>
-<c:import url="${viewPrefix}/common/footer.jsp"/>
+*@

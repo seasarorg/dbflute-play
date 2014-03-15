@@ -96,7 +96,7 @@ public class MemberPurchaseListController extends Controller {
         }
         pagingNavi.prepare(purchasePage, memberId);
 
-        return null; // TODO "index.jsp";
+        return ok(views.html.member.purchase.memberPurchaseList.render());
     }
 
     //    @Execute(validator = false)
