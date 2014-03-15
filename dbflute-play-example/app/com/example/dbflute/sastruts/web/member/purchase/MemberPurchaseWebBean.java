@@ -26,7 +26,8 @@ public class MemberPurchaseWebBean {
     public Long purchaseId;
     public Timestamp purchaseDatetime;
     public String productName;
-    public Integer purchasePrice;
-    public Integer purchaseCount;
+    public String purchasePrice;
+    public String purchaseCount;
     public boolean paymentComplete;
+
 }

@@ -1,4 +1,6 @@
-@(member: com.example.dbflute.sastruts.dbflute.exentity.Member)
+@(member: com.example.dbflute.sastruts.dbflute.exentity.Member,
+beanList: List[com.example.dbflute.sastruts.web.member.purchase.MemberPurchaseWebBean]
+)
 
 @main("会員購入一覧") {
 
@@ -20,7 +22,6 @@
 			</tr>
 		</table>
 	</div>
-@*
 	<table>
 		<thead>
 			<tr>
@@ -33,28 +34,27 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="bean" varStatus="s" items="${beanList}">
-				<c:if test="${s.index % 2 == 0}"><tr id="row" style="background-color: #AACCEE;"></c:if>
-				<c:if test="${s.index % 2 != 0}"><tr id="row" style="background-color: #EECCAA;"></c:if>
-					<td><fmt:formatDate value="${bean.purchaseDatetime}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
-					<td>${f:h(bean.productName)}</td>
-					<td><fmt:formatNumber value="${f:h(bean.purchasePrice)}" pattern="#,###"/></td>
-					<td>${f:h(bean.purchaseCount)}</td>
-					<td>
-						<c:if test="${bean.paymentComplete}">支払済</c:if>
-						<c:if test="!${bean.paymentComplete}">未払い</c:if>
-					</td>
-					<td>
+			@for((bean, i) <- beanList.zipWithIndex) {
+				<tr id="row" style="background-color: @if(i % 2 == 0) {#AACCEE} else {#EECCAA};">
+					<td>@bean.purchaseDatetime.format("yyyy/MM/dd HH:mm:ss")</td>
+					<td>@bean.productName</td>
+					<td>@bean.purchasePrice</td>
+					<td>@bean.purchaseCount</td>
+					<td>@if(bean.paymentComplete) {支払済} else {未払い}</td>
+					<td>削除
+@*
 						<s:form>
 							<html:hidden property="memberId" value="${headerBean.memberId}"/>
 							<html:hidden property="purchaseId" value="${bean.purchaseId}"/>
 							<s:submit property="doDelete" value="削除"/>
 						</s:form>
+*@
 					</td>
 				</tr>
-			</c:forEach>
+			}
 		</tbody>
 	</table>
+@*
 	<c:import url="${viewPrefix}/common/paging_navi.jsp"/>
 *@
 	<div class="listback">

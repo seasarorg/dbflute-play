@@ -15,6 +15,7 @@
  */
 package controllers.member.purchase;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,6 @@ import com.example.dbflute.sastruts.dbflute.exbhv.MemberBhv;
 import com.example.dbflute.sastruts.dbflute.exbhv.PurchaseBhv;
 import com.example.dbflute.sastruts.dbflute.exentity.Member;
 import com.example.dbflute.sastruts.dbflute.exentity.Purchase;
-import com.example.dbflute.sastruts.web.member.MemberWebBean;
 import com.example.dbflute.sastruts.web.member.purchase.MemberPurchaseListForm;
 import com.example.dbflute.sastruts.web.member.purchase.MemberPurchaseWebBean;
 
@@ -61,8 +61,6 @@ public class MemberPurchaseListController extends Controller {
     // -----------------------------------------------------
     //                                          Display Data
     //                                          ------------
-    public MemberWebBean headerBean;
-    public List<MemberPurchaseWebBean> beanList;
     public PagingNavi pagingNavi = new PagingNavi();
 
     // ===================================================================================
@@ -78,25 +76,24 @@ public class MemberPurchaseListController extends Controller {
         }
 
         final Member member = selectMember(memberId);
-        headerBean = new MemberWebBean();
-        headerBean.memberId = member.getMemberId();
-        headerBean.memberName = member.getMemberName();
+
+        final DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
         final PagingResultBean<Purchase> purchasePage = selectPurchasePage(memberId, pageNumber);
-        beanList = new ArrayList<MemberPurchaseWebBean>();
+        final List<MemberPurchaseWebBean> beanList = new ArrayList<MemberPurchaseWebBean>();
         for (Purchase purchase : purchasePage) {
-            MemberPurchaseWebBean bean = new MemberPurchaseWebBean();
+            final MemberPurchaseWebBean bean = new MemberPurchaseWebBean();
             bean.purchaseId = purchase.getPurchaseId();
             bean.purchaseDatetime = purchase.getPurchaseDatetime();
             bean.productName = purchase.getProduct().getProductName();
-            bean.purchasePrice = purchase.getPurchasePrice();
-            bean.purchaseCount = purchase.getPurchaseCount();
+            bean.purchasePrice = decimalFormat.format(purchase.getPurchasePrice());
+            bean.purchaseCount = decimalFormat.format(purchase.getPurchaseCount());
             bean.paymentComplete = purchase.isPaymentCompleteFlgTrue();
             beanList.add(bean);
         }
         pagingNavi.prepare(purchasePage, memberId);
 
-        return ok(views.html.member.purchase.memberPurchaseList.render(member));
+        return ok(views.html.member.purchase.memberPurchaseList.render(member, beanList));
     }
 
     //    @Execute(validator = false)
