@@ -16,6 +16,7 @@
 package controllers.member.purchase;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,13 +79,14 @@ public class MemberPurchaseListController extends Controller {
         final Member member = selectMember(memberId);
 
         final DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         final PagingResultBean<Purchase> purchasePage = selectPurchasePage(memberId, pageNumber);
         final List<MemberPurchaseWebBean> beanList = new ArrayList<MemberPurchaseWebBean>();
         for (Purchase purchase : purchasePage) {
             final MemberPurchaseWebBean bean = new MemberPurchaseWebBean();
             bean.purchaseId = purchase.getPurchaseId();
-            bean.purchaseDatetime = purchase.getPurchaseDatetime();
+            bean.purchaseDatetime = dateTimeFormat.format(purchase.getPurchaseDatetime());
             bean.productName = purchase.getProduct().getProductName();
             bean.purchasePrice = decimalFormat.format(purchase.getPurchasePrice());
             bean.purchaseCount = decimalFormat.format(purchase.getPurchaseCount());

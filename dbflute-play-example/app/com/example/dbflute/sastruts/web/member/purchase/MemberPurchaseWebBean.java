@@ -15,7 +15,6 @@
  */
 package com.example.dbflute.sastruts.web.member.purchase;
 
-import java.sql.Timestamp;
 
 /**
  * 会員購入一覧で利用する画面項目DTO。
@@ -24,7 +23,7 @@ import java.sql.Timestamp;
 public class MemberPurchaseWebBean {
 
     public Long purchaseId;
-    public Timestamp purchaseDatetime;
+    public String purchaseDatetime;
     public String productName;
     public String purchasePrice;
     public String purchaseCount;
