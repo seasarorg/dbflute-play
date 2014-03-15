@@ -69,7 +69,7 @@ public class MemberPurchaseListController extends Controller {
     //                                                                             Execute
     //                                                                             =======
     //    @Execute(validator = false, urlPattern = "{memberId}/{pageNumber}")
-    public Result index(Integer memberId, Integer pageNumber) {
+    public Result index(final Integer memberId, final Integer pageNumber) {
         if (memberId == null) {
             return null; // TODO "/member/list/?redirect=true";
         }
@@ -77,12 +77,12 @@ public class MemberPurchaseListController extends Controller {
             return null; // TODO "/member/list/?redirect=true";
         }
 
-        Member member = selectMember(memberId);
+        final Member member = selectMember(memberId);
         headerBean = new MemberWebBean();
         headerBean.memberId = member.getMemberId();
         headerBean.memberName = member.getMemberName();
 
-        PagingResultBean<Purchase> purchasePage = selectPurchasePage(memberId, pageNumber);
+        final PagingResultBean<Purchase> purchasePage = selectPurchasePage(memberId, pageNumber);
         beanList = new ArrayList<MemberPurchaseWebBean>();
         for (Purchase purchase : purchasePage) {
             MemberPurchaseWebBean bean = new MemberPurchaseWebBean();
@@ -96,7 +96,7 @@ public class MemberPurchaseListController extends Controller {
         }
         pagingNavi.prepare(purchasePage, memberId);
 
-        return ok(views.html.member.purchase.memberPurchaseList.render());
+        return ok(views.html.member.purchase.memberPurchaseList.render(member));
     }
 
     //    @Execute(validator = false)

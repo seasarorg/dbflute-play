@@ -1,29 +1,26 @@
+@(member: com.example.dbflute.sastruts.dbflute.exentity.Member)
+
 @main("会員購入一覧") {
 
 @header()
 <div class="contents">
 	<h2>会員購入一覧</h2>
-
-	<div class="listback">
-		<a href="@controllers.member.routes.MemberListController.index">会員一覧へ</a>
-	</div>
-</div>
-@footer()
-}
-@*
+	@*
 	<html:errors/>
+	*@
 	<div class="condition">
 		<table>
 			<tr>
 				<td>会員ID</td>
-				<td>${f:h(headerBean.memberId)}</td>
+				<td>@member.getMemberId()</td>
 			</tr>
 			<tr>
 				<td>会員名</td>
-				<td>${f:h(headerBean.memberName)}</td>
+				<td>@member.getMemberName()</td>
 			</tr>
 		</table>
 	</div>
+@*
 	<table>
 		<thead>
 			<tr>
@@ -60,3 +57,9 @@
 	</table>
 	<c:import url="${viewPrefix}/common/paging_navi.jsp"/>
 *@
+	<div class="listback">
+		<a href="@controllers.member.routes.MemberListController.index">会員一覧へ</a>
+	</div>
+</div>
+@footer()
+}
