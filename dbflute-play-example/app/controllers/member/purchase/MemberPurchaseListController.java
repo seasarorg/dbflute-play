@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 
 import org.seasar.dbflute.cbean.PagingResultBean;
 
+import play.api.mvc.Call;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -62,7 +63,6 @@ public class MemberPurchaseListController extends Controller {
     // -----------------------------------------------------
     //                                          Display Data
     //                                          ------------
-    public PagingNavi pagingNavi = new PagingNavi();
 
     // ===================================================================================
     //                                                                             Execute
@@ -93,9 +93,21 @@ public class MemberPurchaseListController extends Controller {
             bean.paymentComplete = purchase.isPaymentCompleteFlgTrue();
             beanList.add(bean);
         }
+        final PagingNavi pagingNavi = newPagingNavi(memberId);
         pagingNavi.prepare(purchasePage, memberId);
 
-        return ok(views.html.member.purchase.memberPurchaseList.render(member, beanList));
+        return ok(views.html.member.purchase.memberPurchaseList.render(member, beanList, pagingNavi));
+    }
+
+    private PagingNavi newPagingNavi(final Integer memberId) {
+        return new PagingNavi() {
+            @Override
+            protected String createTargetPageNumberLink(int pageNumber, Object[] linkPaths) {
+                final Call paging = controllers.member.purchase.routes.MemberPurchaseListController.index(memberId,
+                        pageNumber);
+                return paging.url();
+            }
+        };
     }
 
     //    @Execute(validator = false)

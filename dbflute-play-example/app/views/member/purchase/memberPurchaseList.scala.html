@@ -1,5 +1,6 @@
 @(member: com.example.dbflute.sastruts.dbflute.exentity.Member,
-beanList: List[com.example.dbflute.sastruts.web.member.purchase.MemberPurchaseWebBean]
+beanList: List[com.example.dbflute.sastruts.web.member.purchase.MemberPurchaseWebBean],
+pagingNavi: com.example.dbflute.sastruts.common.PagingNavi
 )
 
 @main("会員購入一覧") {
@@ -54,9 +55,7 @@ beanList: List[com.example.dbflute.sastruts.web.member.purchase.MemberPurchaseWe
 			}
 		</tbody>
 	</table>
-@*
-	<c:import url="${viewPrefix}/common/paging_navi.jsp"/>
-*@
+	@pagingNavigation(pagingNavi)
 	<div class="listback">
 		<a href="@controllers.member.routes.MemberListController.index">会員一覧へ</a>
 	</div>
