@@ -15,7 +15,6 @@
  */
 package com.example.dbflute.sastruts.web.member.purchase;
 
-
 /**
  * 会員購入一覧で利用する画面項目DTO。
  * @author jflute

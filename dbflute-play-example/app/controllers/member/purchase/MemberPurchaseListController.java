@@ -111,20 +111,12 @@ public class MemberPurchaseListController extends Controller {
     }
 
     //    @Execute(validator = false)
-    public String doDelete() {
-        Integer memberId = listForm.memberId;
-        if (memberId == null) {
-            return "/member/list/?redirect=true";
-        }
-        Long purchaseId = listForm.purchaseId;
-        if (purchaseId == null) {
-            return "/member/list/?redirect=true";
-        }
-
-        Purchase purchase = new Purchase();
-        purchase.setPurchaseId(listForm.purchaseId);
+    public Result doDelete(final Integer memberId, final Long purchaseId) {
+        final Purchase purchase = new Purchase();
+        purchase.setPurchaseId(purchaseId);
         purchaseBhv.deleteNonstrict(purchase); // ここは排他制御なしの例 by jflute
-        return null; // index();
+        flash("success", String.format("会員(ID:%s)の購入履歴(ID:%s)を削除しました", memberId, purchaseId));
+        return redirect(controllers.member.purchase.routes.MemberPurchaseListController.index(memberId, 1));
     }
 
     // ===================================================================================

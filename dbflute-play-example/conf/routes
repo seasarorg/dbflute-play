@@ -13,6 +13,7 @@ GET    /member/add/                                  @controllers.member.MemberA
 POST   /member/add/                                  @controllers.member.MemberAddController.doAdd()
 
 GET    /member/purchase/list/:memberId/:pageNumber   @controllers.member.purchase.MemberPurchaseListController.index(memberId: Integer, pageNumber: Integer)
+POST   /member/purchase/:memberId/:purchaseId        @controllers.member.purchase.MemberPurchaseListController.doDelete(memberId: Integer, purchaseId: Long)
 
 GET    /debug                                        @controllers.DebugController.index()
 

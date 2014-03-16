@@ -42,14 +42,10 @@ pagingNavi: com.example.dbflute.sastruts.common.PagingNavi
 					<td style="text-align: right;">@bean.purchasePrice</td>
 					<td style="text-align: right;">@bean.purchaseCount</td>
 					<td>@if(bean.paymentComplete) {支払済} else {未払い}</td>
-					<td>削除
-@*
-						<s:form>
-							<html:hidden property="memberId" value="${headerBean.memberId}"/>
-							<html:hidden property="purchaseId" value="${bean.purchaseId}"/>
-							<s:submit property="doDelete" value="削除"/>
-						</s:form>
-*@
+					<td>
+					@helper.form(action = controllers.member.purchase.routes.MemberPurchaseListController.doDelete(member.getMemberId(), bean.purchaseId)) {
+						<input type="submit" name="doDelete" value="削除" />
+					}
 					</td>
 				</tr>
 			}
