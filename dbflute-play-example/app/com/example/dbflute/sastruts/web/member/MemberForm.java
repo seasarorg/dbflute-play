@@ -12,15 +12,12 @@ import com.example.dbflute.sastruts.web.DoUpdate;
  */
 public class MemberForm {
 
-    //    @Required(arg0 = @Arg(key = "会員名", resource = false))
     @Required(groups = { DoCreate.class, DoUpdate.class })
     public String memberName;
 
-    //    @Required(arg0 = @Arg(key = "会員アカウント", resource = false))
     @Required(groups = { DoCreate.class, DoUpdate.class })
     public String memberAccount;
 
-    //    @Required(arg0 = @Arg(key = "会員ステータス", resource = false))
     @Required(groups = { DoCreate.class, DoUpdate.class })
     public String memberStatusCode;
 
