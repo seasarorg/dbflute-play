@@ -30,7 +30,7 @@ public class DebugController extends Controller {
         final Connection conn = DataSourceUtil.getConnection(dataSource);
         try {
             final DatabaseMetaData metaData = ConnectionUtil.getMetaData(conn);
-            final Status ret = ok(views.html.debug.render("DEBUG Your new application is ready.", metaData));
+            final Status ret = ok(views.html.debug.debug.render("DEBUG Your new application is ready.", metaData));
             return ret;
         } finally {
             ConnectionUtil.close(conn);
