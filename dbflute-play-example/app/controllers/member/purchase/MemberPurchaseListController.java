@@ -67,15 +67,7 @@ public class MemberPurchaseListController extends Controller {
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
-    //    @Execute(validator = false, urlPattern = "{memberId}/{pageNumber}")
     public Result index(final Integer memberId, final Integer pageNumber) {
-        if (memberId == null) {
-            return null; // TODO "/member/list/?redirect=true";
-        }
-        if (pageNumber == null) {
-            return null; // TODO "/member/list/?redirect=true";
-        }
-
         final Member member = selectMember(memberId);
 
         final DecimalFormat decimalFormat = new DecimalFormat("#,###");
