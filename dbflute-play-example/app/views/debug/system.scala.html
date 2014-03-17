@@ -1,4 +1,6 @@
-@(map: Map[String, String])
+@(props: Map[String, String],
+envs: Map[String, String]
+)
 
 @main("system") {
 
@@ -8,11 +10,22 @@
 		<tr>
 			<th>key</th><th>value</th>
 		</tr>
-	@for(v <- map) {
+	@for(v <- props) {
 		<tr>
 			<td>@v._1</td><td>@v._2</td>
 		</tr>
 	}
 	</table>
 
+	<h2>system envs</h2>
+	<table>
+		<tr>
+			<th>key</th><th>value</th>
+		</tr>
+	@for(v <- envs) {
+		<tr>
+			<td>@v._1</td><td>@v._2</td>
+		</tr>
+	}
+	</table>
 }

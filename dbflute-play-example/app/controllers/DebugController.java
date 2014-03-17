@@ -77,13 +77,24 @@ public class DebugController extends Controller {
     }
 
     public Result system() {
-        final Map<String, String> map = new TreeMap<String, String>();
+        final Map<String, String> props = new TreeMap<String, String>();
         final Map properties = System.getProperties();
+        toMap(properties, props);
+
+        final Map<String, String> envs = new TreeMap<String, String>();
+        final Map<String, String> getenv = System.getenv();
+        toMap(getenv, envs);
+
+        final Status ret = ok(views.html.debug.system.render(props, envs));
+        return ret;
+    }
+
+    private void toMap(final Map properties, final Map<String, String> destMap) {
         for (Map.Entry<String, String> entry : (Set<Map.Entry<String, String>>) properties.entrySet()) {
             final String key = entry.getKey();
             final String value = entry.getValue();
             if (Strings.isNullOrEmpty(value)) {
-                map.put(key, "(empty)");
+                destMap.put(key, "(empty)");
             } else {
                 StringBuilder sb = new StringBuilder();
                 final char[] chars = value.toCharArray();
@@ -94,12 +105,9 @@ public class DebugController extends Controller {
                         sb.append(c);
                     }
                 }
-                map.put(key, sb.toString());
+                destMap.put(key, sb.toString());
             }
         }
-
-        final Status ret = ok(views.html.debug.system.render(map));
-        return ret;
     }
 
     private void collectJars(final Set<URL> versions) throws IOException {
