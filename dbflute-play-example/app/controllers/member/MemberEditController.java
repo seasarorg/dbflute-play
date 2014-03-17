@@ -65,12 +65,7 @@ public class MemberEditController extends Controller {
     // ===================================================================================
     //                                                                             Execute
     //                                                                             =======
-    //    @Execute(validator = false, urlPattern = "{memberId}")
-    public Result index(Integer memberId) {
-        if (memberId == null) {
-            return null; // TODO "/member/list/?redirect=true";
-        }
-
+    public Result index(final Integer memberId) {
         final Map<String, String> memberStatusMap = prepareListBox(); // ここだけだと doSearch() のバリデーションエラーでリストボックス消えます by jflute
 
         // /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = [TIPS by jflute]
