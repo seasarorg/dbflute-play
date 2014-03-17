@@ -1,7 +1,10 @@
 package controllers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.util.Enumeration;
@@ -9,7 +12,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.jar.Attributes;
 import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +29,9 @@ import org.slf4j.LoggerFactory;
 
 import play.mvc.Controller;
 import play.mvc.Result;
+
+import com.google.common.base.Strings;
+import com.google.common.io.Closer;
 
 public class DebugController extends Controller {
 
@@ -56,14 +64,12 @@ public class DebugController extends Controller {
     }
 
     public Result jars() throws IOException {
-        final Map<String, String> map = new TreeMap<String, String>();
+        final Map<String, ManifestEntry> map = new TreeMap<String, ManifestEntry>();
         final Set<URL> versions = new HashSet<URL>();
         collectJars(versions);
         for (final URL url : versions) {
-            final String externalForm = url.toExternalForm();
-            final String path = extractJarPathName(externalForm);
-            final String jarFileName = extractJarFileName(externalForm);
-            map.put(jarFileName, path);
+            final ManifestEntry m = createManifestEntry(url);
+            map.put(m.getName(), m);
         }
 
         final Status ret = ok(views.html.debug.jars.render(map));
@@ -78,6 +84,25 @@ public class DebugController extends Controller {
             logger.debug("[{}] {}", i, resource);
             versions.add(resource);
         }
+    }
+
+    private ManifestEntry createManifestEntry(final URL url) throws IOException {
+        if (url == null) {
+            return null;
+        }
+
+        final URLConnection con = url.openConnection();
+        con.setUseCaches(false);
+        final InputStream is = con.getInputStream();
+        final ManifestEntry manifest = createManifest(is);
+
+        final String externalForm = url.toExternalForm();
+        final String jarName = extractJarFileName(externalForm);
+        manifest.setName(jarName);
+        final String path = extractJarPathName(externalForm);
+        manifest.setPath(path);
+
+        return manifest;
     }
 
     /*
@@ -97,6 +122,68 @@ public class DebugController extends Controller {
             return matcher.group(1);
         }
         return null;
+    }
+
+    private ManifestEntry createManifest(final InputStream is) throws IOException {
+        Closer closer = Closer.create();
+        try {
+            closer.register(is);
+            final Manifest manifest = new Manifest(is);
+            return new ManifestEntry(manifest);
+        } finally {
+            closer.close();
+        }
+    }
+
+    public static class ManifestEntry {
+
+        private String name;
+        private final Manifest manifest;
+        private Attributes attributes;
+        private String path;
+        private String text;
+
+        public ManifestEntry(final Manifest manifest) throws IOException {
+            this.manifest = manifest;
+            this.attributes = manifest.getMainAttributes();
+
+            // MANIFEST本文
+            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            manifest.write(baos);
+            final String text = baos.toString("UTF-8");
+            this.text = text;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public void setPath(String path) {
+            this.path = path;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(final String name) {
+            this.name = name;
+        }
+
+        public String getVersion() {
+            final String implVersion = attributes.getValue(Attributes.Name.IMPLEMENTATION_VERSION);
+            if (!Strings.isNullOrEmpty(implVersion)) {
+                return implVersion;
+            }
+            // OSGi
+            final String bundleVersion = attributes.getValue("Bundle-Version");
+            return bundleVersion;
+        }
+
+        public String getText() {
+            return text;
+        }
+
     }
 
 }
