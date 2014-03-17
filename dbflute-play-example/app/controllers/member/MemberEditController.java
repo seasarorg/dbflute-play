@@ -93,7 +93,6 @@ public class MemberEditController extends Controller {
         return ok(views.html.member.memberEdit.render(form, memberStatusMap, member));
     }
 
-    //    @Execute(validator = true, input = "index.jsp")
     public Result doUpdate(final Integer memberId) {
         final Form<MemberForm> form = Form.form(MemberForm.class, DoUpdate.class).bindFromRequest();
         // 押下されたsubmitボタンを判断する
