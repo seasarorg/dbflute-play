@@ -1,5 +1,8 @@
 package com.example.dbflute.sastruts.web.member;
 
+import java.util.Date;
+
+import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.Required;
 
 import com.example.dbflute.sastruts.web.DoCreate;
@@ -21,8 +24,8 @@ public class MemberForm {
     @Required(groups = { DoCreate.class, DoUpdate.class })
     public String memberStatusCode;
 
-    //    @DateType(datePatternStrict = "yyyy/MM/dd", msg = @Msg(key = "errors.date", resource = true), arg0 = @Arg(key = "生年月日", resource = false))
-    public String birthdate;
+    @DateTime(pattern = "yyyy/MM/dd")
+    public Date birthdate;
 
     public String formalizedDate;
 

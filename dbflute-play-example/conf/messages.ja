@@ -1,4 +1,6 @@
 error.required = 入力してください。
+error.invalid.java.util.Date=日付形式で入力してください。
+
 memberName=会員名
 birthdate=誕生日
 memberAccount=会員アカウント

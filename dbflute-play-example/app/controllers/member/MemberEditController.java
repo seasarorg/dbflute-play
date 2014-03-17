@@ -79,7 +79,7 @@ public class MemberEditController extends Controller {
         memberForm.memberStatusCode = member.getMemberStatusCode();
         // 日付フォーマットのやり方はアプリによって色々かと by jflute
         final String ymd = "yyyy/MM/dd";
-        memberForm.birthdate = DfTypeUtil.toString(member.getBirthdate(), ymd);
+        memberForm.birthdate = member.getBirthdate();
         memberForm.formalizedDate = DfTypeUtil.toString(member.getFormalizedDatetime(), ymd);
         final String ymdhms = "yyyy/MM/dd HH:mm:ss";
         memberForm.latestLoginDatetime = DfTypeUtil.toString(member.getLatestLoginDatetime(), ymdhms);
