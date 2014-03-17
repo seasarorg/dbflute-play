@@ -15,7 +15,7 @@ import play.mvc.Controller;
 
 public class ControllerAspectCustomizer extends AspectCustomizer {
 
-    private final Pointcut pointcut = new ActionMethodPointcut();
+    private final Pointcut pointcut = new ControllerPointcut();
 
     @Override
     public void setPointcut(final String pointcut) {
@@ -30,10 +30,9 @@ public class ControllerAspectCustomizer extends AspectCustomizer {
     /*
      * Controllerサブクラスで、getter/setter以外のメソッドを対象とする。
      */
-    private static class ActionMethodPointcut implements Pointcut {
+    private static class ControllerPointcut implements Pointcut {
 
-        private static final Logger logger = LoggerFactory
-                .getLogger(ControllerAspectCustomizer.ActionMethodPointcut.class);
+        private static final Logger logger = LoggerFactory.getLogger(ControllerPointcut.class);
 
         /*
          * ここに渡されるメソッドは、publicのみ。
