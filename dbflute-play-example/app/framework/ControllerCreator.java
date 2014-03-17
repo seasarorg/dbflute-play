@@ -22,6 +22,11 @@ public class ControllerCreator extends ComponentCreatorImpl {
             /*
              * playが生成するControllerではないクラス
              * (routesやReverseXxxxController)を除外する
+             * 
+             * controllers.member.MemberListController に対してplayが生成するのは3クラス
+             * - controllers.member.javascript.ReverseMemberListController
+             * - controllers.member.ref.ReverseMemberListController
+             * - controllers.member.ReverseMemberListController
              */
             return null;
         }
