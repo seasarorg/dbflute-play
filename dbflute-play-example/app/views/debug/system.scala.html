@@ -1,0 +1,18 @@
+@(map: Map[String, String])
+
+@main("system") {
+
+	<h1>Debug</h1>
+	<h2>system properties</h2>
+	<table>
+		<tr>
+			<th>key</th><th>value</th>
+		</tr>
+	@for(v <- map) {
+		<tr>
+			<td>@v._1</td><td>@v._2</td>
+		</tr>
+	}
+	</table>
+
+}

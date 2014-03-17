@@ -76,6 +76,32 @@ public class DebugController extends Controller {
         return ret;
     }
 
+    public Result system() {
+        final Map<String, String> map = new TreeMap<String, String>();
+        final Map properties = System.getProperties();
+        for (Map.Entry<String, String> entry : (Set<Map.Entry<String, String>>) properties.entrySet()) {
+            final String key = entry.getKey();
+            final String value = entry.getValue();
+            if (Strings.isNullOrEmpty(value)) {
+                map.put(key, "(empty)");
+            } else {
+                StringBuilder sb = new StringBuilder();
+                final char[] chars = value.toCharArray();
+                for (char c : chars) {
+                    if (Character.isISOControl(c)) {
+                        sb.append(String.format("(0x%02X)", (int) c));
+                    } else {
+                        sb.append(c);
+                    }
+                }
+                map.put(key, sb.toString());
+            }
+        }
+
+        final Status ret = ok(views.html.debug.system.render(map));
+        return ret;
+    }
+
     private void collectJars(final Set<URL> versions) throws IOException {
         final ClassLoader cl = Thread.currentThread().getContextClassLoader();
         final Enumeration<URL> resources = cl.getResources(CL_MANIFEST_PATH);
