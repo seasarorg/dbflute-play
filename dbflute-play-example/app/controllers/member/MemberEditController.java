@@ -74,7 +74,6 @@ public class MemberEditController extends Controller {
         // = = = = = = = = = =/
         final Member member = selectMember(Integer.valueOf(memberId));
         final MemberForm memberForm = new MemberForm();
-        memberForm.memberId = member.getMemberId().toString();
         memberForm.memberName = member.getMemberName();
         memberForm.memberAccount = member.getMemberAccount();
         memberForm.memberStatusCode = member.getMemberStatusCode();

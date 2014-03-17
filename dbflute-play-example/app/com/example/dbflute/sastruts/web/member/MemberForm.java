@@ -12,9 +12,6 @@ import com.example.dbflute.sastruts.web.DoUpdate;
  */
 public class MemberForm {
 
-    //    @Required(target = "doUpdate, doDelete")
-    public String memberId;
-
     //    @Required(arg0 = @Arg(key = "会員名", resource = false))
     @Required(groups = { DoCreate.class, DoUpdate.class })
     public String memberName;
