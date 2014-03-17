@@ -139,19 +139,35 @@ public class DebugController extends Controller {
 
         private String name;
         private final Manifest manifest;
-        private Attributes attributes;
+        private final Attributes attributes;
         private String path;
-        private String text;
+        private final String text;
+        private String version;
 
         public ManifestEntry(final Manifest manifest) throws IOException {
             this.manifest = manifest;
             this.attributes = manifest.getMainAttributes();
+            this.text = extractBody(manifest);
+            this.version = extractVersion(attributes);
+        }
 
+        private String extractBody(final Manifest manifest) throws IOException {
             // MANIFEST本文
             final ByteArrayOutputStream baos = new ByteArrayOutputStream();
             manifest.write(baos);
             final String text = baos.toString("UTF-8");
-            this.text = text;
+            return text;
+        }
+
+        private String extractVersion(Attributes attributes) {
+            final String implVersion = attributes.getValue(Attributes.Name.IMPLEMENTATION_VERSION);
+            if (!Strings.isNullOrEmpty(implVersion)) {
+                return implVersion;
+            }
+            // OSGi
+            final String bundleVersion = attributes.getValue("Bundle-Version");
+            return bundleVersion;
+
         }
 
         public String getPath() {
@@ -171,13 +187,11 @@ public class DebugController extends Controller {
         }
 
         public String getVersion() {
-            final String implVersion = attributes.getValue(Attributes.Name.IMPLEMENTATION_VERSION);
-            if (!Strings.isNullOrEmpty(implVersion)) {
-                return implVersion;
-            }
-            // OSGi
-            final String bundleVersion = attributes.getValue("Bundle-Version");
-            return bundleVersion;
+            return version;
+        }
+
+        public void setVersion(String version) {
+            this.version = version;
         }
 
         public String getText() {
