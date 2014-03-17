@@ -23,15 +23,15 @@ memberStatusMap: Map[String, String]
 		}
 		<table>
 			<tr>
-				<td>会員名</td>
+				<td>@Messages("memberName")</td>
 				<td><input type="text" name="memberName" value="@form("memberName").value" /></td>
 			</tr>
 			<tr>
-				<td>誕生日</td>
+				<td>@Messages("birthdate")</td>
 				<td><input type="text" name="birthdate" value="@form("birthdate").value" /></td>
 			</tr>
 			<tr>
-				<td>会員ステータス</td>
+				<td>@Messages("memberStatusCode")</td>
 				<td>
 					<select name="memberStatusCode">
 						@for(status <- memberStatusMap){
@@ -41,7 +41,7 @@ memberStatusMap: Map[String, String]
 				</td>
 			</tr>
 			<tr>
-				<td>会員アカウント</td>
+				<td>@Messages("memberAccount")</td>
 				<td><input type="text" name="memberAccount" value="@form("memberAccount").value" /></td>
 			</tr>
 		</table>
