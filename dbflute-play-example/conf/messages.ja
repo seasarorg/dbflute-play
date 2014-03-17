@@ -5,3 +5,7 @@ memberName=会員名
 birthdate=誕生日
 memberAccount=会員アカウント
 memberStatusCode=会員ステータス
+formalizedDate=正式会員日
+
+latestLoginDatetime=最終ログイン日時
+updateDatetime=更新日時
