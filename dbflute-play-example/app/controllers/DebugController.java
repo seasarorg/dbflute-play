@@ -27,11 +27,15 @@ import org.seasar.framework.container.annotation.tiger.BindingType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import play.Application;
+import play.Configuration;
+import play.Play;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import com.google.common.base.Strings;
 import com.google.common.io.Closer;
+import com.typesafe.config.ConfigValue;
 
 public class DebugController extends Controller {
 
@@ -86,6 +90,24 @@ public class DebugController extends Controller {
         toMap(getenv, envs);
 
         final Status ret = ok(views.html.debug.system.render(props, envs));
+        return ret;
+    }
+
+    public Result play1() throws IOException {
+        final Application application = Play.application();
+        final Map<String, String> props = new TreeMap<String, String>();
+        props.put("mode", application.getWrappedApplication().mode().toString());
+        props.put("path", application.path().getCanonicalPath());
+
+        final Map<String, String> configs = new TreeMap<String, String>();
+        final Configuration configuration = application.configuration();
+        Set<Map.Entry<String, ConfigValue>> keys = configuration.entrySet();
+        for (final Map.Entry<String, ConfigValue> entry : keys) {
+            final ConfigValue value = entry.getValue();
+            configs.put(entry.getKey(), value.render());
+        }
+
+        final Status ret = ok(views.html.debug.play1.render(props, configs));
         return ret;
     }
 

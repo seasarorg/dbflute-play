@@ -18,6 +18,7 @@ POST   /member/purchase/:memberId/:purchaseId        @controllers.member.purchas
 GET    /debug                                        @controllers.DebugController.index()
 GET    /debug/jars                                   @controllers.DebugController.jars()
 GET    /debug/system                                 @controllers.DebugController.system()
+GET    /debug/play                                   @controllers.DebugController.play1()
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                                 controllers.Assets.at(path="/public", file)

@@ -1,0 +1,32 @@
+@(props: Map[String, String],
+configs: Map[String, String])
+
+@main("play") {
+
+	<h1>Debug</h1>
+	<h2>play</h2>
+	<table>
+		<tr>
+			<th>key</th><th>value</th>
+		</tr>
+	@for(v <- props) {
+		<tr>
+			<td>@v._1</td><td>@v._2</td>
+		</tr>
+	}
+	</table>
+
+	<h2>configs</h2>
+	<table>
+		<tr>
+			<th>key</th><th>value</th>
+		</tr>
+	@for(v <- configs) {
+		<tr>
+			<td>@v._1</td><td>@v._2</td>
+		</tr>
+	}
+	</table>
+
+
+}
