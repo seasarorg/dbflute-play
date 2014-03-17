@@ -16,6 +16,7 @@ GET    /member/purchase/list/:memberId/:pageNumber   @controllers.member.purchas
 POST   /member/purchase/:memberId/:purchaseId        @controllers.member.purchase.MemberPurchaseListController.doDelete(memberId: Integer, purchaseId: Long)
 
 GET    /debug                                        @controllers.DebugController.index()
+GET    /debug/jars                                   @controllers.DebugController.jars()
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                                 controllers.Assets.at(path="/public", file)

@@ -1,0 +1,15 @@
+@(map: Map[String, String])
+
+@main("jars") {
+
+	<h1>Debug</h1>
+	<h2>jars</h2>
+	<table>
+	@for(v <- map) {
+		<tr>
+			<th>@v._1</th><td>@v._2</td>
+		</tr>
+	}
+	</table>
+
+}
