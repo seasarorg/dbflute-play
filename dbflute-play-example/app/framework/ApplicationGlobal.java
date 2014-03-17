@@ -75,6 +75,7 @@ public class ApplicationGlobal extends GlobalSettings {
     public Action onRequest(final Request request, final Method actionMethod) {
         // 1始まりの通番
         final long reqCount = requestCounter.incrementAndGet();
+        final long begin = System.currentTimeMillis();
         if (logger.isDebugEnabled()) {
             final String sb = toString(request);
             logger.debug(String.format("[%s] BEGIN: request={%s}\n  action=%s\n  %s", reqCount, request, actionMethod,
@@ -82,7 +83,7 @@ public class ApplicationGlobal extends GlobalSettings {
         }
 
         final Action origAction = super.onRequest(request, actionMethod);
-        final AppAction appAction = new AppAction(reqCount, request, actionMethod);
+        final AppAction appAction = new AppAction(reqCount, request, actionMethod, begin);
         //dbFluteAction.delegate = origAction;
         //appAction.delegate = dbFluteAction;
         // delegateはplayによって設定されるようだ。
@@ -127,11 +128,13 @@ public class ApplicationGlobal extends GlobalSettings {
         private final long reqCount;
         private final Request request;
         private final Method actionMethod;
+        private final long begin;
 
-        public AppAction(long reqCount, final Request request, final Method actionMethod) {
+        public AppAction(long reqCount, final Request request, final Method actionMethod, long begin) {
             this.reqCount = reqCount;
             this.request = request;
             this.actionMethod = actionMethod;
+            this.begin = begin;
         }
 
         @Override
@@ -148,8 +151,9 @@ public class ApplicationGlobal extends GlobalSettings {
                 success = true;
                 return result;
             } finally {
+                final long end = System.currentTimeMillis();
                 final String ret = success ? "Success" : "Failure";
-                logger.debug(String.format("[%s] END: %s, args=%s", reqCount, ret, ctx.args));
+                logger.debug(String.format("[%s] END: %s, %sms, args=%s", reqCount, ret, (end - begin), ctx.args));
             }
         }
 
