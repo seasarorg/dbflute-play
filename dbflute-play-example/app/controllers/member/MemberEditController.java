@@ -128,8 +128,13 @@ public class MemberEditController extends Controller {
         }
         member.setVersionNo(Long.valueOf(memberForm.versionNo));
         memberBhv.update(member);
-        flash("success", String.format("会員[%s (ID:%s)]を更新しました", member.getMemberName(), member.getMemberId()));
-        return redirect(controllers.member.routes.MemberEditController.index(memberId));
+        if (member.isMemberStatusCode退会会員()) {
+            // 退会の場合は「強制退会」ボタンと遷移を同じにする
+            return withdrawalCompleted(member);
+        } else {
+            flash("success", String.format("会員[%s (ID:%s)]を更新しました", member.getMemberName(), member.getMemberId()));
+            return redirect(controllers.member.routes.MemberEditController.index(memberId));
+        }
     }
 
     private Result doDelete(final Integer memberId) {
@@ -140,6 +145,10 @@ public class MemberEditController extends Controller {
         member.setMemberStatusCode_退会会員();
         member.setVersionNo(Long.valueOf(memberForm.versionNo));
         memberBhv.update(member);
+        return withdrawalCompleted(member);
+    }
+
+    private Result withdrawalCompleted(final Member member) {
         flash("success", String.format("会員[%s (ID:%s)]を退会しました", member.getMemberName(), member.getMemberId()));
         return redirect(controllers.member.routes.MemberListController.index());
     }
