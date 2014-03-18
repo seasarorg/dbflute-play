@@ -5,6 +5,22 @@ envs: Map[String, String]
 @main("system") {
 
 	<h1>Debug</h1>
+	<h2>env</h2>
+	<table>
+		<tr>
+			<th>key</th><th>value</th>
+		</tr>
+		<tr>
+			<td>datetime</td><td>@(new org.joda.time.DateTime())</td>
+		</tr>
+		<tr>
+			<td>Locale.getDefault()</td><td>@java.util.Locale.getDefault()</td>
+		</tr>
+		<tr>
+			<td>TimeZone.getDefault()</td><td>@java.util.TimeZone.getDefault()</td>
+		</tr>
+	</table>
+
 	<h2>system properties</h2>
 	<table>
 		<tr>
