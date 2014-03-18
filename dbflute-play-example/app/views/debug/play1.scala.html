@@ -1,5 +1,7 @@
 @(props: Map[String, String],
-configs: Map[String, String])
+configs: Map[String, String],
+plugins: Seq[play.api.Plugin] 
+)
 
 @main("play") {
 
@@ -12,6 +14,18 @@ configs: Map[String, String])
 	@for(v <- props) {
 		<tr>
 			<td>@v._1</td><td>@v._2</td>
+		</tr>
+	}
+	</table>
+
+	<h2>plugins</h2>
+	<table>
+		<tr>
+			<th>class</th><th>enabled</th>
+		</tr>
+	@for(v <- plugins) {
+		<tr>
+			<td>@v.getClass().getName()</td><td>@v.enabled</td>
 		</tr>
 	}
 	</table>

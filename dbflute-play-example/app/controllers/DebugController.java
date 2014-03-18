@@ -107,7 +107,13 @@ public class DebugController extends Controller {
             configs.put(entry.getKey(), value.render());
         }
 
-        final Status ret = ok(views.html.debug.play1.render(props, configs));
+        scala.collection.Seq<play.api.Plugin> plugins = application.getWrappedApplication().plugins();
+        // java側でscalaのループを回すのは手間なので、scalaテンプレート側で扱う
+        //        for (final play.api.Plugin plugin : plugins) {
+        //
+        //        }
+
+        final Status ret = ok(views.html.debug.play1.render(props, configs, plugins));
         return ret;
     }
 
