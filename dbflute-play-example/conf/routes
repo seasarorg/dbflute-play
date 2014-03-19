@@ -19,6 +19,7 @@ GET    /debug                                        @controllers.DebugControlle
 GET    /debug/jars                                   @controllers.DebugController.jars()
 GET    /debug/system                                 @controllers.DebugController.system()
 GET    /debug/play                                   @controllers.DebugController.play1()
+GET    /debug/database                               @controllers.DebugController.database()
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                                 controllers.Assets.at(path="/public", file)
