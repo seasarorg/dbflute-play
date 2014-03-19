@@ -1,4 +1,4 @@
-@(map: Map[String, controllers.DebugController.ManifestEntry])
+@(jars: List[controllers.DebugController.ManifestEntry])
 
 @main("jars") {
 
@@ -6,11 +6,11 @@
 	<h2>jars</h2>
 	<table>
 		<tr>
-			<th>file</th><th>version</th><th>path</th>
+			<th>#</th><th>file</th><th>version</th><th>path</th>
 		</tr>
-	@for(v <- map) {
+	@for((v, i) <- jars.zipWithIndex) {
 		<tr>
-			<td>@v._1</td><td>@v._2.getVersion()</td><td title="@v._2.getText()">@v._2.getPath()</td>
+			<td>@i</td><td>@v.getName()</td><td>@v.getVersion()</td><td title="@v.getText()">@v.getPath()</td>
 		</tr>
 	}
 	</table>

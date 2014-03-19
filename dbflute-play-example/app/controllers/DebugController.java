@@ -7,8 +7,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -83,13 +85,20 @@ public class DebugController extends Controller {
     public Result jars() throws IOException {
         final Map<String, ManifestEntry> map = new TreeMap<String, ManifestEntry>();
         final Set<URL> versions = new HashSet<URL>();
+        final List<ManifestEntry> manifests = new ArrayList<ManifestEntry>();
         collectJars(versions);
         for (final URL url : versions) {
             final ManifestEntry m = createManifestEntry(url);
             map.put(m.getName(), m);
         }
+        /*
+         * TreeMapをzipWithIndexに掛けたらindex順に並ばなかったので、Listで扱うようにした。
+         */
+        for (final ManifestEntry m : map.values()) {
+            manifests.add(m);
+        }
 
-        final Status ret = ok(views.html.debug.jars.render(map));
+        final Status ret = ok(views.html.debug.jars.render(manifests));
         return ret;
     }
 
