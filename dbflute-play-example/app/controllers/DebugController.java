@@ -112,12 +112,23 @@ public class DebugController extends Controller {
         props.put("mode", application.getWrappedApplication().mode().toString());
         props.put("path", application.path().getCanonicalPath());
 
+        /*
+         * ConfigurationにはSystem.propertyも含まれている。
+         * ここではplay側の情報に興味があるので、分離して表示する。
+         */
         final Map<String, String> configs = new TreeMap<String, String>();
+        final Map<String, String> systemConfigs = new TreeMap<String, String>();
         final Configuration configuration = application.configuration();
         Set<Map.Entry<String, ConfigValue>> keys = configuration.entrySet();
         for (final Map.Entry<String, ConfigValue> entry : keys) {
-            final ConfigValue value = entry.getValue();
-            configs.put(entry.getKey(), value.render());
+            final String key = entry.getKey();
+            final ConfigValue configValue = entry.getValue();
+            final String value = configValue.render();
+            if (Strings.isNullOrEmpty(System.getProperty(key))) {
+                configs.put(key, value);
+            } else {
+                systemConfigs.put(key, value);
+            }
         }
 
         scala.collection.Seq<play.api.Plugin> plugins = application.getWrappedApplication().plugins();
@@ -126,7 +137,7 @@ public class DebugController extends Controller {
         //
         //        }
 
-        final Status ret = ok(views.html.debug.play1.render(props, configs, plugins));
+        final Status ret = ok(views.html.debug.play1.render(props, configs, systemConfigs, plugins));
         return ret;
     }
 
