@@ -2,9 +2,9 @@
 
 @main("debug") {
 
-	<h1>Debug</h1>
+@header()
 	
-	<h2>menu</h2>
+	<h2>Debug menu</h2>
 	<ul>
 		<li><a href="@controllers.routes.DebugController.request1">Request</a></li>
 		<li><a href="@controllers.routes.DebugController.system">System</a></li>
@@ -13,4 +13,5 @@
 		<li><a href="@controllers.routes.DebugController.database">Database MetaData</a></li>
 	</ul>
 
+@footer()
 }
