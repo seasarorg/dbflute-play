@@ -6,49 +6,11 @@
 	
 	<h2>menu</h2>
 	<ul>
+		<li><a href="@controllers.routes.DebugController.request1">Request</a></li>
 		<li><a href="@controllers.routes.DebugController.system">System</a></li>
 		<li><a href="@controllers.routes.DebugController.play1">Play</a></li>
 		<li><a href="@controllers.routes.DebugController.jars">jars</a></li>
 		<li><a href="@controllers.routes.DebugController.database">Database MetaData</a></li>
 	</ul>
-	
-	<h2>request</h2>
-	<table>
-		<tr>
-			<th>request class</th><td>@request.getClass()</td>
-		</tr>
-		<tr>
-			<th>uri</th><td>@request.uri()</td>
-		</tr>
-		<tr>
-			<th>method</th><td>@request.method()</td>
-		</tr>
-		<tr>
-			<th>version</th><td>@request.version()</td>
-		</tr>
-		<tr>
-			<th>host</th><td>@request.host()</td>
-		</tr>
-		<tr>
-			<th>path</th><td>@request.path()</td>
-		</tr>
-		<tr>
-			<th>remoteAddress</th><td>@request.remoteAddress()</td>
-		</tr>
-		<tr>
-			<th>acceptLanguages</th><td>@request.acceptLanguages()</td>
-		</tr>
-	</table>
-
-	<h2>request headers</h2>
-	<table>
-	@defining(request.headers()) { headers =>
-		@for(header <- headers) {
-			<tr>
-				<th>@header._1</th><td>@header._2</td>
-			</tr>
-		}
-	}
-	</table>
 
 }

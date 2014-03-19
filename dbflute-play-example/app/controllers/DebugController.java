@@ -61,6 +61,14 @@ public class DebugController extends Controller {
         return ret;
     }
 
+    /*
+     * メソッド名が"request"だと、親クラスとぶつかるため。
+     */
+    public Result request1() {
+        final Status ret = ok(views.html.debug.request1.render("DEBUG Your new application is ready."));
+        return ret;
+    }
+
     public Result database() {
         final Connection conn = DataSourceUtil.getConnection(dataSource);
         try {
