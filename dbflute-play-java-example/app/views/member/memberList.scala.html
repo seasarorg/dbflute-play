@@ -1,0 +1,108 @@
+@(form: Form[com.example.dbflute.sastruts.web.member.MemberListForm], 
+memberStatusMap: Map[String, String],
+beanList: List[com.example.dbflute.sastruts.web.member.MemberWebBean],
+pagingNavi: com.example.dbflute.sastruts.common.PagingNavi
+)
+
+@formatDate(date: java.util.Date, format1: String) = {
+	@if(date != null) {
+		@date.format(format1)
+	}
+}
+@main("会員一覧") {
+
+@header()
+<div class="contents">
+	<h2>会員一覧</h2>
+	<div class="condition">
+		@helper.form(action = controllers.member.routes.MemberListController.doSearch()) {
+			<table>
+				<tr>
+					<td><label>会員名</label></td>
+					<td>
+					<input type="text" name="memberName" value="@form("memberName").value" />
+					</td>
+				</tr>
+				<tr>
+					<td><label>購入商品名</label></td>
+					<td>
+					@*
+					この2つの書き方は同じ結果になるのかな。
+					前者だとrequestしたform側の値のみが取得できる。
+					後者の書き方だと、Form#fill(model)で渡したmodel側の値も取得できる。Form側の値(form.data)が優先されるようだ。
+					@form.data.get("purchaseProductName")
+					@form("purchaseProductName").value
+					*@
+					<input type="text" name="purchaseProductName" value="@form("purchaseProductName").value" />
+					</td>
+				</tr>
+				<tr>
+					<td><label>会員ステータス</label></td>
+					<td>
+					<select name="memberStatus">
+						@* Mapの要素はscala.Tuple2クラスになるようだ。 *@
+						@for(status <- memberStatusMap){
+							<option value="@status._1" @if(form("memberStatus").value == status._1){selected="selected"}>@status._2</option>
+						}
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td><label>未払いあり</label></td>
+					<td>
+					<input type="checkbox" name="unpaid" value="true" @if(form("unpaid").value == "true"){checked="checked"} />
+					</td>
+				</tr>
+				<tr>
+					<td><label>正式会員日</label></td>
+					<td>
+					<input type="text" name="formalizedDateFrom" value="@form("formalizedDateFrom").value" size="14" />～
+					<input type="text" name="formalizedDateTo" value="@form("formalizedDateTo").value" size="14" />
+					</td>
+				</tr>
+			</table>
+			<input type="submit" name="doSearch" value="検索"></input>
+		}
+	</div>
+	<hr />
+	<a href="@controllers.member.routes.MemberAddController.index">新規登録</a>
+	<table>
+		<thead>
+			<tr>
+				<th>会員ID</th>
+				<th>会員名</th>
+				<th>会員ステータス</th>
+				<th>正式会員日</th>
+				<th>会員更新日時</th>
+				<th>編集</th>
+				<th>購入履歴</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for(bean <- beanList){
+			<tr>
+				<td>@bean.memberId</td>
+				<td>@bean.memberName</td>
+				<td>@bean.memberStatusName</td>
+				<td>@formatDate(bean.formalizedDatetime, "yyyy/MM/dd")</td>
+				<td>@formatDate(bean.updateDatetime, "yyyy/MM/dd HH:mm:ss")</td>
+				<td>
+					@if(bean.withdrawalMember){ 
+						編集不可
+					} else {
+						<a href="@controllers.member.routes.MemberEditController.index(bean.memberId)">編集</a>
+					}
+				</td>
+				<td>
+					@if(0 < bean.purchaseCount){
+						<a href="@controllers.member.purchase.routes.MemberPurchaseListController.index(bean.memberId, 1)">購入履歴</a>
+					}
+				</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+	@pagingNavigation(pagingNavi)
+</div>
+@footer()
+}

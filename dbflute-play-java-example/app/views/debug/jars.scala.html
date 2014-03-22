@@ -1,0 +1,19 @@
+@(jars: List[controllers.DebugController.ManifestEntry])
+
+@main("jars") {
+
+	<h1>Debug</h1>
+	<h2>jars</h2>
+	<table>
+		<tr>
+			<th>#</th><th>file</th><th>version</th><th>path</th>
+		</tr>
+	@for((v, i) <- jars.zipWithIndex) {
+		<tr>
+			<td>@i</td><td>@v.getName()</td><td>@v.getVersion()</td><td title="@v.getText()">@v.getPath()</td>
+		</tr>
+	}
+	</table>
+
+@debugFooter()
+}

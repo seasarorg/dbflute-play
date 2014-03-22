@@ -1,0 +1,26 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET    /                                             @controllers.RootController.index()
+GET    /member/list/                                 @controllers.member.MemberListController.index()
+GET    /member/list/:pageNumber/                     @controllers.member.MemberListController.paging(pageNumber: Integer)
+POST   /member/list/                                 @controllers.member.MemberListController.doSearch()
+GET    /member/edit/:memberId                        @controllers.member.MemberEditController.index(memberId: Integer)
+POST   /member/edit/:memberId                        @controllers.member.MemberEditController.doUpdate(memberId: Integer)
+GET    /member/add/                                  @controllers.member.MemberAddController.index()
+POST   /member/add/                                  @controllers.member.MemberAddController.doAdd()
+
+GET    /member/purchase/list/:memberId/:pageNumber   @controllers.member.purchase.MemberPurchaseListController.index(memberId: Integer, pageNumber: Integer)
+POST   /member/purchase/:memberId/:purchaseId        @controllers.member.purchase.MemberPurchaseListController.doDelete(memberId: Integer, purchaseId: Long)
+
+GET    /debug                                        @controllers.DebugController.index()
+GET    /debug/request                                @controllers.DebugController.request1()
+GET    /debug/jars                                   @controllers.DebugController.jars()
+GET    /debug/system                                 @controllers.DebugController.system()
+GET    /debug/play                                   @controllers.DebugController.play1()
+GET    /debug/database                               @controllers.DebugController.database()
+
+# Map static resources from the /public folder to the /assets URL path
+GET    /assets/*file                                 controllers.Assets.at(path="/public", file)

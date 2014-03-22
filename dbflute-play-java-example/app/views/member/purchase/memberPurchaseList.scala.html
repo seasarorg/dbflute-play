@@ -1,0 +1,60 @@
+@(member: com.example.dbflute.sastruts.dbflute.exentity.Member,
+beanList: List[com.example.dbflute.sastruts.web.member.purchase.MemberPurchaseWebBean],
+pagingNavi: com.example.dbflute.sastruts.common.PagingNavi
+)
+
+@main("会員購入一覧") {
+
+@header()
+<div class="contents">
+	<h2>会員購入一覧</h2>
+	@*
+	<html:errors/>
+	*@
+	<div class="condition">
+		<table>
+			<tr>
+				<td>会員ID</td>
+				<td>@member.getMemberId()</td>
+			</tr>
+			<tr>
+				<td>会員名</td>
+				<td>@member.getMemberName()</td>
+			</tr>
+		</table>
+	</div>
+	<table>
+		<thead>
+			<tr>
+				<th>購入日時</th>
+				<th>商品名</th>
+				<th>商品価格</th>
+				<th>商品数量</th>
+				<th>支払状態</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for((bean, i) <- beanList.zipWithIndex) {
+				<tr id="row" style="background-color: @if(i % 2 == 0) {#AACCEE} else {#EECCAA};">
+					<td>@bean.purchaseDatetime</td>
+					<td>@bean.productName</td>
+					<td style="text-align: right;">@bean.purchasePrice</td>
+					<td style="text-align: right;">@bean.purchaseCount</td>
+					<td>@if(bean.paymentComplete) {支払済} else {未払い}</td>
+					<td>
+					@helper.form(action = controllers.member.purchase.routes.MemberPurchaseListController.doDelete(member.getMemberId(), bean.purchaseId)) {
+						<input type="submit" name="doDelete" value="削除" />
+					}
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	@pagingNavigation(pagingNavi)
+	<div class="listback">
+		<a href="@controllers.member.routes.MemberListController.index">会員一覧へ</a>
+	</div>
+</div>
+@footer()
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+    "http://www.seasar.org/dtd/components21.dtd">
+
+<components namespace="dbflute">
+    <include path="j2ee.dicon"/>
+
+    <!-- The components of DBFlute Runtime. -->
+    <component name="introduction" class="com.example.dbflute.sastruts.dbflute.allcommon.DBFluteInitializer"/>
+    <component name="invokerAssistant" class="com.example.dbflute.sastruts.dbflute.allcommon.ImplementedInvokerAssistant"/>
+    <component name="commonColumnAutoSetupper" class="com.example.dbflute.sastruts.dbflute.allcommon.ImplementedCommonColumnAutoSetupper"/>
+    <component name="behaviorSelector" class="com.example.dbflute.sastruts.dbflute.allcommon.ImplementedBehaviorSelector"/>
+    <component name="behaviorCommandInvoker" class="org.seasar.dbflute.bhv.core.BehaviorCommandInvoker"/>
+
+    <!-- The components of Behavior. -->
+    <component name="memberBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.MemberBhv"/>
+    <component name="memberAddressBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.MemberAddressBhv"/>
+    <component name="memberLoginBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.MemberLoginBhv"/>
+    <component name="memberSecurityBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.MemberSecurityBhv"/>
+    <component name="memberServiceBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.MemberServiceBhv"/>
+    <component name="memberStatusBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.MemberStatusBhv"/>
+    <component name="memberWithdrawalBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.MemberWithdrawalBhv"/>
+    <component name="productBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.ProductBhv"/>
+    <component name="productCategoryBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.ProductCategoryBhv"/>
+    <component name="productStatusBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.ProductStatusBhv"/>
+    <component name="purchaseBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.PurchaseBhv"/>
+    <component name="regionBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.RegionBhv"/>
+    <component name="serviceRankBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.ServiceRankBhv"/>
+    <component name="summaryProductBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.SummaryProductBhv"/>
+    <component name="summaryWithdrawalBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.SummaryWithdrawalBhv"/>
+    <component name="withdrawalReasonBhv" class="com.example.dbflute.sastruts.dbflute.exbhv.WithdrawalReasonBhv"/>
+</components>

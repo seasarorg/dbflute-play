@@ -1,0 +1,20 @@
+@(pagingNavi: com.example.dbflute.sastruts.common.PagingNavi)
+@if(pagingNavi.displayPagingNavi) {
+<div class="paging-navi">
+	検索結果@(pagingNavi.allRecordCount)件
+	@if(pagingNavi.existPrePage){
+		<a href="@pagingNavi.prePageLinkHref">前へ</a>
+	}
+	@for(links <- pagingNavi.pageNumberLinkList){
+		@if(links.isCurrent()){
+			<span id="pageNumberElement">@links.getPageNumberElement()</span>
+		} else {
+			<span id="pageNumberElement"><a href="@links.getPageNumberLinkHref()">@links.getPageNumberElement()</a></span>
+		}
+	}
+	[@pagingNavi.currentPageNumber/@pagingNavi.allPageCount]
+	@if(pagingNavi.existNextPage){
+		<a href="@pagingNavi.nextPageLinkHref">次へ</a>
+	}
+</div>
+}
