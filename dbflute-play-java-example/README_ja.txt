@@ -41,9 +41,14 @@ dbflute-play-java-example
  |  |  |  |-samples
  |  |  |  |-play
  |  |  |  |-...
- |  |-play.sh // すると、この sh が使えるようになる
- |  |-sbt.sh
+ |  |  |
+ |  |  |-sbt // (sbtを利用するなら)
+ |  |  |  |-sbt-launch.jar
+ |  |  |
  |-mydbflute
+ |-script
+ |  |-play.sh // すると、この sh が使えるようになる
+ |  |-sbt.sh  // (sbt-launch.jarがあれば使えるようになる)
  |-...
 
 すると、play.sh を使って play コマンドが叩けるようになります。
@@ -56,6 +61,9 @@ e.g.
   $ export PLAY_HOME=${HOME}/java/play-2.2.2
   $ PATH=${PLAY_HOME}:${PATH}
   $ export PATH
+
+※また、sbtを利用する場合は、tools配下に sbt/sbt-launch.jar を置けば、
+sbt.sh が使って sbt コマンドが叩けるようになります。
 
 
 2. まずは画面を起動してみましょう
@@ -105,6 +113,13 @@ play.sh を叩いて play の対話モードにして、
 
 すると、.classpathが自動生成され、Eclipse上でコンパイルできるようになります。
 (Eclipse上で F5 をしましょう)
+
+もし、routesクラスでコンパイルエラーになるようであれば、
+(手動修正で) .classpath に target/scala-2.10/classes に対する path を追加してください。
+
+path="[...]/dbflute-play/dbflute-play-java-example/target/scala-2.10/classes"
+
+既に追加されているはずの classes_managed の行をコピーして、classes_managed を classes に修正でもOKです。
 
 
 4. 必要に応じて、Scala IDE プラグインをインストール

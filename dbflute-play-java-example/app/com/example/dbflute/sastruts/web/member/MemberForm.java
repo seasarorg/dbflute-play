@@ -10,8 +10,7 @@ import com.example.dbflute.sastruts.web.DoDelete;
 import com.example.dbflute.sastruts.web.DoUpdate;
 
 /**
- * @author mokkouyou (initial making)
- * @author jflute (extends it)
+ * @author jflute (modifies contributed source)
  */
 public class MemberForm {
 

@@ -39,8 +39,7 @@ import com.example.dbflute.sastruts.web.member.purchase.MemberPurchaseListForm;
 import com.example.dbflute.sastruts.web.member.purchase.MemberPurchaseWebBean;
 
 /**
- * @author mokkouyou (initial making)
- * @author jflute (extends it)
+ * @author jflute (modifies contributed source)
  */
 public class MemberPurchaseListController extends Controller {
 

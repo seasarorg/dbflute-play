@@ -16,13 +16,9 @@
 package com.example.dbflute.sastruts.web.member;
 
 import java.io.Serializable;
-//import org.seasar.struts.annotation.Arg;
-//import org.seasar.struts.annotation.DateType;
-//import org.seasar.struts.annotation.Msg;
 
 /**
- * @author mokkouyou (initial making)
- * @author jflute (extends it)
+ * @author jflute (modifies contributed source)
  */
 public class MemberListForm implements Serializable {
 

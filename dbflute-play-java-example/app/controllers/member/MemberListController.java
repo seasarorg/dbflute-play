@@ -50,8 +50,7 @@ import framework.UserSession;
 
 /**
  * 会員一覧アクション。
- * @author mokkouyou (initial making)
- * @author jflute (extends it)
+ * @author jflute (modifies contributed source)
  */
 public class MemberListController extends Controller {
 

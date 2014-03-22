@@ -1,5 +1,5 @@
 put play and sbt here
-and you can play.sh and sbt.sh
+and you can play.sh and sbt.sh in the 'script' directory
 
 like this:
 
@@ -10,4 +10,6 @@ tools
  |  |-samples
  |  |-play
  |  |-...
- |-sbt-launch.jar
+ |
+ |-sbt
+ |  |-sbt-launch.jar

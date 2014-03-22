@@ -39,8 +39,7 @@ import com.example.dbflute.sastruts.web.member.MemberForm;
 
 /**
  * 会員追加アクション。
- * @author mokkouyou (initial making)
- * @author jflute (extends it)
+ * @author jflute (modifies contributed source)
  */
 public class MemberAddController extends Controller {
 
