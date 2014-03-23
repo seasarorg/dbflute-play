@@ -2,99 +2,156 @@
 # ========================================================================================
 #                                                                                 Overview
 #                                                                                 ========
-SAStruts と DBFlute を組み合わせた Example プロジェクトです。
+Play (Java) と DBFlute を組み合わせた Example プロジェクトです。
 
-このExampleには以下の目的があります：
-  o WEBアプリ(SAStruts)におけるDBFluteの利用イメージを掴んでもらう
-  o ちょっとした検証などが可能な環境の提供
-  o 実際にSAStrutsを利用するときの環境構築の土台
-   -> 詳しくは "Application Use" の欄をご覧下さい 
+o playのバージョンは2.2.2です。javaは1.7, 1.8で動くと思います。
+o DIContainerとしてSeasar2を使用しています。
+o Play本体のDBまわりの機構(BoneCP, Ebean)は使用していません。
+o DataSourceはSeasar2を使用しています。(play-java標準ではBoneCP)
+o トランザクション制御にはSeasar2を使用しています。(play-java標準ではEbean)
+o DBアクセスにはDBFluteを使用しています。(play-java標準ではEbean)
+o トランザクション境界はControllerのメソッドです。
+  (play-java標準では@play.db.ebean.TransactionalアノテーションをControllerに付けるとトランザクション境界になります。
+  もしくは直にEbeanのメソッドを呼ぶ)
+
+TODO まだできていないこと:
+
+Controllerから例外が上がるとrollbackになりますが、
+それではplayのシステムエラー画面に遷移してしまうので、
+rollbackしつつ任意の遷移を可能にしたいです。
+
+Controllerで非同期処理した場合のトランザクション処理について。
+(TransactionがThreadLocalに紐付いているため、Threadが別れるとトランザクションを制御できなくなってしまいます。)
 
 
 # ========================================================================================
 #                                                                              Environment
 #                                                                              ===========
 # ----------------------------------------------------------
-#                                             Source Compile
-#                                             --------------
-Maven管理されていますので、動作させるためには M2E などを用意してください。
+#                                               Precondition
+#                                               ------------
+環境構築は、Eclipseを前提としています。
+(他のIDEでも利用できるかと思いますが、特に手順はありません)
+
+Eclipse の .project ファイルはコミットされているので Git から clone して、
+そのまま Eclipse で認識できますが、.classpath は Play で生成する必要があります。
+ただ、アプリの起動は、Eclipse上でのコンパイルは関係ないので play コマンドから実行できます。
+
+一方で、データベースは、H2 Database を利用しているので、特に準備は不要です。
 
 # ----------------------------------------------------------
-#                                                   Database
-#                                                   --------
-データベースは、H2 Database を組み込みで利用しているため、特に準備せずに利用できます。
-(データベースのデータファイルは src/main/resources/exampledb に配置されています)
+#                                                 Setup Flow
+#                                                 ----------
+1. etc/tools/の下に Play を配置
 
-# ----------------------------------------------------------
-#                                                   Web Boot
-#                                                   --------
-Run Jetty Run プグラインを利用します。(Eclipse Marketplace からインストール可能)
-Eclipseプロジェクトを選択して右クリックして "Run as" - "Run Jetty" を選択、
-これで、以下のURLでアクセスすると画面を動かすことができます。
+Play のバージョンは 2.2.2 です。
 
- http://localhost:8080/sastruts/
+http://downloads.typesafe.com/play/2.2.2/play-2.2.2.zip
+をダウンロードして、以下のように配置してください。
 
-以降は、ツールバーの Launch ボタン (緑丸に右">"マーク) を押すだけで再起動します。
-細かい起動設定は、Run as Configurations... から調整できます。
+dbflute-play-java-example
+ |-dbflute_exampledb
+ |-etc
+ |  |-license
+ |  |-tools
+ |  |  |-play // *here
+ |  |  |  |-framework
+ |  |  |  |-repository
+ |  |  |  |-samples
+ |  |  |  |-play
+ |  |  |  |-...
+ |  |  |
+ |  |  |-sbt // (sbtを利用するなら)
+ |  |  |  |-sbt-launch.jar
+ |  |  |
+ |-mydbflute
+ |-script
+ |  |-play.sh // すると、この sh が使えるようになる
+ |  |-sbt.sh  // (sbt-launch.jarがあれば使えるようになる)
+ |-...
 
-※jetty-web.xml の設定で、コンテキスト名が sastruts となる
+すると、play.sh を使って play コマンドが叩けるようになります。
+playディレクトリは、gitignoreになっているのでコミット対象にはなりません。
+
+※もちろん、ローカルPCの任意の場所に Play をインストールして、
+pathを通すやり方でも構いません。
+
+e.g.
+  $ export PLAY_HOME=${HOME}/java/play-2.2.2
+  $ PATH=${PLAY_HOME}:${PATH}
+  $ export PATH
+
+※また、sbtを利用する場合は、tools配下に sbt/sbt-launch.jar を置けば、
+sbt.sh が使って sbt コマンドが叩けるようになります。
 
 
-# ========================================================================================
-#                                                                          Application Use
-#                                                                          ===============
-アプリケーションの環境構築の土台として利用するやり方の手順です。
-この Example プロジェクトをそのまま修正して「自分のプロジェクト用」にしていきます。
+2. まずは画面を起動してみましょう
 
-ここでは、シンプルな「一つのプロジェクト、一つのアプリ」を想定しています。
-また、ひとまずはデータベースをそのまま流用します。
-名前などが一通り自分のプロジェクト用に直しても動く状態から、
-データベースもプロジェクト用にしていく方がやりやすいと思われるためです。
+play.sh を叩くと、playと対話モードになります。
+そこで、run というコマンドを入力して実行してください。
 
-# ----------------------------------------------------------
-#                                                Basic Setup
-#                                                -----------
-このプロジェクトをチェックアウトし、SVN から切断を切る。(SVNメタデータも削除してOK)
-そして、com.example.dbflute.sastruts などの名前をひたすら名前を変更していきます。
+/- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+       _
+ _ __ | | __ _ _  _
+| '_ \| |/ _' | || |
+|  __/|_|\____|\__ /
+|_|            |__/
 
-  o Eclipseプロジェクト名(dbflute-sastruts-example)を修正
-  o src/main/java, src/test/java の com.example.dbflute.sastruts パッケージを一括修正
-     -> リファクタリングは alt + shift + R (alt + command + R in Mac)
-     -> org.dbflute.safluteのパッケージはそのまま (便利なクラスなのでそのまま利用でOK)
-  o convention.dicon のルートパッケージの設定を修正
-  o log4j.properties の domain.name, basedir, application logger などを修正
-  o pom.xml の artifactId, groupId, dependencies などを修正
-  o jetty-web.xml のコンテキスト名を修正
-  o DBFluteクライアント(dbflute_exampledb)配下の exampledb の部分を修正
-  　 -> build.properties, _project.bat, _project.sh
-  o DBFluteクライアントのディレクトリ(dbflute_exampledb)の名前も修正
-  o オープンソース関連ファイルを削除 (LICENSE, NOTICE, README, thanks.txt など)
+play 2.2.2 built with Scala 2.10.3 (running Java 1.7.0_25), http://www.playframework.com
 
-この時点で Jetty で動作させて、想定したURLで画面が動くかどうか確認しましょう。
+> Type "help play" or "license" for more information.
+> Type "exit" or use Ctrl+D to leave this console.
 
-# ----------------------------------------------------------
-#                                                  Genba Fit
-#                                                  ---------
-さて、ここからは現場フィットです。
-DBFluteは、一度削除してから EMecha でインストールし直しても、
-既に存在しているDBFluteを修正して利用するのでも、どちらもで構いません。
+[dbflute-play-java-example] $ run
 
-いずれにせよ、データベースの準備(DB設計してDDLを用意)をして、
-ReplaceSchemaの環境構築をして実行してスキーマを構築して、
-dfpropファイルをもろもろ修正して自動生成をしていきます。
+--- (Running the application from SBT, auto-reloading is enabled) ---
 
-主な修正対象dfpropファイル：
+[info] play - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
 
-  o basicInfoMap.dfprop -> database, packageBase
-  o databaseInfoMap.dfprop -> DB接続情報
-  o additionalForeignKeyMap.dfprop -> ExampleDBのものを参考に自分用に
-  o classificationDefinitionMap.dfprop -> ExampleDBのものを参考に自分用に
-  o classificationDeploymentMap.dfprop -> ExampleDBのものを参考に自分用に
-  o commonColumnMap.dfprop -> ExampleDBのものを参考に自分用に
-  o allClassCopyright.dfprop -> コピーライトが不要であれば削除でOK
-  o refreshDefinitionMap.dfprop -> F5対象のプロジェクト名
+(Server started, use Ctrl+D to stop and go back to the console...)
+- - - - - - - - - -/
 
-さて、あとは臨機に修正していってください。全ての情報がここにあるわけではありません。
-迷う場合や悩むことがあれば、DBFluteユーザの集いなどのMLで質問(フィードバック)すると良いでしょう。
+「Server started」が表示されたらブラウザにて、
 
-http://dbflute.seasar.org/ja/manual/topic/office/feedback.html
+http://localhost:9000/
+
+にアクセスしてみてください。会員一覧画面が表示されます。
+(初回はコンパイルが走るので何十秒か時間が掛かります)
+
+
+3. Eclipse 上でコンパイルできるように (.classpath)
+
+playコマンドで .classpath を生成します。
+
+play.sh を叩いて play の対話モードにして、
+「eclipse with-source=true」というコマンドを入力して実行してください。
+
+/- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+[dbflute-play-java-example] $ eclipse with-source=true
+- - - - - - - - - -/
+
+すると、.classpathが自動生成され、Eclipse上でコンパイルできるようになります。
+(Eclipse上で F5 をしましょう)
+
+もし、routesクラスでコンパイルエラーになるようであれば、
+(手動修正で) .classpath に target/scala-2.10/classes に対する path を追加してください。
+
+path="[...]/dbflute-play/dbflute-play-java-example/target/scala-2.10/classes"
+
+既に追加されているはずの classes_managed の行をコピーして、classes_managed を classes に修正でもOKです。
+
+
+4. 必要に応じて、Scala IDE プラグインをインストール
+
+// Scala IDE トップページ
+http://scala-ide.org/
+
+から、
+利用している Eclipse のバージョンに対応した update site のURLを探し、
+(変わってなければこのページ: http://scala-ide.org/download/current.html)
+
+Eclipse の update site に追加して、以下の二つのプラグインをインストールする。
+
+- Scala IDE for Eclipse
+- Play2 support in Scala IDE
+
