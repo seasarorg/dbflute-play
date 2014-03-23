@@ -13,7 +13,7 @@
 # *The line that starts with '#' means comment-out.
 #
 map:{
-	; projectName = dbflute-sastruts-example
+	; projectName = dbflute-play-java-example
 	; requestUrl = http://localhost:8386/
 }
 # ----------------/
