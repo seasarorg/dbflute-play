@@ -19,11 +19,11 @@
 # map:{
 #     # This means that String includes GreaterThan at MEMBER.MEMBER_ACCOUNT only
 #     # and LessThan at PRODUCT.PRODUCT_NAME and PRODUCT.PRODUCT_HANDLE_CODE,
-#     # and InScope for LONGVARCHAR(e.g. text type) is excluded.
+#     # and InScope for CLOB(e.g. text type) is excluded.
 #     ; String = map:{
 #         ; GreaterThan = map:{ MEMBER = list:{ MEMBER_ACCOUNT } }
 #         ; LessThan = map:{ PRODUCT = list:{ PRODUCT_NAME ; PRODUCT_HANDLE_CODE } }
-#         ; !InScope = map:{ $$ALL$$ = list:{ type:LONGVARCHAR } }
+#         ; !InScope = map:{ $$ALL$$ = list:{ type:CLOB } }
 #     }
 #     # This means that Number excludes all version-no's NotEqual.
 #     ; Number = map:{
@@ -50,9 +50,9 @@ map:{
         # [Exclude]
         # Common columns of String type may not be needed
         # to be set these condition-keys basically.
-        ; !NotEqual      = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; type:LONGVARCHAR ; suffix:_NAME } }
-        ; !InScope       = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; type:LONGVARCHAR ; suffix:_NAME } }
-        ; !NotInScope    = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; type:LONGVARCHAR ; suffix:_NAME } }
+        ; !NotEqual      = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; type:CLOB ; suffix:_NAME } }
+        ; !InScope       = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; type:CLOB ; suffix:_NAME } }
+        ; !NotInScope    = map:{ $$ALL$$ = list:{ $$CommonColumn$$ ; type:CLOB ; suffix:_NAME } }
         ; !PrefixSearch  = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
         ; !LikeSearch    = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
         ; !NotLikeSearch = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
@@ -94,8 +94,8 @@ map:{
         ; !DateFromTo   = map:{ $$ALL$$ = list:{ $$CommonColumn$$ } }
     }
     ; OrderBy = map:{
-        ; !Asc  = map:{ $$ALL$$ = list:{ type:LONGVARCHAR } }
-        ; !Desc = map:{ $$ALL$$ = list:{ type:LONGVARCHAR } }
+        ; !Asc  = map:{ $$ALL$$ = list:{ type:CLOB } }
+        ; !Desc = map:{ $$ALL$$ = list:{ type:CLOB } }
     }
 }
 # ----------------/
