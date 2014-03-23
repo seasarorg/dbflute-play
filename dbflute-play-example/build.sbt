@@ -6,7 +6,7 @@ libraryDependencies ++= Seq(
   //javaJdbc,
   //javaEbean,
   cache,
-  "org.seasar.dbflute" % "dbflute-runtime" % "1.0.5A",
+  "org.seasar.dbflute" % "dbflute-runtime" % "1.0.5B",
   "org.seasar.container" % "s2-tiger" % "2.4.44",
   "com.h2database" % "h2" % "1.3.172"
 )
