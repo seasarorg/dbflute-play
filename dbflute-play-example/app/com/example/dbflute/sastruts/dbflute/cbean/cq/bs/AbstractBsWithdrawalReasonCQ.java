@@ -230,12 +230,12 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param subQuery The sub-query of MemberWithdrawalList for 'exists'. (NotNull)
      */
     public void existsMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberWithdrawalCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepWithdrawalReasonCode_ExistsReferrer_MemberWithdrawalList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "memberWithdrawalList");
+        String pp = keepWithdrawalReasonCode_ExistsReferrer_MemberWithdrawalList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList");
     }
-    public abstract String keepWithdrawalReasonCode_ExistsReferrer_MemberWithdrawalList(MemberWithdrawalCQ subQuery);
+    public abstract String keepWithdrawalReasonCode_ExistsReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -251,12 +251,12 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param subQuery The sub-query of WithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList for 'not exists'. (NotNull)
      */
     public void notExistsMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberWithdrawalCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepWithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "memberWithdrawalList");
+        String pp = keepWithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList");
     }
-    public abstract String keepWithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList(MemberWithdrawalCQ subQuery);
+    public abstract String keepWithdrawalReasonCode_NotExistsReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -265,12 +265,12 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param subQuery The sub-query of MemberWithdrawalList for 'in-scope'. (NotNull)
      */
     public void inScopeMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberWithdrawalCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepWithdrawalReasonCode_InScopeRelation_MemberWithdrawalList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "memberWithdrawalList");
+        String pp = keepWithdrawalReasonCode_InScopeRelation_MemberWithdrawalList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList");
     }
-    public abstract String keepWithdrawalReasonCode_InScopeRelation_MemberWithdrawalList(MemberWithdrawalCQ subQuery);
+    public abstract String keepWithdrawalReasonCode_InScopeRelation_MemberWithdrawalList(MemberWithdrawalCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -279,20 +279,20 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param subQuery The sub-query of MemberWithdrawalList for 'not in-scope'. (NotNull)
      */
     public void notInScopeMemberWithdrawalList(SubQuery<MemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberWithdrawalCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepWithdrawalReasonCode_NotInScopeRelation_MemberWithdrawalList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "memberWithdrawalList");
+        String pp = keepWithdrawalReasonCode_NotInScopeRelation_MemberWithdrawalList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList");
     }
-    public abstract String keepWithdrawalReasonCode_NotInScopeRelation_MemberWithdrawalList(MemberWithdrawalCQ subQuery);
+    public abstract String keepWithdrawalReasonCode_NotInScopeRelation_MemberWithdrawalList(MemberWithdrawalCQ sq);
 
-    public void xsderiveMemberWithdrawalList(String function, SubQuery<MemberWithdrawalCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MemberWithdrawalCB>", subQuery);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepWithdrawalReasonCode_SpecifyDerivedReferrer_MemberWithdrawalList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "memberWithdrawalList", aliasName, option);
+    public void xsderiveMemberWithdrawalList(String fn, SubQuery<MemberWithdrawalCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepWithdrawalReasonCode_SpecifyDerivedReferrer_MemberWithdrawalList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "memberWithdrawalList", al, op);
     }
-    public abstract String keepWithdrawalReasonCode_SpecifyDerivedReferrer_MemberWithdrawalList(MemberWithdrawalCQ subQuery);
+    public abstract String keepWithdrawalReasonCode_SpecifyDerivedReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -313,20 +313,20 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     }
     protected HpQDRFunction<MemberWithdrawalCB> xcreateQDRFunctionMemberWithdrawalList() {
         return new HpQDRFunction<MemberWithdrawalCB>(new HpQDRSetupper<MemberWithdrawalCB>() {
-            public void setup(String function, SubQuery<MemberWithdrawalCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMemberWithdrawalList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<MemberWithdrawalCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMemberWithdrawalList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMemberWithdrawalList(String function, SubQuery<MemberWithdrawalCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MemberWithdrawalCB>", subQuery);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "memberWithdrawalList", operand, value, parameterPropertyName, option);
+    public void xqderiveMemberWithdrawalList(String fn, SubQuery<MemberWithdrawalCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalList(cb.query()); // for saving query-value.
+        String prpp = keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", sqpp, "memberWithdrawalList", rd, vl, prpp, op);
     }
-    public abstract String keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalList(MemberWithdrawalCQ subQuery);
-    public abstract String keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalListParameter(Object parameterValue);
+    public abstract String keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalList(MemberWithdrawalCQ sq);
+    public abstract String keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -340,8 +340,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      */
     public void setWithdrawalReasonCode_IsNotNull() { regWithdrawalReasonCode(CK_ISNN, DOBJ); }
 
-    protected void regWithdrawalReasonCode(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE"); }
-    abstract protected ConditionValue getCValueWithdrawalReasonCode();
+    protected void regWithdrawalReasonCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE"); }
+    protected abstract ConditionValue getCValueWithdrawalReasonCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -354,81 +354,6 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
 
     protected void doSetWithdrawalReasonText_Equal(String withdrawalReasonText) {
         regWithdrawalReasonText(CK_EQ, withdrawalReasonText);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_NotEqual(String withdrawalReasonText) {
-        doSetWithdrawalReasonText_NotEqual(fRES(withdrawalReasonText));
-    }
-
-    protected void doSetWithdrawalReasonText_NotEqual(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_NES, withdrawalReasonText);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_GreaterThan(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_GT, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_LessThan(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_LT, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_GreaterEqual(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_GE, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_LessEqual(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_LE, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
-        doSetWithdrawalReasonText_InScope(withdrawalReasonTextList);
-    }
-
-    public void doSetWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
-        regINS(CK_INS, cTL(withdrawalReasonTextList), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (退会理由テキスト)WITHDRAWAL_REASON_TEXT: {NotNull, CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
-        doSetWithdrawalReasonText_NotInScope(withdrawalReasonTextList);
-    }
-
-    public void doSetWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
-        regINS(CK_NINS, cTL(withdrawalReasonTextList), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT");
     }
 
     /**
@@ -462,8 +387,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
         regLSQ(CK_NLS, fRES(withdrawalReasonText), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT", likeSearchOption);
     }
 
-    protected void regWithdrawalReasonText(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT"); }
-    abstract protected ConditionValue getCValueWithdrawalReasonText();
+    protected void regWithdrawalReasonText(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT"); }
+    protected abstract ConditionValue getCValueWithdrawalReasonText();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -479,55 +404,6 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as notEqual. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_NotEqual(Integer displayOrder) {
-        doSetDisplayOrder_NotEqual(displayOrder);
-    }
-
-    protected void doSetDisplayOrder_NotEqual(Integer displayOrder) {
-        regDisplayOrder(CK_NES, displayOrder);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as greaterThan. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_GreaterThan(Integer displayOrder) {
-        regDisplayOrder(CK_GT, displayOrder);
-    }
-
-    /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as lessThan. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_LessThan(Integer displayOrder) {
-        regDisplayOrder(CK_LT, displayOrder);
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as greaterEqual. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_GreaterEqual(Integer displayOrder) {
-        regDisplayOrder(CK_GE, displayOrder);
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as lessEqual. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_LessEqual(Integer displayOrder) {
-        regDisplayOrder(CK_LE, displayOrder);
-    }
-
-    /**
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
@@ -540,34 +416,8 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
         regROO(minNumber, maxNumber, getCValueDisplayOrder(), "DISPLAY_ORDER", rangeOfOption);
     }
 
-    /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDisplayOrder_InScope(Collection<Integer> displayOrderList) {
-        doSetDisplayOrder_InScope(displayOrderList);
-    }
-
-    protected void doSetDisplayOrder_InScope(Collection<Integer> displayOrderList) {
-        regINS(CK_INS, cTL(displayOrderList), getCValueDisplayOrder(), "DISPLAY_ORDER");
-    }
-
-    /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {
-        doSetDisplayOrder_NotInScope(displayOrderList);
-    }
-
-    protected void doSetDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {
-        regINS(CK_NINS, cTL(displayOrderList), getCValueDisplayOrder(), "DISPLAY_ORDER");
-    }
-
-    protected void regDisplayOrder(ConditionKey k, Object v) { regQ(k, v, getCValueDisplayOrder(), "DISPLAY_ORDER"); }
-    abstract protected ConditionValue getCValueDisplayOrder();
+    protected void regDisplayOrder(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueDisplayOrder(), "DISPLAY_ORDER"); }
+    protected abstract ConditionValue getCValueDisplayOrder();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -586,7 +436,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<WithdrawalReasonCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), WithdrawalReasonCB.class);
     }
 
     /**
@@ -603,7 +453,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<WithdrawalReasonCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), WithdrawalReasonCB.class);
     }
 
     /**
@@ -620,7 +470,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<WithdrawalReasonCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), WithdrawalReasonCB.class);
     }
 
     /**
@@ -637,7 +487,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<WithdrawalReasonCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), WithdrawalReasonCB.class);
     }
 
     /**
@@ -654,7 +504,7 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<WithdrawalReasonCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), WithdrawalReasonCB.class);
     }
 
     /**
@@ -671,72 +521,57 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<WithdrawalReasonCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), WithdrawalReasonCB.class);
     }
 
-    protected HpSSQFunction<WithdrawalReasonCB> xcreateSSQFunction(final String operand) {
-        return new HpSSQFunction<WithdrawalReasonCB>(new HpSSQSetupper<WithdrawalReasonCB>() {
-            public void setup(String function, SubQuery<WithdrawalReasonCB> subQuery, HpSSQOption<WithdrawalReasonCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
-            }
-        });
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
+        assertObjectNotNull("subQuery", sq);
+        WithdrawalReasonCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-
-    protected void xscalarCondition(String function, SubQuery<WithdrawalReasonCB> subQuery, String operand, HpSSQOption<WithdrawalReasonCB> option) {
-        assertObjectNotNull("subQuery<WithdrawalReasonCB>", subQuery);
-        WithdrawalReasonCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
-    }
-    public abstract String keepScalarCondition(WithdrawalReasonCQ subQuery);
+    public abstract String keepScalarCondition(WithdrawalReasonCQ sq);
 
     protected WithdrawalReasonCB xcreateScalarConditionCB() {
-        WithdrawalReasonCB cb = new WithdrawalReasonCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        WithdrawalReasonCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected WithdrawalReasonCB xcreateScalarConditionPartitionByCB() {
-        WithdrawalReasonCB cb = new WithdrawalReasonCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        WithdrawalReasonCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<WithdrawalReasonCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<WithdrawalReasonCB>", subQuery);
-        WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<WithdrawalReasonCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "WITHDRAWAL_REASON_CODE";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(WithdrawalReasonCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(WithdrawalReasonCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<WithdrawalReasonCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(WithdrawalReasonCB.class);
     }
-    protected HpQDRFunction<WithdrawalReasonCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<WithdrawalReasonCB>(new HpQDRSetupper<WithdrawalReasonCB>() {
-            public void setup(String function, SubQuery<WithdrawalReasonCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
-            }
-        });
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
+        String pk = "WITHDRAWAL_REASON_CODE";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<WithdrawalReasonCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<WithdrawalReasonCB>", subQuery);
-        WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
-    }
-    public abstract String keepQueryMyselfDerived(WithdrawalReasonCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(WithdrawalReasonCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -746,12 +581,12 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<WithdrawalReasonCB> subQuery) {
-        assertObjectNotNull("subQuery<WithdrawalReasonCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(WithdrawalReasonCQ subQuery);
+    public abstract String keepMyselfExists(WithdrawalReasonCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -761,18 +596,20 @@ public abstract class AbstractBsWithdrawalReasonCQ extends AbstractConditionQuer
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<WithdrawalReasonCB> subQuery) {
-        assertObjectNotNull("subQuery<WithdrawalReasonCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(WithdrawalReasonCQ subQuery);
+    public abstract String keepMyselfInScope(WithdrawalReasonCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected WithdrawalReasonCB newMyCB() {
+        return new WithdrawalReasonCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return WithdrawalReasonCB.class.getName(); }
     protected String xabCQ() { return WithdrawalReasonCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

@@ -173,8 +173,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setMemberId_IsNotNull() { regMemberId(CK_ISNN, DOBJ); }
 
-    protected void regMemberId(ConditionKey k, Object v) { regQ(k, v, getCValueMemberId(), "MEMBER_ID"); }
-    abstract protected ConditionValue getCValueMemberId();
+    protected void regMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberId(), "MEMBER_ID"); }
+    protected abstract ConditionValue getCValueMemberId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -187,81 +187,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
 
     protected void doSetMemberName_Equal(String memberName) {
         regMemberName(CK_EQ, memberName);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_NotEqual(String memberName) {
-        doSetMemberName_NotEqual(fRES(memberName));
-    }
-
-    protected void doSetMemberName_NotEqual(String memberName) {
-        regMemberName(CK_NES, memberName);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_GreaterThan(String memberName) {
-        regMemberName(CK_GT, fRES(memberName));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_LessThan(String memberName) {
-        regMemberName(CK_LT, fRES(memberName));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_GreaterEqual(String memberName) {
-        regMemberName(CK_GE, fRES(memberName));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberName The value of memberName as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_LessEqual(String memberName) {
-        regMemberName(CK_LE, fRES(memberName));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberNameList The collection of memberName as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_InScope(Collection<String> memberNameList) {
-        doSetMemberName_InScope(memberNameList);
-    }
-
-    public void doSetMemberName_InScope(Collection<String> memberNameList) {
-        regINS(CK_INS, cTL(memberNameList), getCValueMemberName(), "MEMBER_NAME");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * MEMBER_NAME: {VARCHAR(200)}
-     * @param memberNameList The collection of memberName as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberName_NotInScope(Collection<String> memberNameList) {
-        doSetMemberName_NotInScope(memberNameList);
-    }
-
-    public void doSetMemberName_NotInScope(Collection<String> memberNameList) {
-        regINS(CK_NINS, cTL(memberNameList), getCValueMemberName(), "MEMBER_NAME");
     }
 
     /**
@@ -313,8 +238,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setMemberName_IsNotNull() { regMemberName(CK_ISNN, DOBJ); }
 
-    protected void regMemberName(ConditionKey k, Object v) { regQ(k, v, getCValueMemberName(), "MEMBER_NAME"); }
-    abstract protected ConditionValue getCValueMemberName();
+    protected void regMemberName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberName(), "MEMBER_NAME"); }
+    protected abstract ConditionValue getCValueMemberName();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -340,42 +265,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
 
     protected void doSetWithdrawalReasonCode_NotEqual(String withdrawalReasonCode) {
         regWithdrawalReasonCode(CK_NES, withdrawalReasonCode);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonCode_GreaterThan(String withdrawalReasonCode) {
-        regWithdrawalReasonCode(CK_GT, fRES(withdrawalReasonCode));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonCode_LessThan(String withdrawalReasonCode) {
-        regWithdrawalReasonCode(CK_LT, fRES(withdrawalReasonCode));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonCode_GreaterEqual(String withdrawalReasonCode) {
-        regWithdrawalReasonCode(CK_GE, fRES(withdrawalReasonCode));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_CODE: {CHAR(3)}
-     * @param withdrawalReasonCode The value of withdrawalReasonCode as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonCode_LessEqual(String withdrawalReasonCode) {
-        regWithdrawalReasonCode(CK_LE, fRES(withdrawalReasonCode));
     }
 
     /**
@@ -453,8 +342,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setWithdrawalReasonCode_IsNotNull() { regWithdrawalReasonCode(CK_ISNN, DOBJ); }
 
-    protected void regWithdrawalReasonCode(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE"); }
-    abstract protected ConditionValue getCValueWithdrawalReasonCode();
+    protected void regWithdrawalReasonCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE"); }
+    protected abstract ConditionValue getCValueWithdrawalReasonCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -467,81 +356,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
 
     protected void doSetWithdrawalReasonText_Equal(String withdrawalReasonText) {
         regWithdrawalReasonText(CK_EQ, withdrawalReasonText);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_NotEqual(String withdrawalReasonText) {
-        doSetWithdrawalReasonText_NotEqual(fRES(withdrawalReasonText));
-    }
-
-    protected void doSetWithdrawalReasonText_NotEqual(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_NES, withdrawalReasonText);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_GreaterThan(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_GT, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_LessThan(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_LT, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_GreaterEqual(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_GE, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_LessEqual(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_LE, fRES(withdrawalReasonText));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
-        doSetWithdrawalReasonText_InScope(withdrawalReasonTextList);
-    }
-
-    public void doSetWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
-        regINS(CK_INS, cTL(withdrawalReasonTextList), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
-        doSetWithdrawalReasonText_NotInScope(withdrawalReasonTextList);
-    }
-
-    public void doSetWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
-        regINS(CK_NINS, cTL(withdrawalReasonTextList), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT");
     }
 
     /**
@@ -593,8 +407,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setWithdrawalReasonText_IsNotNull() { regWithdrawalReasonText(CK_ISNN, DOBJ); }
 
-    protected void regWithdrawalReasonText(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT"); }
-    abstract protected ConditionValue getCValueWithdrawalReasonText();
+    protected void regWithdrawalReasonText(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT"); }
+    protected abstract ConditionValue getCValueWithdrawalReasonText();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -607,81 +421,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
 
     protected void doSetWithdrawalReasonInputText_Equal(String withdrawalReasonInputText) {
         regWithdrawalReasonInputText(CK_EQ, withdrawalReasonInputText);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_NotEqual(String withdrawalReasonInputText) {
-        doSetWithdrawalReasonInputText_NotEqual(fRES(withdrawalReasonInputText));
-    }
-
-    protected void doSetWithdrawalReasonInputText_NotEqual(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_NES, withdrawalReasonInputText);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_GreaterThan(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_GT, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_LessThan(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_LT, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_GreaterEqual(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_GE, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_LessEqual(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_LE, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_InScope(Collection<String> withdrawalReasonInputTextList) {
-        doSetWithdrawalReasonInputText_InScope(withdrawalReasonInputTextList);
-    }
-
-    public void doSetWithdrawalReasonInputText_InScope(Collection<String> withdrawalReasonInputTextList) {
-        regINS(CK_INS, cTL(withdrawalReasonInputTextList), getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_NotInScope(Collection<String> withdrawalReasonInputTextList) {
-        doSetWithdrawalReasonInputText_NotInScope(withdrawalReasonInputTextList);
-    }
-
-    public void doSetWithdrawalReasonInputText_NotInScope(Collection<String> withdrawalReasonInputTextList) {
-        regINS(CK_NINS, cTL(withdrawalReasonInputTextList), getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT");
     }
 
     /**
@@ -733,8 +472,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setWithdrawalReasonInputText_IsNotNull() { regWithdrawalReasonInputText(CK_ISNN, DOBJ); }
 
-    protected void regWithdrawalReasonInputText(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT"); }
-    abstract protected ConditionValue getCValueWithdrawalReasonInputText();
+    protected void regWithdrawalReasonInputText(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT"); }
+    protected abstract ConditionValue getCValueWithdrawalReasonInputText();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -790,7 +529,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of withdrawalDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setWithdrawalDatetime_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setWithdrawalDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME", fromToOption);
     }
 
@@ -805,7 +544,7 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      * @param fromDate The from-date(yyyy/MM/dd) of withdrawalDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of withdrawalDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setWithdrawalDatetime_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setWithdrawalDatetime_DateFromTo(Date fromDate, Date toDate) {
         setWithdrawalDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -821,8 +560,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setWithdrawalDatetime_IsNotNull() { regWithdrawalDatetime(CK_ISNN, DOBJ); }
 
-    protected void regWithdrawalDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME"); }
-    abstract protected ConditionValue getCValueWithdrawalDatetime();
+    protected void regWithdrawalDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME"); }
+    protected abstract ConditionValue getCValueWithdrawalDatetime();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -848,42 +587,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
 
     protected void doSetMemberStatusCode_NotEqual(String memberStatusCode) {
         regMemberStatusCode(CK_NES, memberStatusCode);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusCode_GreaterThan(String memberStatusCode) {
-        regMemberStatusCode(CK_GT, fRES(memberStatusCode));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusCode_LessThan(String memberStatusCode) {
-        regMemberStatusCode(CK_LT, fRES(memberStatusCode));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusCode_GreaterEqual(String memberStatusCode) {
-        regMemberStatusCode(CK_GE, fRES(memberStatusCode));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_STATUS_CODE: {CHAR(3)}
-     * @param memberStatusCode The value of memberStatusCode as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusCode_LessEqual(String memberStatusCode) {
-        regMemberStatusCode(CK_LE, fRES(memberStatusCode));
     }
 
     /**
@@ -961,8 +664,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setMemberStatusCode_IsNotNull() { regMemberStatusCode(CK_ISNN, DOBJ); }
 
-    protected void regMemberStatusCode(ConditionKey k, Object v) { regQ(k, v, getCValueMemberStatusCode(), "MEMBER_STATUS_CODE"); }
-    abstract protected ConditionValue getCValueMemberStatusCode();
+    protected void regMemberStatusCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberStatusCode(), "MEMBER_STATUS_CODE"); }
+    protected abstract ConditionValue getCValueMemberStatusCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -975,81 +678,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
 
     protected void doSetMemberStatusName_Equal(String memberStatusName) {
         regMemberStatusName(CK_EQ, memberStatusName);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusName_NotEqual(String memberStatusName) {
-        doSetMemberStatusName_NotEqual(fRES(memberStatusName));
-    }
-
-    protected void doSetMemberStatusName_NotEqual(String memberStatusName) {
-        regMemberStatusName(CK_NES, memberStatusName);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusName_GreaterThan(String memberStatusName) {
-        regMemberStatusName(CK_GT, fRES(memberStatusName));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusName_LessThan(String memberStatusName) {
-        regMemberStatusName(CK_LT, fRES(memberStatusName));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusName_GreaterEqual(String memberStatusName) {
-        regMemberStatusName(CK_GE, fRES(memberStatusName));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusName The value of memberStatusName as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusName_LessEqual(String memberStatusName) {
-        regMemberStatusName(CK_LE, fRES(memberStatusName));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusNameList The collection of memberStatusName as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusName_InScope(Collection<String> memberStatusNameList) {
-        doSetMemberStatusName_InScope(memberStatusNameList);
-    }
-
-    public void doSetMemberStatusName_InScope(Collection<String> memberStatusNameList) {
-        regINS(CK_INS, cTL(memberStatusNameList), getCValueMemberStatusName(), "MEMBER_STATUS_NAME");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * MEMBER_STATUS_NAME: {VARCHAR(50)}
-     * @param memberStatusNameList The collection of memberStatusName as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setMemberStatusName_NotInScope(Collection<String> memberStatusNameList) {
-        doSetMemberStatusName_NotInScope(memberStatusNameList);
-    }
-
-    public void doSetMemberStatusName_NotInScope(Collection<String> memberStatusNameList) {
-        regINS(CK_NINS, cTL(memberStatusNameList), getCValueMemberStatusName(), "MEMBER_STATUS_NAME");
     }
 
     /**
@@ -1101,8 +729,8 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setMemberStatusName_IsNotNull() { regMemberStatusName(CK_ISNN, DOBJ); }
 
-    protected void regMemberStatusName(ConditionKey k, Object v) { regQ(k, v, getCValueMemberStatusName(), "MEMBER_STATUS_NAME"); }
-    abstract protected ConditionValue getCValueMemberStatusName();
+    protected void regMemberStatusName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberStatusName(), "MEMBER_STATUS_NAME"); }
+    protected abstract ConditionValue getCValueMemberStatusName();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1217,14 +845,16 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
      */
     public void setMaxPurchasePrice_IsNotNull() { regMaxPurchasePrice(CK_ISNN, DOBJ); }
 
-    protected void regMaxPurchasePrice(ConditionKey k, Object v) { regQ(k, v, getCValueMaxPurchasePrice(), "MAX_PURCHASE_PRICE"); }
-    abstract protected ConditionValue getCValueMaxPurchasePrice();
+    protected void regMaxPurchasePrice(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMaxPurchasePrice(), "MAX_PURCHASE_PRICE"); }
+    protected abstract ConditionValue getCValueMaxPurchasePrice();
 
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected SummaryWithdrawalCB newMyCB() {
+        return new SummaryWithdrawalCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return SummaryWithdrawalCB.class.getName(); }
     protected String xabCQ() { return SummaryWithdrawalCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

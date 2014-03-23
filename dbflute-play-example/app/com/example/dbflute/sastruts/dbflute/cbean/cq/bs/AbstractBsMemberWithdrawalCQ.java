@@ -168,12 +168,12 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param subQuery The sub-query of Member for 'in-scope'. (NotNull)
      */
     public void inScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "member");
+        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
-    public abstract String keepMemberId_InScopeRelation_Member(MemberCQ subQuery);
+    public abstract String keepMemberId_InScopeRelation_Member(MemberCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -182,12 +182,12 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param subQuery The sub-query of Member for 'not in-scope'. (NotNull)
      */
     public void notInScopeMember(SubQuery<MemberCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberCB cb = new MemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "member");
+        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
-    public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ subQuery);
+    public abstract String keepMemberId_NotInScopeRelation_Member(MemberCQ sq);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -201,8 +201,8 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      */
     public void setMemberId_IsNotNull() { regMemberId(CK_ISNN, DOBJ); }
 
-    protected void regMemberId(ConditionKey k, Object v) { regQ(k, v, getCValueMemberId(), "MEMBER_ID"); }
-    abstract protected ConditionValue getCValueMemberId();
+    protected void regMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberId(), "MEMBER_ID"); }
+    protected abstract ConditionValue getCValueMemberId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -367,12 +367,12 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param subQuery The sub-query of WithdrawalReason for 'in-scope'. (NotNull)
      */
     public void inScopeWithdrawalReason(SubQuery<WithdrawalReasonCB> subQuery) {
-        assertObjectNotNull("subQuery<WithdrawalReasonCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "withdrawalReason");
+        String pp = keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "withdrawalReason");
     }
-    public abstract String keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(WithdrawalReasonCQ subQuery);
+    public abstract String keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(WithdrawalReasonCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -381,12 +381,12 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param subQuery The sub-query of WithdrawalReason for 'not in-scope'. (NotNull)
      */
     public void notInScopeWithdrawalReason(SubQuery<WithdrawalReasonCB> subQuery) {
-        assertObjectNotNull("subQuery<WithdrawalReasonCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         WithdrawalReasonCB cb = new WithdrawalReasonCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "withdrawalReason");
+        String pp = keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "withdrawalReason");
     }
-    public abstract String keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(WithdrawalReasonCQ subQuery);
+    public abstract String keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(WithdrawalReasonCQ sq);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -406,8 +406,8 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      */
     public void setWithdrawalReasonCode_IsNotNull() { regWithdrawalReasonCode(CK_ISNN, DOBJ); }
 
-    protected void regWithdrawalReasonCode(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE"); }
-    abstract protected ConditionValue getCValueWithdrawalReasonCode();
+    protected void regWithdrawalReasonCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE"); }
+    protected abstract ConditionValue getCValueWithdrawalReasonCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -420,81 +420,6 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
 
     protected void doSetWithdrawalReasonInputText_Equal(String withdrawalReasonInputText) {
         regWithdrawalReasonInputText(CK_EQ, withdrawalReasonInputText);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_NotEqual(String withdrawalReasonInputText) {
-        doSetWithdrawalReasonInputText_NotEqual(fRES(withdrawalReasonInputText));
-    }
-
-    protected void doSetWithdrawalReasonInputText_NotEqual(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_NES, withdrawalReasonInputText);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_GreaterThan(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_GT, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_LessThan(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_LT, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_GreaterEqual(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_GE, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_LessEqual(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_LE, fRES(withdrawalReasonInputText));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_InScope(Collection<String> withdrawalReasonInputTextList) {
-        doSetWithdrawalReasonInputText_InScope(withdrawalReasonInputTextList);
-    }
-
-    public void doSetWithdrawalReasonInputText_InScope(Collection<String> withdrawalReasonInputTextList) {
-        regINS(CK_INS, cTL(withdrawalReasonInputTextList), getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_NotInScope(Collection<String> withdrawalReasonInputTextList) {
-        doSetWithdrawalReasonInputText_NotInScope(withdrawalReasonInputTextList);
-    }
-
-    public void doSetWithdrawalReasonInputText_NotInScope(Collection<String> withdrawalReasonInputTextList) {
-        regINS(CK_NINS, cTL(withdrawalReasonInputTextList), getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT");
     }
 
     /**
@@ -546,8 +471,8 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      */
     public void setWithdrawalReasonInputText_IsNotNull() { regWithdrawalReasonInputText(CK_ISNN, DOBJ); }
 
-    protected void regWithdrawalReasonInputText(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT"); }
-    abstract protected ConditionValue getCValueWithdrawalReasonInputText();
+    protected void regWithdrawalReasonInputText(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT"); }
+    protected abstract ConditionValue getCValueWithdrawalReasonInputText();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -603,7 +528,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of withdrawalDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setWithdrawalDatetime_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setWithdrawalDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME", fromToOption);
     }
 
@@ -618,12 +543,12 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param fromDate The from-date(yyyy/MM/dd) of withdrawalDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of withdrawalDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setWithdrawalDatetime_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setWithdrawalDatetime_DateFromTo(Date fromDate, Date toDate) {
         setWithdrawalDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
-    protected void regWithdrawalDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME"); }
-    abstract protected ConditionValue getCValueWithdrawalDatetime();
+    protected void regWithdrawalDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME"); }
+    protected abstract ConditionValue getCValueWithdrawalDatetime();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -635,42 +560,6 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     }
 
     /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param registerDatetime The value of registerDatetime as greaterThan. (NullAllowed: if null, no condition)
-     */
-    public void setRegisterDatetime_GreaterThan(java.sql.Timestamp registerDatetime) {
-        regRegisterDatetime(CK_GT,  registerDatetime);
-    }
-
-    /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param registerDatetime The value of registerDatetime as lessThan. (NullAllowed: if null, no condition)
-     */
-    public void setRegisterDatetime_LessThan(java.sql.Timestamp registerDatetime) {
-        regRegisterDatetime(CK_LT,  registerDatetime);
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param registerDatetime The value of registerDatetime as greaterEqual. (NullAllowed: if null, no condition)
-     */
-    public void setRegisterDatetime_GreaterEqual(java.sql.Timestamp registerDatetime) {
-        regRegisterDatetime(CK_GE,  registerDatetime);
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param registerDatetime The value of registerDatetime as lessEqual. (NullAllowed: if null, no condition)
-     */
-    public void setRegisterDatetime_LessEqual(java.sql.Timestamp registerDatetime) {
-        regRegisterDatetime(CK_LE, registerDatetime);
-    }
-
-    /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
      * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
@@ -679,27 +568,12 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRegisterDatetime_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setRegisterDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueRegisterDatetime(), "REGISTER_DATETIME", fromToOption);
     }
 
-    /**
-     * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
-     * REGISTER_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * <pre>
-     * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
-     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #FD4747">&lt; '2007/04/17 00:00:00'</span>
-     * </pre>
-     * @param fromDate The from-date(yyyy/MM/dd) of registerDatetime. (NullAllowed: if null, no from-condition)
-     * @param toDate The to-date(yyyy/MM/dd) of registerDatetime. (NullAllowed: if null, no to-condition)
-     */
-    public void setRegisterDatetime_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
-        setRegisterDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
-    }
-
-    protected void regRegisterDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueRegisterDatetime(), "REGISTER_DATETIME"); }
-    abstract protected ConditionValue getCValueRegisterDatetime();
+    protected void regRegisterDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegisterDatetime(), "REGISTER_DATETIME"); }
+    protected abstract ConditionValue getCValueRegisterDatetime();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -714,114 +588,8 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
         regRegisterUser(CK_EQ, registerUser);
     }
 
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegisterUser_NotEqual(String registerUser) {
-        doSetRegisterUser_NotEqual(fRES(registerUser));
-    }
-
-    protected void doSetRegisterUser_NotEqual(String registerUser) {
-        regRegisterUser(CK_NES, registerUser);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegisterUser_GreaterThan(String registerUser) {
-        regRegisterUser(CK_GT, fRES(registerUser));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegisterUser_LessThan(String registerUser) {
-        regRegisterUser(CK_LT, fRES(registerUser));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegisterUser_GreaterEqual(String registerUser) {
-        regRegisterUser(CK_GE, fRES(registerUser));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegisterUser_LessEqual(String registerUser) {
-        regRegisterUser(CK_LE, fRES(registerUser));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUserList The collection of registerUser as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegisterUser_InScope(Collection<String> registerUserList) {
-        doSetRegisterUser_InScope(registerUserList);
-    }
-
-    public void doSetRegisterUser_InScope(Collection<String> registerUserList) {
-        regINS(CK_INS, cTL(registerUserList), getCValueRegisterUser(), "REGISTER_USER");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUserList The collection of registerUser as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegisterUser_NotInScope(Collection<String> registerUserList) {
-        doSetRegisterUser_NotInScope(registerUserList);
-    }
-
-    public void doSetRegisterUser_NotInScope(Collection<String> registerUserList) {
-        regINS(CK_NINS, cTL(registerUserList), getCValueRegisterUser(), "REGISTER_USER");
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegisterUser_PrefixSearch(String registerUser) {
-        setRegisterUser_LikeSearch(registerUser, cLSOP());
-    }
-
-    /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * REGISTER_USER: {NotNull, VARCHAR(200)} <br />
-     * <pre>e.g. setRegisterUser_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param registerUser The value of registerUser as likeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of like-search. (NotNull)
-     */
-    public void setRegisterUser_LikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(registerUser), getCValueRegisterUser(), "REGISTER_USER", likeSearchOption);
-    }
-
-    /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br />
-     * And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * REGISTER_USER: {NotNull, VARCHAR(200)}
-     * @param registerUser The value of registerUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of not-like-search. (NotNull)
-     */
-    public void setRegisterUser_NotLikeSearch(String registerUser, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(registerUser), getCValueRegisterUser(), "REGISTER_USER", likeSearchOption);
-    }
-
-    protected void regRegisterUser(ConditionKey k, Object v) { regQ(k, v, getCValueRegisterUser(), "REGISTER_USER"); }
-    abstract protected ConditionValue getCValueRegisterUser();
+    protected void regRegisterUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegisterUser(), "REGISTER_USER"); }
+    protected abstract ConditionValue getCValueRegisterUser();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -833,42 +601,6 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     }
 
     /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param updateDatetime The value of updateDatetime as greaterThan. (NullAllowed: if null, no condition)
-     */
-    public void setUpdateDatetime_GreaterThan(java.sql.Timestamp updateDatetime) {
-        regUpdateDatetime(CK_GT,  updateDatetime);
-    }
-
-    /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param updateDatetime The value of updateDatetime as lessThan. (NullAllowed: if null, no condition)
-     */
-    public void setUpdateDatetime_LessThan(java.sql.Timestamp updateDatetime) {
-        regUpdateDatetime(CK_LT,  updateDatetime);
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param updateDatetime The value of updateDatetime as greaterEqual. (NullAllowed: if null, no condition)
-     */
-    public void setUpdateDatetime_GreaterEqual(java.sql.Timestamp updateDatetime) {
-        regUpdateDatetime(CK_GE,  updateDatetime);
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * @param updateDatetime The value of updateDatetime as lessEqual. (NullAllowed: if null, no condition)
-     */
-    public void setUpdateDatetime_LessEqual(java.sql.Timestamp updateDatetime) {
-        regUpdateDatetime(CK_LE, updateDatetime);
-    }
-
-    /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
      * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
@@ -877,27 +609,12 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUpdateDatetime_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setUpdateDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueUpdateDatetime(), "UPDATE_DATETIME", fromToOption);
     }
 
-    /**
-     * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br />
-     * And NullIgnored, OnlyOnceRegistered. <br />
-     * UPDATE_DATETIME: {NotNull, TIMESTAMP(23, 10)}
-     * <pre>
-     * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
-     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #FD4747">&lt; '2007/04/17 00:00:00'</span>
-     * </pre>
-     * @param fromDate The from-date(yyyy/MM/dd) of updateDatetime. (NullAllowed: if null, no from-condition)
-     * @param toDate The to-date(yyyy/MM/dd) of updateDatetime. (NullAllowed: if null, no to-condition)
-     */
-    public void setUpdateDatetime_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
-        setUpdateDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
-    }
-
-    protected void regUpdateDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueUpdateDatetime(), "UPDATE_DATETIME"); }
-    abstract protected ConditionValue getCValueUpdateDatetime();
+    protected void regUpdateDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateDatetime(), "UPDATE_DATETIME"); }
+    protected abstract ConditionValue getCValueUpdateDatetime();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -912,114 +629,8 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
         regUpdateUser(CK_EQ, updateUser);
     }
 
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUpdateUser_NotEqual(String updateUser) {
-        doSetUpdateUser_NotEqual(fRES(updateUser));
-    }
-
-    protected void doSetUpdateUser_NotEqual(String updateUser) {
-        regUpdateUser(CK_NES, updateUser);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUpdateUser_GreaterThan(String updateUser) {
-        regUpdateUser(CK_GT, fRES(updateUser));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUpdateUser_LessThan(String updateUser) {
-        regUpdateUser(CK_LT, fRES(updateUser));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUpdateUser_GreaterEqual(String updateUser) {
-        regUpdateUser(CK_GE, fRES(updateUser));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUpdateUser_LessEqual(String updateUser) {
-        regUpdateUser(CK_LE, fRES(updateUser));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUserList The collection of updateUser as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUpdateUser_InScope(Collection<String> updateUserList) {
-        doSetUpdateUser_InScope(updateUserList);
-    }
-
-    public void doSetUpdateUser_InScope(Collection<String> updateUserList) {
-        regINS(CK_INS, cTL(updateUserList), getCValueUpdateUser(), "UPDATE_USER");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUserList The collection of updateUser as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUpdateUser_NotInScope(Collection<String> updateUserList) {
-        doSetUpdateUser_NotInScope(updateUserList);
-    }
-
-    public void doSetUpdateUser_NotInScope(Collection<String> updateUserList) {
-        regINS(CK_NINS, cTL(updateUserList), getCValueUpdateUser(), "UPDATE_USER");
-    }
-
-    /**
-     * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as prefixSearch. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setUpdateUser_PrefixSearch(String updateUser) {
-        setUpdateUser_LikeSearch(updateUser, cLSOP());
-    }
-
-    /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * UPDATE_USER: {NotNull, VARCHAR(200)} <br />
-     * <pre>e.g. setUpdateUser_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param updateUser The value of updateUser as likeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of like-search. (NotNull)
-     */
-    public void setUpdateUser_LikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(updateUser), getCValueUpdateUser(), "UPDATE_USER", likeSearchOption);
-    }
-
-    /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br />
-     * And NullOrEmptyIgnored, SeveralRegistered. <br />
-     * UPDATE_USER: {NotNull, VARCHAR(200)}
-     * @param updateUser The value of updateUser as notLikeSearch. (NullAllowed: if null (or empty), no condition)
-     * @param likeSearchOption The option of not-like-search. (NotNull)
-     */
-    public void setUpdateUser_NotLikeSearch(String updateUser, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(updateUser), getCValueUpdateUser(), "UPDATE_USER", likeSearchOption);
-    }
-
-    protected void regUpdateUser(ConditionKey k, Object v) { regQ(k, v, getCValueUpdateUser(), "UPDATE_USER"); }
-    abstract protected ConditionValue getCValueUpdateUser();
+    protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateUser(), "UPDATE_USER"); }
+    protected abstract ConditionValue getCValueUpdateUser();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1035,55 +646,6 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as notEqual. (NullAllowed: if null, no condition)
-     */
-    public void setVersionNo_NotEqual(Long versionNo) {
-        doSetVersionNo_NotEqual(versionNo);
-    }
-
-    protected void doSetVersionNo_NotEqual(Long versionNo) {
-        regVersionNo(CK_NES, versionNo);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as greaterThan. (NullAllowed: if null, no condition)
-     */
-    public void setVersionNo_GreaterThan(Long versionNo) {
-        regVersionNo(CK_GT, versionNo);
-    }
-
-    /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as lessThan. (NullAllowed: if null, no condition)
-     */
-    public void setVersionNo_LessThan(Long versionNo) {
-        regVersionNo(CK_LT, versionNo);
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as greaterEqual. (NullAllowed: if null, no condition)
-     */
-    public void setVersionNo_GreaterEqual(Long versionNo) {
-        regVersionNo(CK_GE, versionNo);
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNo The value of versionNo as lessEqual. (NullAllowed: if null, no condition)
-     */
-    public void setVersionNo_LessEqual(Long versionNo) {
-        regVersionNo(CK_LE, versionNo);
-    }
-
-    /**
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
@@ -1096,34 +658,8 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
         regROO(minNumber, maxNumber, getCValueVersionNo(), "VERSION_NO", rangeOfOption);
     }
 
-    /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNoList The collection of versionNo as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setVersionNo_InScope(Collection<Long> versionNoList) {
-        doSetVersionNo_InScope(versionNoList);
-    }
-
-    protected void doSetVersionNo_InScope(Collection<Long> versionNoList) {
-        regINS(CK_INS, cTL(versionNoList), getCValueVersionNo(), "VERSION_NO");
-    }
-
-    /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * VERSION_NO: {NotNull, BIGINT(19)}
-     * @param versionNoList The collection of versionNo as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setVersionNo_NotInScope(Collection<Long> versionNoList) {
-        doSetVersionNo_NotInScope(versionNoList);
-    }
-
-    protected void doSetVersionNo_NotInScope(Collection<Long> versionNoList) {
-        regINS(CK_NINS, cTL(versionNoList), getCValueVersionNo(), "VERSION_NO");
-    }
-
-    protected void regVersionNo(ConditionKey k, Object v) { regQ(k, v, getCValueVersionNo(), "VERSION_NO"); }
-    abstract protected ConditionValue getCValueVersionNo();
+    protected void regVersionNo(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueVersionNo(), "VERSION_NO"); }
+    protected abstract ConditionValue getCValueVersionNo();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -1142,7 +678,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MemberWithdrawalCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), MemberWithdrawalCB.class);
     }
 
     /**
@@ -1159,7 +695,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MemberWithdrawalCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), MemberWithdrawalCB.class);
     }
 
     /**
@@ -1176,7 +712,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MemberWithdrawalCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), MemberWithdrawalCB.class);
     }
 
     /**
@@ -1193,7 +729,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MemberWithdrawalCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), MemberWithdrawalCB.class);
     }
 
     /**
@@ -1210,7 +746,7 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MemberWithdrawalCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), MemberWithdrawalCB.class);
     }
 
     /**
@@ -1227,72 +763,57 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MemberWithdrawalCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), MemberWithdrawalCB.class);
     }
 
-    protected HpSSQFunction<MemberWithdrawalCB> xcreateSSQFunction(final String operand) {
-        return new HpSSQFunction<MemberWithdrawalCB>(new HpSSQSetupper<MemberWithdrawalCB>() {
-            public void setup(String function, SubQuery<MemberWithdrawalCB> subQuery, HpSSQOption<MemberWithdrawalCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
-            }
-        });
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberWithdrawalCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-
-    protected void xscalarCondition(String function, SubQuery<MemberWithdrawalCB> subQuery, String operand, HpSSQOption<MemberWithdrawalCB> option) {
-        assertObjectNotNull("subQuery<MemberWithdrawalCB>", subQuery);
-        MemberWithdrawalCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
-    }
-    public abstract String keepScalarCondition(MemberWithdrawalCQ subQuery);
+    public abstract String keepScalarCondition(MemberWithdrawalCQ sq);
 
     protected MemberWithdrawalCB xcreateScalarConditionCB() {
-        MemberWithdrawalCB cb = new MemberWithdrawalCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        MemberWithdrawalCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected MemberWithdrawalCB xcreateScalarConditionPartitionByCB() {
-        MemberWithdrawalCB cb = new MemberWithdrawalCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        MemberWithdrawalCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<MemberWithdrawalCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MemberWithdrawalCB>", subQuery);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<MemberWithdrawalCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "MEMBER_ID";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(MemberWithdrawalCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(MemberWithdrawalCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<MemberWithdrawalCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(MemberWithdrawalCB.class);
     }
-    protected HpQDRFunction<MemberWithdrawalCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<MemberWithdrawalCB>(new HpQDRSetupper<MemberWithdrawalCB>() {
-            public void setup(String function, SubQuery<MemberWithdrawalCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
-            }
-        });
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
+        String pk = "MEMBER_ID";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<MemberWithdrawalCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MemberWithdrawalCB>", subQuery);
-        MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
-    }
-    public abstract String keepQueryMyselfDerived(MemberWithdrawalCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(MemberWithdrawalCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -1302,12 +823,12 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<MemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberWithdrawalCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(MemberWithdrawalCQ subQuery);
+    public abstract String keepMyselfExists(MemberWithdrawalCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -1317,18 +838,20 @@ public abstract class AbstractBsMemberWithdrawalCQ extends AbstractConditionQuer
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<MemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberWithdrawalCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberWithdrawalCB cb = new MemberWithdrawalCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(MemberWithdrawalCQ subQuery);
+    public abstract String keepMyselfInScope(MemberWithdrawalCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected MemberWithdrawalCB newMyCB() {
+        return new MemberWithdrawalCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return MemberWithdrawalCB.class.getName(); }
     protected String xabCQ() { return MemberWithdrawalCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

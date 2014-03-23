@@ -87,42 +87,6 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
-     * @param productCategoryCode The value of productCategoryCode as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryCode_GreaterThan(String productCategoryCode) {
-        regProductCategoryCode(CK_GT, fRES(productCategoryCode));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
-     * @param productCategoryCode The value of productCategoryCode as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryCode_LessThan(String productCategoryCode) {
-        regProductCategoryCode(CK_LT, fRES(productCategoryCode));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
-     * @param productCategoryCode The value of productCategoryCode as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryCode_GreaterEqual(String productCategoryCode) {
-        regProductCategoryCode(CK_GE, fRES(productCategoryCode));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
-     * @param productCategoryCode The value of productCategoryCode as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryCode_LessEqual(String productCategoryCode) {
-        regProductCategoryCode(CK_LE, fRES(productCategoryCode));
-    }
-
-    /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
      * (商品カテゴリコード)PRODUCT_CATEGORY_CODE: {PK, NotNull, CHAR(3)}
      * @param productCategoryCodeList The collection of productCategoryCode as inScope. (NullAllowed: if null (or empty), no condition)
@@ -193,12 +157,12 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductList for 'exists'. (NotNull)
      */
     public void existsProductList(SubQuery<ProductCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCB cb = new ProductCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_ExistsReferrer_ProductList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "productList");
+        String pp = keepProductCategoryCode_ExistsReferrer_ProductList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productList");
     }
-    public abstract String keepProductCategoryCode_ExistsReferrer_ProductList(ProductCQ subQuery);
+    public abstract String keepProductCategoryCode_ExistsReferrer_ProductList(ProductCQ sq);
 
     /**
      * Set up ExistsReferrer (co-related sub-query). <br />
@@ -214,12 +178,12 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductCategorySelfList for 'exists'. (NotNull)
      */
     public void existsProductCategorySelfList(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_ExistsReferrer_ProductCategorySelfList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", subQueryPropertyName, "productCategorySelfList");
+        String pp = keepProductCategoryCode_ExistsReferrer_ProductCategorySelfList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", pp, "productCategorySelfList");
     }
-    public abstract String keepProductCategoryCode_ExistsReferrer_ProductCategorySelfList(ProductCategoryCQ subQuery);
+    public abstract String keepProductCategoryCode_ExistsReferrer_ProductCategorySelfList(ProductCategoryCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -235,12 +199,12 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductCategoryCode_NotExistsReferrer_ProductList for 'not exists'. (NotNull)
      */
     public void notExistsProductList(SubQuery<ProductCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCB cb = new ProductCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_NotExistsReferrer_ProductList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "productList");
+        String pp = keepProductCategoryCode_NotExistsReferrer_ProductList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productList");
     }
-    public abstract String keepProductCategoryCode_NotExistsReferrer_ProductList(ProductCQ subQuery);
+    public abstract String keepProductCategoryCode_NotExistsReferrer_ProductList(ProductCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -256,12 +220,12 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductCategoryCode_NotExistsReferrer_ProductCategorySelfList for 'not exists'. (NotNull)
      */
     public void notExistsProductCategorySelfList(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_NotExistsReferrer_ProductCategorySelfList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", subQueryPropertyName, "productCategorySelfList");
+        String pp = keepProductCategoryCode_NotExistsReferrer_ProductCategorySelfList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", pp, "productCategorySelfList");
     }
-    public abstract String keepProductCategoryCode_NotExistsReferrer_ProductCategorySelfList(ProductCategoryCQ subQuery);
+    public abstract String keepProductCategoryCode_NotExistsReferrer_ProductCategorySelfList(ProductCategoryCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -270,12 +234,12 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductList for 'in-scope'. (NotNull)
      */
     public void inScopeProductList(SubQuery<ProductCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCB cb = new ProductCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_InScopeRelation_ProductList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "productList");
+        String pp = keepProductCategoryCode_InScopeRelation_ProductList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productList");
     }
-    public abstract String keepProductCategoryCode_InScopeRelation_ProductList(ProductCQ subQuery);
+    public abstract String keepProductCategoryCode_InScopeRelation_ProductList(ProductCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -284,12 +248,12 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductCategorySelfList for 'in-scope'. (NotNull)
      */
     public void inScopeProductCategorySelfList(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_InScopeRelation_ProductCategorySelfList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", subQueryPropertyName, "productCategorySelfList");
+        String pp = keepProductCategoryCode_InScopeRelation_ProductCategorySelfList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", pp, "productCategorySelfList");
     }
-    public abstract String keepProductCategoryCode_InScopeRelation_ProductCategorySelfList(ProductCategoryCQ subQuery);
+    public abstract String keepProductCategoryCode_InScopeRelation_ProductCategorySelfList(ProductCategoryCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -298,12 +262,12 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductList for 'not in-scope'. (NotNull)
      */
     public void notInScopeProductList(SubQuery<ProductCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCB cb = new ProductCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_NotInScopeRelation_ProductList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "productList");
+        String pp = keepProductCategoryCode_NotInScopeRelation_ProductList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productList");
     }
-    public abstract String keepProductCategoryCode_NotInScopeRelation_ProductList(ProductCQ subQuery);
+    public abstract String keepProductCategoryCode_NotInScopeRelation_ProductList(ProductCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -312,28 +276,28 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductCategorySelfList for 'not in-scope'. (NotNull)
      */
     public void notInScopeProductCategorySelfList(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_NotInScopeRelation_ProductCategorySelfList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", subQueryPropertyName, "productCategorySelfList");
+        String pp = keepProductCategoryCode_NotInScopeRelation_ProductCategorySelfList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", pp, "productCategorySelfList");
     }
-    public abstract String keepProductCategoryCode_NotInScopeRelation_ProductCategorySelfList(ProductCategoryCQ subQuery);
+    public abstract String keepProductCategoryCode_NotInScopeRelation_ProductCategorySelfList(ProductCategoryCQ sq);
 
-    public void xsderiveProductList(String function, SubQuery<ProductCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<ProductCB>", subQuery);
-        ProductCB cb = new ProductCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_SpecifyDerivedReferrer_ProductList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "productList", aliasName, option);
+    public void xsderiveProductList(String fn, SubQuery<ProductCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        ProductCB cb = new ProductCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepProductCategoryCode_SpecifyDerivedReferrer_ProductList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productList", al, op);
     }
-    public abstract String keepProductCategoryCode_SpecifyDerivedReferrer_ProductList(ProductCQ subQuery);
+    public abstract String keepProductCategoryCode_SpecifyDerivedReferrer_ProductList(ProductCQ sq);
 
-    public void xsderiveProductCategorySelfList(String function, SubQuery<ProductCategoryCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
-        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_SpecifyDerivedReferrer_ProductCategorySelfList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", subQueryPropertyName, "productCategorySelfList", aliasName, option);
+    public void xsderiveProductCategorySelfList(String fn, SubQuery<ProductCategoryCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepProductCategoryCode_SpecifyDerivedReferrer_ProductCategorySelfList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", pp, "productCategorySelfList", al, op);
     }
-    public abstract String keepProductCategoryCode_SpecifyDerivedReferrer_ProductCategorySelfList(ProductCategoryCQ subQuery);
+    public abstract String keepProductCategoryCode_SpecifyDerivedReferrer_ProductCategorySelfList(ProductCategoryCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -354,20 +318,20 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
     }
     protected HpQDRFunction<ProductCB> xcreateQDRFunctionProductList() {
         return new HpQDRFunction<ProductCB>(new HpQDRSetupper<ProductCB>() {
-            public void setup(String function, SubQuery<ProductCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveProductList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<ProductCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveProductList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveProductList(String function, SubQuery<ProductCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<ProductCB>", subQuery);
-        ProductCB cb = new ProductCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_QueryDerivedReferrer_ProductList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepProductCategoryCode_QueryDerivedReferrer_ProductListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "productList", operand, value, parameterPropertyName, option);
+    public void xqderiveProductList(String fn, SubQuery<ProductCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        ProductCB cb = new ProductCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepProductCategoryCode_QueryDerivedReferrer_ProductList(cb.query()); // for saving query-value.
+        String prpp = keepProductCategoryCode_QueryDerivedReferrer_ProductListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", sqpp, "productList", rd, vl, prpp, op);
     }
-    public abstract String keepProductCategoryCode_QueryDerivedReferrer_ProductList(ProductCQ subQuery);
-    public abstract String keepProductCategoryCode_QueryDerivedReferrer_ProductListParameter(Object parameterValue);
+    public abstract String keepProductCategoryCode_QueryDerivedReferrer_ProductList(ProductCQ sq);
+    public abstract String keepProductCategoryCode_QueryDerivedReferrer_ProductListParameter(Object vl);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -388,20 +352,20 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
     }
     protected HpQDRFunction<ProductCategoryCB> xcreateQDRFunctionProductCategorySelfList() {
         return new HpQDRFunction<ProductCategoryCB>(new HpQDRSetupper<ProductCategoryCB>() {
-            public void setup(String function, SubQuery<ProductCategoryCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveProductCategorySelfList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<ProductCategoryCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveProductCategorySelfList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveProductCategorySelfList(String function, SubQuery<ProductCategoryCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
-        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", subQueryPropertyName, "productCategorySelfList", operand, value, parameterPropertyName, option);
+    public void xqderiveProductCategorySelfList(String fn, SubQuery<ProductCategoryCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfList(cb.query()); // for saving query-value.
+        String prpp = keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "PRODUCT_CATEGORY_CODE", "PARENT_CATEGORY_CODE", sqpp, "productCategorySelfList", rd, vl, prpp, op);
     }
-    public abstract String keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfList(ProductCategoryCQ subQuery);
-    public abstract String keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter(Object parameterValue);
+    public abstract String keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfList(ProductCategoryCQ sq);
+    public abstract String keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -415,8 +379,8 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      */
     public void setProductCategoryCode_IsNotNull() { regProductCategoryCode(CK_ISNN, DOBJ); }
 
-    protected void regProductCategoryCode(ConditionKey k, Object v) { regQ(k, v, getCValueProductCategoryCode(), "PRODUCT_CATEGORY_CODE"); }
-    abstract protected ConditionValue getCValueProductCategoryCode();
+    protected void regProductCategoryCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductCategoryCode(), "PRODUCT_CATEGORY_CODE"); }
+    protected abstract ConditionValue getCValueProductCategoryCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -429,81 +393,6 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
 
     protected void doSetProductCategoryName_Equal(String productCategoryName) {
         regProductCategoryName(CK_EQ, productCategoryName);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
-     * @param productCategoryName The value of productCategoryName as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryName_NotEqual(String productCategoryName) {
-        doSetProductCategoryName_NotEqual(fRES(productCategoryName));
-    }
-
-    protected void doSetProductCategoryName_NotEqual(String productCategoryName) {
-        regProductCategoryName(CK_NES, productCategoryName);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
-     * @param productCategoryName The value of productCategoryName as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryName_GreaterThan(String productCategoryName) {
-        regProductCategoryName(CK_GT, fRES(productCategoryName));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
-     * @param productCategoryName The value of productCategoryName as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryName_LessThan(String productCategoryName) {
-        regProductCategoryName(CK_LT, fRES(productCategoryName));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
-     * @param productCategoryName The value of productCategoryName as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryName_GreaterEqual(String productCategoryName) {
-        regProductCategoryName(CK_GE, fRES(productCategoryName));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
-     * @param productCategoryName The value of productCategoryName as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryName_LessEqual(String productCategoryName) {
-        regProductCategoryName(CK_LE, fRES(productCategoryName));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
-     * @param productCategoryNameList The collection of productCategoryName as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryName_InScope(Collection<String> productCategoryNameList) {
-        doSetProductCategoryName_InScope(productCategoryNameList);
-    }
-
-    public void doSetProductCategoryName_InScope(Collection<String> productCategoryNameList) {
-        regINS(CK_INS, cTL(productCategoryNameList), getCValueProductCategoryName(), "PRODUCT_CATEGORY_NAME");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (商品カテゴリ名称)PRODUCT_CATEGORY_NAME: {NotNull, VARCHAR(50)}
-     * @param productCategoryNameList The collection of productCategoryName as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductCategoryName_NotInScope(Collection<String> productCategoryNameList) {
-        doSetProductCategoryName_NotInScope(productCategoryNameList);
-    }
-
-    public void doSetProductCategoryName_NotInScope(Collection<String> productCategoryNameList) {
-        regINS(CK_NINS, cTL(productCategoryNameList), getCValueProductCategoryName(), "PRODUCT_CATEGORY_NAME");
     }
 
     /**
@@ -537,8 +426,8 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
         regLSQ(CK_NLS, fRES(productCategoryName), getCValueProductCategoryName(), "PRODUCT_CATEGORY_NAME", likeSearchOption);
     }
 
-    protected void regProductCategoryName(ConditionKey k, Object v) { regQ(k, v, getCValueProductCategoryName(), "PRODUCT_CATEGORY_NAME"); }
-    abstract protected ConditionValue getCValueProductCategoryName();
+    protected void regProductCategoryName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductCategoryName(), "PRODUCT_CATEGORY_NAME"); }
+    protected abstract ConditionValue getCValueProductCategoryName();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -564,42 +453,6 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
 
     protected void doSetParentCategoryCode_NotEqual(String parentCategoryCode) {
         regParentCategoryCode(CK_NES, parentCategoryCode);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
-     * @param parentCategoryCode The value of parentCategoryCode as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setParentCategoryCode_GreaterThan(String parentCategoryCode) {
-        regParentCategoryCode(CK_GT, fRES(parentCategoryCode));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
-     * @param parentCategoryCode The value of parentCategoryCode as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setParentCategoryCode_LessThan(String parentCategoryCode) {
-        regParentCategoryCode(CK_LT, fRES(parentCategoryCode));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
-     * @param parentCategoryCode The value of parentCategoryCode as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setParentCategoryCode_GreaterEqual(String parentCategoryCode) {
-        regParentCategoryCode(CK_GE, fRES(parentCategoryCode));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (親カテゴリコード)PARENT_CATEGORY_CODE: {IX, CHAR(3), FK to PRODUCT_CATEGORY}
-     * @param parentCategoryCode The value of parentCategoryCode as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setParentCategoryCode_LessEqual(String parentCategoryCode) {
-        regParentCategoryCode(CK_LE, fRES(parentCategoryCode));
     }
 
     /**
@@ -666,12 +519,12 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductCategorySelf for 'in-scope'. (NotNull)
      */
     public void inScopeProductCategorySelf(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepParentCategoryCode_InScopeRelation_ProductCategorySelf(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "PARENT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "productCategorySelf");
+        String pp = keepParentCategoryCode_InScopeRelation_ProductCategorySelf(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "PARENT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productCategorySelf");
     }
-    public abstract String keepParentCategoryCode_InScopeRelation_ProductCategorySelf(ProductCategoryCQ subQuery);
+    public abstract String keepParentCategoryCode_InScopeRelation_ProductCategorySelf(ProductCategoryCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -680,12 +533,12 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductCategorySelf for 'not in-scope'. (NotNull)
      */
     public void notInScopeProductCategorySelf(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepParentCategoryCode_NotInScopeRelation_ProductCategorySelf(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "PARENT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "productCategorySelf");
+        String pp = keepParentCategoryCode_NotInScopeRelation_ProductCategorySelf(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "PARENT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", pp, "productCategorySelf");
     }
-    public abstract String keepParentCategoryCode_NotInScopeRelation_ProductCategorySelf(ProductCategoryCQ subQuery);
+    public abstract String keepParentCategoryCode_NotInScopeRelation_ProductCategorySelf(ProductCategoryCQ sq);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -705,8 +558,8 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      */
     public void setParentCategoryCode_IsNotNull() { regParentCategoryCode(CK_ISNN, DOBJ); }
 
-    protected void regParentCategoryCode(ConditionKey k, Object v) { regQ(k, v, getCValueParentCategoryCode(), "PARENT_CATEGORY_CODE"); }
-    abstract protected ConditionValue getCValueParentCategoryCode();
+    protected void regParentCategoryCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueParentCategoryCode(), "PARENT_CATEGORY_CODE"); }
+    protected abstract ConditionValue getCValueParentCategoryCode();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -725,7 +578,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<ProductCategoryCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), ProductCategoryCB.class);
     }
 
     /**
@@ -742,7 +595,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<ProductCategoryCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), ProductCategoryCB.class);
     }
 
     /**
@@ -759,7 +612,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<ProductCategoryCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), ProductCategoryCB.class);
     }
 
     /**
@@ -776,7 +629,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<ProductCategoryCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), ProductCategoryCB.class);
     }
 
     /**
@@ -793,7 +646,7 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<ProductCategoryCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), ProductCategoryCB.class);
     }
 
     /**
@@ -810,72 +663,57 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<ProductCategoryCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), ProductCategoryCB.class);
     }
 
-    protected HpSSQFunction<ProductCategoryCB> xcreateSSQFunction(final String operand) {
-        return new HpSSQFunction<ProductCategoryCB>(new HpSSQSetupper<ProductCategoryCB>() {
-            public void setup(String function, SubQuery<ProductCategoryCB> subQuery, HpSSQOption<ProductCategoryCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
-            }
-        });
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
+        assertObjectNotNull("subQuery", sq);
+        ProductCategoryCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-
-    protected void xscalarCondition(String function, SubQuery<ProductCategoryCB> subQuery, String operand, HpSSQOption<ProductCategoryCB> option) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
-        ProductCategoryCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
-    }
-    public abstract String keepScalarCondition(ProductCategoryCQ subQuery);
+    public abstract String keepScalarCondition(ProductCategoryCQ sq);
 
     protected ProductCategoryCB xcreateScalarConditionCB() {
-        ProductCategoryCB cb = new ProductCategoryCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        ProductCategoryCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected ProductCategoryCB xcreateScalarConditionPartitionByCB() {
-        ProductCategoryCB cb = new ProductCategoryCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        ProductCategoryCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<ProductCategoryCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
-        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<ProductCategoryCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "PRODUCT_CATEGORY_CODE";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(ProductCategoryCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(ProductCategoryCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<ProductCategoryCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(ProductCategoryCB.class);
     }
-    protected HpQDRFunction<ProductCategoryCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<ProductCategoryCB>(new HpQDRSetupper<ProductCategoryCB>() {
-            public void setup(String function, SubQuery<ProductCategoryCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
-            }
-        });
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
+        String pk = "PRODUCT_CATEGORY_CODE";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<ProductCategoryCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
-        ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "PRODUCT_CATEGORY_CODE", "PRODUCT_CATEGORY_CODE", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
-    }
-    public abstract String keepQueryMyselfDerived(ProductCategoryCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(ProductCategoryCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -885,12 +723,12 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(ProductCategoryCQ subQuery);
+    public abstract String keepMyselfExists(ProductCategoryCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -900,18 +738,20 @@ public abstract class AbstractBsProductCategoryCQ extends AbstractConditionQuery
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<ProductCategoryCB> subQuery) {
-        assertObjectNotNull("subQuery<ProductCategoryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         ProductCategoryCB cb = new ProductCategoryCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(ProductCategoryCQ subQuery);
+    public abstract String keepMyselfInScope(ProductCategoryCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected ProductCategoryCB newMyCB() {
+        return new ProductCategoryCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return ProductCategoryCB.class.getName(); }
     protected String xabCQ() { return ProductCategoryCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

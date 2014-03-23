@@ -230,12 +230,12 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of MemberAddressList for 'exists'. (NotNull)
      */
     public void existsMemberAddressList(SubQuery<MemberAddressCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberAddressCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepRegionId_ExistsReferrer_MemberAddressList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "REGION_ID", "REGION_ID", subQueryPropertyName, "memberAddressList");
+        String pp = keepRegionId_ExistsReferrer_MemberAddressList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "REGION_ID", "REGION_ID", pp, "memberAddressList");
     }
-    public abstract String keepRegionId_ExistsReferrer_MemberAddressList(MemberAddressCQ subQuery);
+    public abstract String keepRegionId_ExistsReferrer_MemberAddressList(MemberAddressCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -251,12 +251,12 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of RegionId_NotExistsReferrer_MemberAddressList for 'not exists'. (NotNull)
      */
     public void notExistsMemberAddressList(SubQuery<MemberAddressCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberAddressCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepRegionId_NotExistsReferrer_MemberAddressList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "REGION_ID", "REGION_ID", subQueryPropertyName, "memberAddressList");
+        String pp = keepRegionId_NotExistsReferrer_MemberAddressList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "REGION_ID", "REGION_ID", pp, "memberAddressList");
     }
-    public abstract String keepRegionId_NotExistsReferrer_MemberAddressList(MemberAddressCQ subQuery);
+    public abstract String keepRegionId_NotExistsReferrer_MemberAddressList(MemberAddressCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -265,12 +265,12 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of MemberAddressList for 'in-scope'. (NotNull)
      */
     public void inScopeMemberAddressList(SubQuery<MemberAddressCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberAddressCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepRegionId_InScopeRelation_MemberAddressList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "REGION_ID", "REGION_ID", subQueryPropertyName, "memberAddressList");
+        String pp = keepRegionId_InScopeRelation_MemberAddressList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "REGION_ID", "REGION_ID", pp, "memberAddressList");
     }
-    public abstract String keepRegionId_InScopeRelation_MemberAddressList(MemberAddressCQ subQuery);
+    public abstract String keepRegionId_InScopeRelation_MemberAddressList(MemberAddressCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -279,20 +279,20 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of MemberAddressList for 'not in-scope'. (NotNull)
      */
     public void notInScopeMemberAddressList(SubQuery<MemberAddressCB> subQuery) {
-        assertObjectNotNull("subQuery<MemberAddressCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepRegionId_NotInScopeRelation_MemberAddressList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "REGION_ID", "REGION_ID", subQueryPropertyName, "memberAddressList");
+        String pp = keepRegionId_NotInScopeRelation_MemberAddressList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "REGION_ID", "REGION_ID", pp, "memberAddressList");
     }
-    public abstract String keepRegionId_NotInScopeRelation_MemberAddressList(MemberAddressCQ subQuery);
+    public abstract String keepRegionId_NotInScopeRelation_MemberAddressList(MemberAddressCQ sq);
 
-    public void xsderiveMemberAddressList(String function, SubQuery<MemberAddressCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MemberAddressCB>", subQuery);
-        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepRegionId_SpecifyDerivedReferrer_MemberAddressList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "REGION_ID", "REGION_ID", subQueryPropertyName, "memberAddressList", aliasName, option);
+    public void xsderiveMemberAddressList(String fn, SubQuery<MemberAddressCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepRegionId_SpecifyDerivedReferrer_MemberAddressList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "REGION_ID", "REGION_ID", pp, "memberAddressList", al, op);
     }
-    public abstract String keepRegionId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ subQuery);
+    public abstract String keepRegionId_SpecifyDerivedReferrer_MemberAddressList(MemberAddressCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -313,20 +313,20 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
     }
     protected HpQDRFunction<MemberAddressCB> xcreateQDRFunctionMemberAddressList() {
         return new HpQDRFunction<MemberAddressCB>(new HpQDRSetupper<MemberAddressCB>() {
-            public void setup(String function, SubQuery<MemberAddressCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMemberAddressList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<MemberAddressCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMemberAddressList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMemberAddressList(String function, SubQuery<MemberAddressCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MemberAddressCB>", subQuery);
-        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepRegionId_QueryDerivedReferrer_MemberAddressList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "REGION_ID", "REGION_ID", subQueryPropertyName, "memberAddressList", operand, value, parameterPropertyName, option);
+    public void xqderiveMemberAddressList(String fn, SubQuery<MemberAddressCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MemberAddressCB cb = new MemberAddressCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepRegionId_QueryDerivedReferrer_MemberAddressList(cb.query()); // for saving query-value.
+        String prpp = keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "REGION_ID", "REGION_ID", sqpp, "memberAddressList", rd, vl, prpp, op);
     }
-    public abstract String keepRegionId_QueryDerivedReferrer_MemberAddressList(MemberAddressCQ subQuery);
-    public abstract String keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(Object parameterValue);
+    public abstract String keepRegionId_QueryDerivedReferrer_MemberAddressList(MemberAddressCQ sq);
+    public abstract String keepRegionId_QueryDerivedReferrer_MemberAddressListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -340,8 +340,8 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      */
     public void setRegionId_IsNotNull() { regRegionId(CK_ISNN, DOBJ); }
 
-    protected void regRegionId(ConditionKey k, Object v) { regQ(k, v, getCValueRegionId(), "REGION_ID"); }
-    abstract protected ConditionValue getCValueRegionId();
+    protected void regRegionId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegionId(), "REGION_ID"); }
+    protected abstract ConditionValue getCValueRegionId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -354,81 +354,6 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
 
     protected void doSetRegionName_Equal(String regionName) {
         regRegionName(CK_EQ, regionName);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
-     * @param regionName The value of regionName as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegionName_NotEqual(String regionName) {
-        doSetRegionName_NotEqual(fRES(regionName));
-    }
-
-    protected void doSetRegionName_NotEqual(String regionName) {
-        regRegionName(CK_NES, regionName);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
-     * @param regionName The value of regionName as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegionName_GreaterThan(String regionName) {
-        regRegionName(CK_GT, fRES(regionName));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
-     * @param regionName The value of regionName as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegionName_LessThan(String regionName) {
-        regRegionName(CK_LT, fRES(regionName));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
-     * @param regionName The value of regionName as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegionName_GreaterEqual(String regionName) {
-        regRegionName(CK_GE, fRES(regionName));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
-     * @param regionName The value of regionName as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegionName_LessEqual(String regionName) {
-        regRegionName(CK_LE, fRES(regionName));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
-     * @param regionNameList The collection of regionName as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegionName_InScope(Collection<String> regionNameList) {
-        doSetRegionName_InScope(regionNameList);
-    }
-
-    public void doSetRegionName_InScope(Collection<String> regionNameList) {
-        regINS(CK_INS, cTL(regionNameList), getCValueRegionName(), "REGION_NAME");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (地域名称)REGION_NAME: {NotNull, VARCHAR(50)}
-     * @param regionNameList The collection of regionName as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setRegionName_NotInScope(Collection<String> regionNameList) {
-        doSetRegionName_NotInScope(regionNameList);
-    }
-
-    public void doSetRegionName_NotInScope(Collection<String> regionNameList) {
-        regINS(CK_NINS, cTL(regionNameList), getCValueRegionName(), "REGION_NAME");
     }
 
     /**
@@ -462,8 +387,8 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(regionName), getCValueRegionName(), "REGION_NAME", likeSearchOption);
     }
 
-    protected void regRegionName(ConditionKey k, Object v) { regQ(k, v, getCValueRegionName(), "REGION_NAME"); }
-    abstract protected ConditionValue getCValueRegionName();
+    protected void regRegionName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegionName(), "REGION_NAME"); }
+    protected abstract ConditionValue getCValueRegionName();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -482,7 +407,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), RegionCB.class);
     }
 
     /**
@@ -499,7 +424,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), RegionCB.class);
     }
 
     /**
@@ -516,7 +441,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), RegionCB.class);
     }
 
     /**
@@ -533,7 +458,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), RegionCB.class);
     }
 
     /**
@@ -550,7 +475,7 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), RegionCB.class);
     }
 
     /**
@@ -567,72 +492,57 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<RegionCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), RegionCB.class);
     }
 
-    protected HpSSQFunction<RegionCB> xcreateSSQFunction(final String operand) {
-        return new HpSSQFunction<RegionCB>(new HpSSQSetupper<RegionCB>() {
-            public void setup(String function, SubQuery<RegionCB> subQuery, HpSSQOption<RegionCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
-            }
-        });
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
+        assertObjectNotNull("subQuery", sq);
+        RegionCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-
-    protected void xscalarCondition(String function, SubQuery<RegionCB> subQuery, String operand, HpSSQOption<RegionCB> option) {
-        assertObjectNotNull("subQuery<RegionCB>", subQuery);
-        RegionCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
-    }
-    public abstract String keepScalarCondition(RegionCQ subQuery);
+    public abstract String keepScalarCondition(RegionCQ sq);
 
     protected RegionCB xcreateScalarConditionCB() {
-        RegionCB cb = new RegionCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        RegionCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected RegionCB xcreateScalarConditionPartitionByCB() {
-        RegionCB cb = new RegionCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        RegionCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<RegionCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<RegionCB>", subQuery);
-        RegionCB cb = new RegionCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "REGION_ID", "REGION_ID", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<RegionCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        RegionCB cb = new RegionCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "REGION_ID";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(RegionCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(RegionCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<RegionCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(RegionCB.class);
     }
-    protected HpQDRFunction<RegionCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<RegionCB>(new HpQDRSetupper<RegionCB>() {
-            public void setup(String function, SubQuery<RegionCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
-            }
-        });
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        RegionCB cb = new RegionCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
+        String pk = "REGION_ID";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<RegionCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<RegionCB>", subQuery);
-        RegionCB cb = new RegionCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "REGION_ID", "REGION_ID", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
-    }
-    public abstract String keepQueryMyselfDerived(RegionCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(RegionCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -642,12 +552,12 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<RegionCB> subQuery) {
-        assertObjectNotNull("subQuery<RegionCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         RegionCB cb = new RegionCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(RegionCQ subQuery);
+    public abstract String keepMyselfExists(RegionCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -657,18 +567,20 @@ public abstract class AbstractBsRegionCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<RegionCB> subQuery) {
-        assertObjectNotNull("subQuery<RegionCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         RegionCB cb = new RegionCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(RegionCQ subQuery);
+    public abstract String keepMyselfInScope(RegionCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected RegionCB newMyCB() {
+        return new RegionCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return RegionCB.class.getName(); }
     protected String xabCQ() { return RegionCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
