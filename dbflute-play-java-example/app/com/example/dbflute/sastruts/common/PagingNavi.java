@@ -26,8 +26,7 @@ import org.seasar.dbflute.cbean.pagenavi.PageNumberLinkSetupper;
  * ページングナビゲーション構築オブジェクト。<br />
  * /WEB-INF/view/common/paging_navi.jsp を利用したページングの際に利用する。<br/>
  * このクラスのインスタンス変数名は pagingNavi であること。<br />
- * @author mokkouyou (initial making)
- * @author jflute (extends it)
+ * @author jflute (modifies contributed source)
  */
 public class PagingNavi implements Serializable {
 

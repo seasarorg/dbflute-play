@@ -20,8 +20,7 @@ import play.mvc.Result;
 
 /**
  * Index画面への遷移のためのAction。
- * @author mokkouyou (initial making)
- * @author jflute (extends it)
+ * @author jflute (modifies contributed source)
  */
 public class RootController extends Controller {
 
