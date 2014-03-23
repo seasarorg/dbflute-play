@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2013 the Seasar Foundation and the Others.
+ * Copyright 2004-2014 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -72,6 +73,9 @@ public class RequestLoggingFilter implements Filter {
     protected FilterConfig config;
     protected boolean errorLogging;
     protected Set<String> exceptExtSet;
+    protected Pattern exceptUrlPattern;
+    protected Pattern requestUriTitleUrlPattern;
+    protected Pattern subRequestUrlPattern;
 
     // ===================================================================================
     //                                                                          Initialize
@@ -80,6 +84,9 @@ public class RequestLoggingFilter implements Filter {
         this.config = filterConfig;
         this.errorLogging = isBooleanParameter(filterConfig, "errorLogging", true);
         setupExceptExtSet(filterConfig);
+        setupExceptUrlPattern(filterConfig);
+        setupRequestUriTitleUrlPattern(filterConfig);
+        setupSubRequestUrlPatternUrlPattern(filterConfig);
     }
 
     protected boolean isBooleanParameter(FilterConfig filterConfig, String name, boolean defaultValue) {
@@ -103,6 +110,30 @@ public class RequestLoggingFilter implements Filter {
 
     protected List<String> getDefaultExceptExtSet() {
         return Arrays.asList(".js", ".css", ".png", ".gif", ".jpg", ".ico", ".svg", ".svgz");
+    }
+
+    protected void setupExceptUrlPattern(FilterConfig filterConfig) {
+        String pattern = filterConfig.getInitParameter("exceptUrlPattern");
+        if (pattern == null || pattern.trim().length() == 0) {
+            pattern = filterConfig.getInitParameter("ignoreUrlPattern"); // for compatible
+        }
+        if (pattern != null && pattern.trim().length() > 0) {
+            this.exceptUrlPattern = Pattern.compile(pattern);
+        }
+    }
+
+    protected void setupRequestUriTitleUrlPattern(FilterConfig filterConfig) {
+        String pattern = filterConfig.getInitParameter("requestUriTitleUrlPattern");
+        if (pattern != null && pattern.trim().length() > 0) {
+            this.requestUriTitleUrlPattern = Pattern.compile(pattern);
+        }
+    }
+
+    protected void setupSubRequestUrlPatternUrlPattern(FilterConfig filterConfig) {
+        String pattern = filterConfig.getInitParameter("subRequestUrlPattern");
+        if (pattern != null && pattern.trim().length() > 0) {
+            this.subRequestUrlPattern = Pattern.compile(pattern);
+        }
     }
 
     // ===================================================================================
@@ -183,11 +214,22 @@ public class RequestLoggingFilter implements Filter {
     }
 
     protected boolean isOutOfTargetPath(HttpServletRequest request) {
-        final String path = getServletPath(request);
-        if (exceptExtSet != null && path != null && path.contains(".")) {
-            final int indexOf = path.lastIndexOf(".");
-            final String ext = path.substring(indexOf);
-            return exceptExtSet.contains(ext);
+        if (exceptUrlPattern != null) {
+            final String uri = getRequestURI(request);
+            if (exceptUrlPattern.matcher(uri).find()) {
+                return true;
+            }
+        }
+        if (exceptExtSet != null) {
+            // not use request URI because it might have noise e.g. jsessionID
+            final String path = getServletPath(request);
+            if (path != null && path.contains(".")) {
+                final int indexOf = path.lastIndexOf(".");
+                final String ext = path.substring(indexOf);
+                if (exceptExtSet.contains(ext)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -213,7 +255,14 @@ public class RequestLoggingFilter implements Filter {
     //                                                ------
     protected void before(HttpServletRequest request, HttpServletResponse response) {
         final StringBuilder sb = new StringBuilder();
-        sb.append("* * * * * * * * * * {BEGIN}: " + getServletPath(request));
+        final String beginDecoration;
+        if (isSubRequestUrl(request)) {
+            beginDecoration = "- - - - - - - - - - {SUB BEGIN}: ";
+        } else { // mainly here
+            beginDecoration = "* * * * * * * * * * {BEGIN}: ";
+        }
+        sb.append(beginDecoration);
+        sb.append(getTitlePath(request));
         sb.append(LF).append(IND);
         buildRequestInfo(sb, request, response, false);
         LOG.debug(sb.toString().trim());
@@ -292,7 +341,14 @@ public class RequestLoggingFilter implements Filter {
         buildRequestAttributes(sb, request);
         buildSessionAttributes(sb, request);
 
-        sb.append("* * * * * * * * * * {END}: ").append(getServletPath(request));
+        final String endDecoration;
+        if (isSubRequestUrl(request)) {
+            endDecoration = "- - - - - - - - - - {SUB END}: ";
+        } else { // mainly here
+            endDecoration = "* * * * * * * * * * {END}: ";
+        }
+        sb.append(endDecoration);
+        sb.append(getTitlePath(request));
         sb.append(" [" + convertToPerformanceView(after.longValue() - before.longValue()) + "]");
         sb.append(LF);
         sb.append(LF);
@@ -301,8 +357,32 @@ public class RequestLoggingFilter implements Filter {
         LOG.debug(logString);
     }
 
+    // -----------------------------------------------------
+    //                                          Request Info
+    //                                          ------------
+    protected boolean isRequestUriTitleUrl(final String servletPath) {
+        return requestUriTitleUrlPattern != null && requestUriTitleUrlPattern.matcher(servletPath).find();
+    }
+
+    protected boolean isSubRequestUrl(HttpServletRequest request) {
+        final String servletPath = ((HttpServletRequest) request).getServletPath();
+        return subRequestUrlPattern != null && subRequestUrlPattern.matcher(servletPath).find();
+    }
+
+    protected String getTitlePath(HttpServletRequest request) {
+        final String servletPath = ((HttpServletRequest) request).getServletPath();
+        if (isRequestUriTitleUrl(servletPath)) {
+            return getRequestURI(request);
+        }
+        return servletPath;
+    }
+
     protected String getServletPath(HttpServletRequest request) {
         return ((HttpServletRequest) request).getServletPath();
+    }
+
+    protected String getRequestURI(HttpServletRequest request) {
+        return ((HttpServletRequest) request).getRequestURI();
     }
 
     protected void buildRequestHeaders(StringBuilder sb, HttpServletRequest request) {
@@ -353,7 +433,8 @@ public class RequestLoggingFilter implements Filter {
             }
             final Object attr = request.getAttribute(name);
             sb.append(IND);
-            sb.append("[request] ").append(name).append("=").append(attr);
+            sb.append("[request] ").append(name).append("=");
+            sb.append(filterAttributeDisp(attr));
             sb.append(LF);
         }
     }
@@ -367,9 +448,26 @@ public class RequestLoggingFilter implements Filter {
             final String name = (String) it.next();
             final Object attr = session.getAttribute(name);
             sb.append(IND);
-            sb.append("[session] ").append(name).append("=").append(attr);
+            sb.append("[session] ").append(name).append("=");
+            sb.append(filterAttributeDisp(attr));
             sb.append(LF);
         }
+    }
+
+    protected Object filterAttributeDisp(final Object attr) {
+        final Object filtered;
+        if (attr instanceof Throwable) { // exception will be displayed in another way
+            final String msg = ((Throwable) attr).getMessage();
+            final String ln = "\n";
+            if (msg != null && msg.contains(ln)) {
+                filtered = msg.substring(0, msg.indexOf(ln));
+            } else {
+                filtered = msg;
+            }
+        } else {
+            filtered = attr;
+        }
+        return filtered;
     }
 
     protected void buildResponseInfo(StringBuilder sb, HttpServletRequest request, HttpServletResponse response) {
@@ -400,7 +498,7 @@ public class RequestLoggingFilter implements Filter {
         final StringBuilder sb = new StringBuilder();
         sb.append(comment);
         sb.append(LF);
-        sb.append("/= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =: " + getServletPath(request));
+        sb.append("/= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =: " + getTitlePath(request));
         sb.append(LF).append(IND);
         try {
             buildRequestInfo(sb, request, response, true);
@@ -419,7 +517,7 @@ public class RequestLoggingFilter implements Filter {
 
     protected void attention(HttpServletRequest request, HttpServletResponse response) {
         final StringBuilder sb = new StringBuilder();
-        sb.append("{FAILURE}: ").append(getServletPath(request));
+        sb.append("{FAILURE}: ").append(getTitlePath(request));
         sb.append(LF);
         sb.append(" *Read the exception message!");
         sb.append(LF);
@@ -540,7 +638,7 @@ public class RequestLoggingFilter implements Filter {
     /**
      * The handler of '500 Error' in the request.
      */
-    public static interface Request500Handler {
+    public interface Request500Handler {
 
         /**
          * Handle the '500 Error' exception. <br />
@@ -579,7 +677,7 @@ public class RequestLoggingFilter implements Filter {
         do {
             basePos = str.indexOf(fromStr, nextPos);
             if (nextPos == 0 && basePos < 0) { // first loop and not found
-                return str; // without creating StringBuilder 
+                return str; // without creating StringBuilder
             }
             if (sb == null) {
                 sb = new StringBuilder();
