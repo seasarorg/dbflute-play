@@ -190,81 +190,6 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_NAME: {VARCHAR(50)}
-     * @param productName The value of productName as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_NotEqual(String productName) {
-        doSetProductName_NotEqual(fRES(productName));
-    }
-
-    protected void doSetProductName_NotEqual(String productName) {
-        regProductName(CK_NES, productName);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_NAME: {VARCHAR(50)}
-     * @param productName The value of productName as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_GreaterThan(String productName) {
-        regProductName(CK_GT, fRES(productName));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_NAME: {VARCHAR(50)}
-     * @param productName The value of productName as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_LessThan(String productName) {
-        regProductName(CK_LT, fRES(productName));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_NAME: {VARCHAR(50)}
-     * @param productName The value of productName as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_GreaterEqual(String productName) {
-        regProductName(CK_GE, fRES(productName));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_NAME: {VARCHAR(50)}
-     * @param productName The value of productName as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_LessEqual(String productName) {
-        regProductName(CK_LE, fRES(productName));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * PRODUCT_NAME: {VARCHAR(50)}
-     * @param productNameList The collection of productName as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_InScope(Collection<String> productNameList) {
-        doSetProductName_InScope(productNameList);
-    }
-
-    public void doSetProductName_InScope(Collection<String> productNameList) {
-        regINS(CK_INS, cTL(productNameList), getCValueProductName(), "PRODUCT_NAME");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * PRODUCT_NAME: {VARCHAR(50)}
-     * @param productNameList The collection of productName as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductName_NotInScope(Collection<String> productNameList) {
-        doSetProductName_NotInScope(productNameList);
-    }
-
-    public void doSetProductName_NotInScope(Collection<String> productNameList) {
-        regINS(CK_NINS, cTL(productNameList), getCValueProductName(), "PRODUCT_NAME");
-    }
-
-    /**
      * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * PRODUCT_NAME: {VARCHAR(50)}
      * @param productName The value of productName as prefixSearch. (NullAllowed: if null (or empty), no condition)
@@ -340,42 +265,6 @@ public abstract class AbstractBsSummaryProductCQ extends AbstractConditionQuery 
 
     protected void doSetProductHandleCode_NotEqual(String productHandleCode) {
         regProductHandleCode(CK_NES, productHandleCode);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_HANDLE_CODE: {VARCHAR(100)}
-     * @param productHandleCode The value of productHandleCode as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductHandleCode_GreaterThan(String productHandleCode) {
-        regProductHandleCode(CK_GT, fRES(productHandleCode));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_HANDLE_CODE: {VARCHAR(100)}
-     * @param productHandleCode The value of productHandleCode as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductHandleCode_LessThan(String productHandleCode) {
-        regProductHandleCode(CK_LT, fRES(productHandleCode));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_HANDLE_CODE: {VARCHAR(100)}
-     * @param productHandleCode The value of productHandleCode as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductHandleCode_GreaterEqual(String productHandleCode) {
-        regProductHandleCode(CK_GE, fRES(productHandleCode));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * PRODUCT_HANDLE_CODE: {VARCHAR(100)}
-     * @param productHandleCode The value of productHandleCode as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setProductHandleCode_LessEqual(String productHandleCode) {
-        regProductHandleCode(CK_LE, fRES(productHandleCode));
     }
 
     /**

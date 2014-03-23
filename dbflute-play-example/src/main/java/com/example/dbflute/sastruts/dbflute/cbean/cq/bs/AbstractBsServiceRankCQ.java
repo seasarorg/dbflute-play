@@ -373,81 +373,6 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setServiceRankName_NotEqual(String serviceRankName) {
-        doSetServiceRankName_NotEqual(fRES(serviceRankName));
-    }
-
-    protected void doSetServiceRankName_NotEqual(String serviceRankName) {
-        regServiceRankName(CK_NES, serviceRankName);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setServiceRankName_GreaterThan(String serviceRankName) {
-        regServiceRankName(CK_GT, fRES(serviceRankName));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setServiceRankName_LessThan(String serviceRankName) {
-        regServiceRankName(CK_LT, fRES(serviceRankName));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setServiceRankName_GreaterEqual(String serviceRankName) {
-        regServiceRankName(CK_GE, fRES(serviceRankName));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankName The value of serviceRankName as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setServiceRankName_LessEqual(String serviceRankName) {
-        regServiceRankName(CK_LE, fRES(serviceRankName));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankNameList The collection of serviceRankName as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setServiceRankName_InScope(Collection<String> serviceRankNameList) {
-        doSetServiceRankName_InScope(serviceRankNameList);
-    }
-
-    public void doSetServiceRankName_InScope(Collection<String> serviceRankNameList) {
-        regINS(CK_INS, cTL(serviceRankNameList), getCValueServiceRankName(), "SERVICE_RANK_NAME");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
-     * @param serviceRankNameList The collection of serviceRankName as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setServiceRankName_NotInScope(Collection<String> serviceRankNameList) {
-        doSetServiceRankName_NotInScope(serviceRankNameList);
-    }
-
-    public void doSetServiceRankName_NotInScope(Collection<String> serviceRankNameList) {
-        regINS(CK_NINS, cTL(serviceRankNameList), getCValueServiceRankName(), "SERVICE_RANK_NAME");
-    }
-
-    /**
      * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * (サービスランク名称)SERVICE_RANK_NAME: {NotNull, VARCHAR(50)}
      * @param serviceRankName The value of serviceRankName as prefixSearch. (NullAllowed: if null (or empty), no condition)
@@ -749,42 +674,6 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as greaterThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDescription_GreaterThan(String description) {
-        regDescription(CK_GT, fRES(description));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as lessThan. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDescription_LessThan(String description) {
-        regDescription(CK_LT, fRES(description));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as greaterEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDescription_GreaterEqual(String description) {
-        regDescription(CK_GE, fRES(description));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
-     * @param description The value of description as lessEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDescription_LessEqual(String description) {
-        regDescription(CK_LE, fRES(description));
-    }
-
-    /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
      * (説明)DESCRIPTION: {NotNull, VARCHAR(200)}
      * @param descriptionList The collection of description as inScope. (NullAllowed: if null (or empty), no condition)
@@ -858,55 +747,6 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as notEqual. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_NotEqual(Integer displayOrder) {
-        doSetDisplayOrder_NotEqual(displayOrder);
-    }
-
-    protected void doSetDisplayOrder_NotEqual(Integer displayOrder) {
-        regDisplayOrder(CK_NES, displayOrder);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as greaterThan. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_GreaterThan(Integer displayOrder) {
-        regDisplayOrder(CK_GT, displayOrder);
-    }
-
-    /**
-     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as lessThan. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_LessThan(Integer displayOrder) {
-        regDisplayOrder(CK_LT, displayOrder);
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as greaterEqual. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_GreaterEqual(Integer displayOrder) {
-        regDisplayOrder(CK_GE, displayOrder);
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrder The value of displayOrder as lessEqual. (NullAllowed: if null, no condition)
-     */
-    public void setDisplayOrder_LessEqual(Integer displayOrder) {
-        regDisplayOrder(CK_LE, displayOrder);
-    }
-
-    /**
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
@@ -917,32 +757,6 @@ public abstract class AbstractBsServiceRankCQ extends AbstractConditionQuery {
      */
     public void setDisplayOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
         regROO(minNumber, maxNumber, getCValueDisplayOrder(), "DISPLAY_ORDER", rangeOfOption);
-    }
-
-    /**
-     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDisplayOrder_InScope(Collection<Integer> displayOrderList) {
-        doSetDisplayOrder_InScope(displayOrderList);
-    }
-
-    protected void doSetDisplayOrder_InScope(Collection<Integer> displayOrderList) {
-        regINS(CK_INS, cTL(displayOrderList), getCValueDisplayOrder(), "DISPLAY_ORDER");
-    }
-
-    /**
-     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * (表示順)DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
-     * @param displayOrderList The collection of displayOrder as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {
-        doSetDisplayOrder_NotInScope(displayOrderList);
-    }
-
-    protected void doSetDisplayOrder_NotInScope(Collection<Integer> displayOrderList) {
-        regINS(CK_NINS, cTL(displayOrderList), getCValueDisplayOrder(), "DISPLAY_ORDER");
     }
 
     protected void regDisplayOrder(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueDisplayOrder(), "DISPLAY_ORDER"); }
