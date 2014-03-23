@@ -168,20 +168,6 @@ public class BsMemberWithdrawalCQ extends AbstractBsMemberWithdrawalCQ {
     }
     protected ConditionValue getCValueWithdrawalReasonInputText() { return getWithdrawalReasonInputText(); }
 
-    /** 
-     * Add order-by as ascend. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @return this. (NotNull)
-     */
-    public BsMemberWithdrawalCQ addOrderBy_WithdrawalReasonInputText_Asc() { regOBA("WITHDRAWAL_REASON_INPUT_TEXT"); return this; }
-
-    /**
-     * Add order-by as descend. <br />
-     * (退会理由入力テキスト)WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @return this. (NotNull)
-     */
-    public BsMemberWithdrawalCQ addOrderBy_WithdrawalReasonInputText_Desc() { regOBD("WITHDRAWAL_REASON_INPUT_TEXT"); return this; }
-
     protected ConditionValue _withdrawalDatetime;
     public ConditionValue getWithdrawalDatetime() {
         if (_withdrawalDatetime == null) { _withdrawalDatetime = nCV(); }

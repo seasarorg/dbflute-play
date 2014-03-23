@@ -359,45 +359,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonText The value of withdrawalReasonText as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_NotEqual(String withdrawalReasonText) {
-        doSetWithdrawalReasonText_NotEqual(fRES(withdrawalReasonText));
-    }
-
-    protected void doSetWithdrawalReasonText_NotEqual(String withdrawalReasonText) {
-        regWithdrawalReasonText(CK_NES, withdrawalReasonText);
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
-        doSetWithdrawalReasonText_InScope(withdrawalReasonTextList);
-    }
-
-    public void doSetWithdrawalReasonText_InScope(Collection<String> withdrawalReasonTextList) {
-        regINS(CK_INS, cTL(withdrawalReasonTextList), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonTextList The collection of withdrawalReasonText as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
-        doSetWithdrawalReasonText_NotInScope(withdrawalReasonTextList);
-    }
-
-    public void doSetWithdrawalReasonText_NotInScope(Collection<String> withdrawalReasonTextList) {
-        regINS(CK_NINS, cTL(withdrawalReasonTextList), getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT");
-    }
-
-    /**
      * PrefixSearch {like 'xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * WITHDRAWAL_REASON_TEXT: {CLOB(2147483647)}
      * @param withdrawalReasonText The value of withdrawalReasonText as prefixSearch. (NullAllowed: if null (or empty), no condition)
@@ -460,45 +421,6 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
 
     protected void doSetWithdrawalReasonInputText_Equal(String withdrawalReasonInputText) {
         regWithdrawalReasonInputText(CK_EQ, withdrawalReasonInputText);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputText The value of withdrawalReasonInputText as notEqual. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_NotEqual(String withdrawalReasonInputText) {
-        doSetWithdrawalReasonInputText_NotEqual(fRES(withdrawalReasonInputText));
-    }
-
-    protected void doSetWithdrawalReasonInputText_NotEqual(String withdrawalReasonInputText) {
-        regWithdrawalReasonInputText(CK_NES, withdrawalReasonInputText);
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as inScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_InScope(Collection<String> withdrawalReasonInputTextList) {
-        doSetWithdrawalReasonInputText_InScope(withdrawalReasonInputTextList);
-    }
-
-    public void doSetWithdrawalReasonInputText_InScope(Collection<String> withdrawalReasonInputTextList) {
-        regINS(CK_INS, cTL(withdrawalReasonInputTextList), getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br />
-     * WITHDRAWAL_REASON_INPUT_TEXT: {CLOB(2147483647)}
-     * @param withdrawalReasonInputTextList The collection of withdrawalReasonInputText as notInScope. (NullAllowed: if null (or empty), no condition)
-     */
-    public void setWithdrawalReasonInputText_NotInScope(Collection<String> withdrawalReasonInputTextList) {
-        doSetWithdrawalReasonInputText_NotInScope(withdrawalReasonInputTextList);
-    }
-
-    public void doSetWithdrawalReasonInputText_NotInScope(Collection<String> withdrawalReasonInputTextList) {
-        regINS(CK_NINS, cTL(withdrawalReasonInputTextList), getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT");
     }
 
     /**
@@ -929,8 +851,10 @@ public abstract class AbstractBsSummaryWithdrawalCQ extends AbstractConditionQue
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected SummaryWithdrawalCB newMyCB() {
+        return new SummaryWithdrawalCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return SummaryWithdrawalCB.class.getName(); }
     protected String xabCQ() { return SummaryWithdrawalCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
