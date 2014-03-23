@@ -1,0 +1,74 @@
+@(form: Form[com.example.dbflute.sastruts.web.member.MemberForm], 
+memberStatusMap: Map[String, String],
+member: com.example.dbflute.sastruts.dbflute.exentity.Member
+)
+
+@main("会員編集") {
+
+@header()
+<div class="contents">
+	<h2>会員編集</h2>
+	@helper.form(action = controllers.member.routes.MemberEditController.doUpdate(member.getMemberId())) {
+		@if(form.hasErrors()) {
+			<ul style="color: red">
+			@for(errList <- form.errors().map(v => v._2)) {
+				@for(err <- errList) {
+					@if(err.key == "") {
+						<li>@Messages(err.message)</li>
+					} else {
+						<li>@Messages(err.key): @Messages(err.message)</li>
+					}
+				}
+			}
+			</ul>
+		}
+		<table>
+			<tr>
+				<td>@Messages("memberName")</td>
+				<td><input type="text" name="memberName" value="@form("memberName").value" /></td>
+			</tr>
+			<tr>
+				<td>@Messages("birthdate")</td>
+				<td><input type="text" name="birthdate" value="@form("birthdate").value" /></td>
+			</tr>
+			<tr>
+				<td>@Messages("memberStatusCode")</td>
+				<td>
+					<select name="memberStatusCode">
+						@for(status <- memberStatusMap){
+							<option value="@status._1" @if(form("memberStatusCode").value == status._1){selected="selected"}>@status._2</option>
+						}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>@Messages("memberAccount")</td>
+				<td><input type="text" name="memberAccount" value="@form("memberAccount").value" /></td>
+			</tr>
+			<tr>
+				<td>@Messages("formalizedDate")</td>
+				<td>@form("formalizedDate").value</td>
+			</tr>
+			<tr>
+				<td>@Messages("latestLoginDatetime")</td>
+				<td>@form("latestLoginDatetime").value</td>
+			</tr>
+			<tr>
+				<td>@Messages("updateDatetime")</td>
+				<td>@form("updateDatetime").value</td>
+			</tr>
+		</table>
+		<input type="hidden" name="formalizedDate" value="@form("formalizedDate").value" />
+		<input type="hidden" name="latestLoginDatetime" value="@form("latestLoginDatetime").value" />
+		<input type="hidden" name="updateDatetime" value="@form("updateDatetime").value" />
+		<input type="hidden" name="previousStatusCode" value="@form("previousStatusCode").value" />
+		<input type="hidden" name="versionNo" value="@form("versionNo").value" />
+		<input type="submit" name="doUpdate" value="更新" />
+		<input type="submit" name="doDelete" value="強制退会" />
+	}
+	<div class="listback">
+		<a href="@controllers.member.routes.MemberListController.index">会員一覧へ</a>
+	</div>
+</div>
+@footer()
+}
