@@ -513,22 +513,6 @@
             <unique-column name="DISPLAY_ORDER" position="1"/>
         </unique>
     </table>
-    <table comment="退会理由: 会員に選ばせる定型的な退会理由のマスタ。" name="WITHDRAWAL_REASON"
-        schema="EXAMPLEDB.PUBLIC" type="TABLE">
-        <column comment="退会理由コード: " dbType="CHAR" javaType="String"
-            name="WITHDRAWAL_REASON_CODE" pkName="CONSTRAINT_10"
-            primaryKey="true" required="true" size="3" type="CHAR"/>
-        <column
-            comment="退会理由テキスト: 退会理由の内容。テキスト形式なので目いっぱい書けるが、&#xa;そうするとUI側できれいに見せるのが大変でしょうね。"
-            dbType="CLOB" javaType="String"
-            name="WITHDRAWAL_REASON_TEXT" required="true"
-            size="2147483647" type="CLOB"/>
-        <column comment="" dbType="INTEGER" javaType="Integer"
-            name="DISPLAY_ORDER" required="true" size="10" type="INTEGER"/>
-        <unique name="UQ_WITHDRAWAL_REASON_DISPLAY_ORDER_INDEX_1">
-            <unique-column name="DISPLAY_ORDER" position="1"/>
-        </unique>
-    </table>
     <table name="SUMMARY_PRODUCT" schema="EXAMPLEDB.PUBLIC" type="VIEW">
         <column comment="" dbType="INTEGER" javaType="Integer"
             name="PRODUCT_ID" size="10" type="INTEGER"/>
@@ -562,6 +546,22 @@
             name="MEMBER_STATUS_NAME" size="50" type="VARCHAR"/>
         <column comment="" dbType="INTEGER" javaType="Integer"
             name="MAX_PURCHASE_PRICE" size="10" type="INTEGER"/>
+    </table>
+    <table comment="退会理由: 会員に選ばせる定型的な退会理由のマスタ。" name="WITHDRAWAL_REASON"
+        schema="EXAMPLEDB.PUBLIC" type="TABLE">
+        <column comment="退会理由コード: " dbType="CHAR" javaType="String"
+            name="WITHDRAWAL_REASON_CODE" pkName="CONSTRAINT_10"
+            primaryKey="true" required="true" size="3" type="CHAR"/>
+        <column
+            comment="退会理由テキスト: 退会理由の内容。テキスト形式なので目いっぱい書けるが、&#xa;そうするとUI側できれいに見せるのが大変でしょうね。"
+            dbType="CLOB" javaType="String"
+            name="WITHDRAWAL_REASON_TEXT" required="true"
+            size="2147483647" type="CLOB"/>
+        <column comment="" dbType="INTEGER" javaType="Integer"
+            name="DISPLAY_ORDER" required="true" size="10" type="INTEGER"/>
+        <unique name="UQ_WITHDRAWAL_REASON_DISPLAY_ORDER_INDEX_1">
+            <unique-column name="DISPLAY_ORDER" position="1"/>
+        </unique>
     </table>
     <sequenceGroup>
         <sequence incrementSize="1"
