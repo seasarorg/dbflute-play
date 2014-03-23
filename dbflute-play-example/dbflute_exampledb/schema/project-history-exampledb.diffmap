@@ -1,0 +1,549 @@
+map:{
+    ; 2013/02/24 14:06:39 = map:{
+        ; diffDate = 2013/02/24 14:06:39
+        ; tableDiff = map:{
+            ; MEMBER = map:{
+                ; tableName = MEMBER
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; MEMBER_ADDRESS = map:{
+                ; tableName = MEMBER_ADDRESS
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; MEMBER_LOGIN = map:{
+                ; tableName = MEMBER_LOGIN
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; MEMBER_SECURITY = map:{
+                ; tableName = MEMBER_SECURITY
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; MEMBER_SERVICE = map:{
+                ; tableName = MEMBER_SERVICE
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; MEMBER_STATUS = map:{
+                ; tableName = MEMBER_STATUS
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; MEMBER_WITHDRAWAL = map:{
+                ; tableName = MEMBER_WITHDRAWAL
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; PRODUCT = map:{
+                ; tableName = PRODUCT
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; PRODUCT_CATEGORY = map:{
+                ; tableName = PRODUCT_CATEGORY
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; PRODUCT_STATUS = map:{
+                ; tableName = PRODUCT_STATUS
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; PURCHASE = map:{
+                ; tableName = PURCHASE
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; REGION = map:{
+                ; tableName = REGION
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; SERVICE_RANK = map:{
+                ; tableName = SERVICE_RANK
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; WITHDRAWAL_REASON = map:{
+                ; tableName = WITHDRAWAL_REASON
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; SUMMARY_PRODUCT = map:{
+                ; tableName = SUMMARY_PRODUCT
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+            ; SUMMARY_WITHDRAWAL = map:{
+                ; tableName = SUMMARY_WITHDRAWAL
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB.PUBLIC
+                    ; previous = EXAMPLEDB_MASTER.PUBLIC
+                }
+            }
+        }
+    }
+    ; 2012/08/28 12:55:44 = map:{
+        ; diffDate = 2012/08/28 12:55:44
+        ; tableDiff = map:{
+            ; MEMBER_ADDRESS = map:{
+                ; tableName = MEMBER_ADDRESS
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; MEMBER_ADDRESS_ID = map:{
+                        ; columnName = MEMBER_ADDRESS_ID
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F25CC373_1384_43E2_862B_EB8CEAF804AD"
+                            ; previous = "null"
+                        }
+                        ; autoIncrementDiff = map:{
+                            ; next = true
+                            ; previous = false
+                        }
+                    }
+                }
+            }
+            ; MEMBER_SERVICE = map:{
+                ; tableName = MEMBER_SERVICE
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; MEMBER_SERVICE_ID = map:{
+                        ; columnName = MEMBER_SERVICE_ID
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = "NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_901393B2_665F_4877_84CA_8E9D03367E45"
+                            ; previous = "null"
+                        }
+                        ; autoIncrementDiff = map:{
+                            ; next = true
+                            ; previous = false
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ; 2011/08/27 00:03:49 = map:{
+        ; diffDate = 2011/08/27 00:03:49
+        ; tableCount = map:{
+            ; next = 16
+            ; previous = 12
+        }
+        ; tableDiff = map:{
+            ; MEMBER_SERVICE = map:{
+                ; tableName = MEMBER_SERVICE
+                ; diffType = ADD
+            }
+            ; PRODUCT_CATEGORY = map:{
+                ; tableName = PRODUCT_CATEGORY
+                ; diffType = ADD
+            }
+            ; REGION = map:{
+                ; tableName = REGION
+                ; diffType = ADD
+            }
+            ; SERVICE_RANK = map:{
+                ; tableName = SERVICE_RANK
+                ; diffType = ADD
+            }
+            ; SUMMARY_WITHDRAWAL = map:{
+                ; tableName = SUMMARY_WITHDRAWAL
+                ; diffType = ADD
+            }
+            ; MEMBER = map:{
+                ; tableName = MEMBER
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; REGISTER_PROCESS = map:{
+                        ; columnName = REGISTER_PROCESS
+                        ; diffType = DELETE
+                    }
+                    ; UPDATE_PROCESS = map:{
+                        ; columnName = UPDATE_PROCESS
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; MEMBER_ADDRESS = map:{
+                ; tableName = MEMBER_ADDRESS
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; REGION_ID = map:{
+                        ; columnName = REGION_ID
+                        ; diffType = ADD
+                    }
+                    ; REGISTER_PROCESS = map:{
+                        ; columnName = REGISTER_PROCESS
+                        ; diffType = DELETE
+                    }
+                    ; UPDATE_PROCESS = map:{
+                        ; columnName = UPDATE_PROCESS
+                        ; diffType = DELETE
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; FK_MEMBER_ADDRESS_REGION = map:{
+                        ; constraintName = FK_MEMBER_ADDRESS_REGION
+                        ; diffType = ADD
+                    }
+                }
+                ; indexDiff = map:{
+                    ; FK_MEMBER_ADDRESS_REGION_INDEX_B = map:{
+                        ; constraintName = FK_MEMBER_ADDRESS_REGION_INDEX_B
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; MEMBER_SECURITY = map:{
+                ; tableName = MEMBER_SECURITY
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; REMINDER_USE_COUNT = map:{
+                        ; columnName = REMINDER_USE_COUNT
+                        ; diffType = ADD
+                    }
+                    ; REGISTER_PROCESS = map:{
+                        ; columnName = REGISTER_PROCESS
+                        ; diffType = DELETE
+                    }
+                    ; UPDATE_PROCESS = map:{
+                        ; columnName = UPDATE_PROCESS
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; MEMBER_STATUS = map:{
+                ; tableName = MEMBER_STATUS
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; DESCRIPTION = map:{
+                        ; columnName = DESCRIPTION
+                        ; diffType = ADD
+                    }
+                }
+                ; uniqueKeyDiff = map:{
+                    ; UQ_MEMBER_STATUS_MEMBER_STATUS_NAME_INDEX_4 = map:{
+                        ; constraintName = UQ_MEMBER_STATUS_MEMBER_STATUS_NAME_INDEX_4
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; MEMBER_WITHDRAWAL = map:{
+                ; tableName = MEMBER_WITHDRAWAL
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; REGISTER_PROCESS = map:{
+                        ; columnName = REGISTER_PROCESS
+                        ; diffType = DELETE
+                    }
+                    ; UPDATE_PROCESS = map:{
+                        ; columnName = UPDATE_PROCESS
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; PRODUCT = map:{
+                ; tableName = PRODUCT
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; PRODUCT_CATEGORY_CODE = map:{
+                        ; columnName = PRODUCT_CATEGORY_CODE
+                        ; diffType = ADD
+                    }
+                    ; REGULAR_PRICE = map:{
+                        ; columnName = REGULAR_PRICE
+                        ; diffType = ADD
+                    }
+                    ; REGISTER_PROCESS = map:{
+                        ; columnName = REGISTER_PROCESS
+                        ; diffType = DELETE
+                    }
+                    ; UPDATE_PROCESS = map:{
+                        ; columnName = UPDATE_PROCESS
+                        ; diffType = DELETE
+                    }
+                }
+                ; foreignKeyDiff = map:{
+                    ; FK_PRODUCT_PRODUCT_CATEGORY = map:{
+                        ; constraintName = FK_PRODUCT_PRODUCT_CATEGORY
+                        ; diffType = ADD
+                    }
+                }
+                ; indexDiff = map:{
+                    ; FK_PRODUCT_PRODUCT_CATEGORY_INDEX_1 = map:{
+                        ; constraintName = FK_PRODUCT_PRODUCT_CATEGORY_INDEX_1
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; PRODUCT_STATUS = map:{
+                ; tableName = PRODUCT_STATUS
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; DISPLAY_ORDER = map:{
+                        ; columnName = DISPLAY_ORDER
+                        ; diffType = ADD
+                    }
+                }
+                ; uniqueKeyDiff = map:{
+                    ; UQ_PRODUCT_STATUS_DISPLAY_ORDER_INDEX_1 = map:{
+                        ; constraintName = UQ_PRODUCT_STATUS_DISPLAY_ORDER_INDEX_1
+                        ; diffType = ADD
+                    }
+                    ; UQ_PRODUCT_STATUS_PRODUCT_STATUS_NAME_INDEX_1 = map:{
+                        ; constraintName = UQ_PRODUCT_STATUS_PRODUCT_STATUS_NAME_INDEX_1
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; PURCHASE = map:{
+                ; tableName = PURCHASE
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; REGISTER_PROCESS = map:{
+                        ; columnName = REGISTER_PROCESS
+                        ; diffType = DELETE
+                    }
+                    ; UPDATE_PROCESS = map:{
+                        ; columnName = UPDATE_PROCESS
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; SUMMARY_PRODUCT = map:{
+                ; tableName = SUMMARY_PRODUCT
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; PRODUCT_HANDLE_CODE = map:{
+                        ; columnName = PRODUCT_HANDLE_CODE
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; VENDOR_CHECK = map:{
+                ; tableName = VENDOR_CHECK
+                ; diffType = DELETE
+            }
+        }
+    }
+    ; 2011/08/15 11:12:54 = map:{
+        ; diffDate = 2011/08/15 11:12:54
+        ; tableCount = map:{
+            ; next = 12
+            ; previous = 12
+        }
+        ; tableDiff = map:{
+            ; MEMBER = map:{
+                ; tableName = MEMBER
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+            ; MEMBER_ADDRESS = map:{
+                ; tableName = MEMBER_ADDRESS
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+            ; MEMBER_LOGIN = map:{
+                ; tableName = MEMBER_LOGIN
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+            ; MEMBER_SECURITY = map:{
+                ; tableName = MEMBER_SECURITY
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+            ; MEMBER_STATUS = map:{
+                ; tableName = MEMBER_STATUS
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+            ; MEMBER_WITHDRAWAL = map:{
+                ; tableName = MEMBER_WITHDRAWAL
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+            ; PRODUCT = map:{
+                ; tableName = PRODUCT
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+            ; PRODUCT_STATUS = map:{
+                ; tableName = PRODUCT_STATUS
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+            ; PURCHASE = map:{
+                ; tableName = PURCHASE
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+            ; VENDOR_CHECK = map:{
+                ; tableName = VENDOR_CHECK
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+            ; WITHDRAWAL_REASON = map:{
+                ; tableName = WITHDRAWAL_REASON
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+            ; SUMMARY_PRODUCT = map:{
+                ; tableName = SUMMARY_PRODUCT
+                ; diffType = CHANGE
+                ; unifiedSchemaDiff = map:{
+                    ; next = EXAMPLEDB_MASTER.PUBLIC
+                    ; previous = EXAMPLEDB.PUBLIC
+                }
+            }
+        }
+    }
+    ; 2010/06/09 11:14:36 = map:{
+        ; diffDate = 2010/06/09 11:14:36
+        ; tableCount = map:{
+            ; next = 12
+            ; previous = 12
+        }
+        ; tableDiff = map:{
+            ; MEMBER = map:{
+                ; tableName = MEMBER
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; MEMBER_ID = map:{
+                        ; columnName = MEMBER_ID
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_57235451_92CA_40C4_84EB_EDA673A65EC0
+                            ; previous = NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7F8CC931_D56D_4EF3_A4C3_5B47A55E578D
+                        }
+                    }
+                }
+            }
+            ; MEMBER_LOGIN = map:{
+                ; tableName = MEMBER_LOGIN
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; MEMBER_LOGIN_ID = map:{
+                        ; columnName = MEMBER_LOGIN_ID
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_FDBCEE0A_B312_4D1B_83EF_D0970A573D8A
+                            ; previous = NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_0C8AE492_72B5_46F6_88AF_AC3ECCD5045B
+                        }
+                    }
+                }
+            }
+            ; PRODUCT = map:{
+                ; tableName = PRODUCT
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; PRODUCT_ID = map:{
+                        ; columnName = PRODUCT_ID
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_0B005F2D_A678_4862_84D3_D47E698C7267
+                            ; previous = NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5A248A53_C74E_4610_B556_BE5EB6F71D18
+                        }
+                    }
+                }
+            }
+            ; PURCHASE = map:{
+                ; tableName = PURCHASE
+                ; diffType = CHANGE
+                ; columnDiff = map:{
+                    ; PURCHASE_ID = map:{
+                        ; columnName = PURCHASE_ID
+                        ; diffType = CHANGE
+                        ; defaultValueDiff = map:{
+                            ; next = NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_1A9E592E_F6F3_4CB5_A857_64EB739F4BF0
+                            ; previous = NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_FFD23040_9E9F_4DAA_A4C5_0B4AC6CF92A0
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

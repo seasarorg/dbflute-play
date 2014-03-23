@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	<include path="default-customizer.dicon"/>
+
+	<!-- _/_/_/_/_/_/_/_/ -->
+	<!-- _/ ActionForm _/ -->
+	<!-- _/_/_/_/_/_/_/_/ -->
+	<component name="formCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain"/>
+
+	<!-- _/_/_/_/_/_/_/_/ -->
+	<!-- _/   Action   _/ -->
+	<!-- _/_/_/_/_/_/_/_/ -->
+	<component name="actionCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+		<!-- = = = = = = = -->
+		<!-- Basic Aspect  -->
+		<!-- = = = = = = = -->
+		<initMethod name="addAspectCustomizer">
+			<!-- you can trace your actions in log -->
+			<arg>"aop.actionTraceInterceptor"</arg>
+		</initMethod>
+	  	<initMethod name="addAspectCustomizer">
+	  		<!-- you can throw exception with message in action -->
+			<arg>"aop.actionMessagesThrowsInterceptor"</arg>
+	  	</initMethod>
+	  	<initMethod name="addCustomizer">
+			<arg>
+				<!-- public methods (@Execute and doValidate...) have transaction -->
+				<component class="org.seasar.framework.container.customizer.TxAttributeCustomizer"/>
+			</arg>
+	  	</initMethod>
+	  	<initMethod name="addCustomizer">
+			<arg>
+				<!-- XxxAction classes under action package can be treated as Action -->
+				<component class="org.seasar.struts.customizer.ActionCustomizer"/>
+			</arg>
+	  	</initMethod>
+
+		<!-- = = = = = = = = = = -->
+		<!-- Application Aspect	 -->
+		<!-- = = = = = = = = = = -->
+	  	<initMethod name="addAspectCustomizer">
+			<arg>"accessContextSetupInterceptor"</arg>
+	  	</initMethod>
+	</component>
+
+	<!-- _/_/_/_/_/_/_/_/ -->
+	<!-- _/   Service  _/ -->
+	<!-- _/_/_/_/_/_/_/_/ -->
+	<component name="serviceCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+	  	<initMethod name="addCustomizer">
+			<arg>
+				<component class="org.seasar.framework.container.customizer.TxAttributeCustomizer"/>
+			</arg>
+	  	</initMethod>
+	</component>
+
+	<!-- _/_/_/_/_/_/_/_/ -->
+	<!-- _/    Logic   _/ -->
+	<!-- _/_/_/_/_/_/_/_/ -->
+	<component name="logicCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+		<initMethod name="addCustomizer">
+			<arg>
+				<component class="org.seasar.framework.container.customizer.TxAttributeCustomizer"/>
+			</arg>
+		</initMethod>
+	</component>
+
+	<!-- _/_/_/_/_/_/_/_/ -->
+	<!-- _/   Helper   _/ -->
+	<!-- _/_/_/_/_/_/_/_/ -->
+	<component name="helperCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
+	</component>
+</components>
