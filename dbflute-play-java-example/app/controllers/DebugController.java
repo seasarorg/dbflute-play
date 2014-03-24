@@ -48,8 +48,8 @@ public class DebugController extends Controller {
      * [META-INF/MANIFEST.MF]
      */
     private static final String CL_MANIFEST_PATH = JarFile.MANIFEST_NAME;
-    private final Pattern jarFileNamePattern = Pattern.compile("([^/]+\\.jar)");
-    private final Pattern jarPathPattern = Pattern.compile("(.+\\.jar)[!]*?");
+    private final Pattern jarFileNamePattern = Pattern.compile("([^/]+\\.(jar|zip))");
+    private final Pattern jarPathPattern = Pattern.compile("(.+\\.(jar|zip))[!]*?");
 
     @Binding(bindingType = BindingType.MUST)
     private DataSource dataSource;
