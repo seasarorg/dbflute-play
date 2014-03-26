@@ -17,6 +17,7 @@ POST   /member/purchase/:memberId/:purchaseId        @controllers.member.purchas
 
 GET    /debug                                        @controllers.DebugController.index()
 GET    /debug/request                                @controllers.DebugController.request1()
+GET    /debug/resources                              @controllers.DebugController.resources()
 GET    /debug/jars                                   @controllers.DebugController.jars()
 GET    /debug/system                                 @controllers.DebugController.system()
 GET    /debug/play                                   @controllers.DebugController.play1()

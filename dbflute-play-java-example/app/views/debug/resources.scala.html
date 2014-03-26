@@ -1,0 +1,33 @@
+@(form: Form[com.example.dbflute.sastruts.web.DebugResourceForm], resources: List[String])
+
+@main("resources") {
+
+	<h1>Debug</h1>
+	<h2>resources</h2>
+	<div class="condition">
+	@helper.form(action = controllers.routes.DebugController.resources()) {
+		example: "org/apache/commons", "logger.xml"
+		<br />
+		<input type="text" name="p" value="@form("p").value" size="200" />
+		<br />
+		<input type="submit" value="search" />
+	}
+	</div>
+	@if(!resources.isEmpty()) {
+		<hr />
+		<div>
+		<table>
+			<tr>
+				<th>#</th><th>path</th>
+			</tr>
+			@for((v, i) <- resources.zipWithIndex) {
+			<tr>
+				<td>@i</td><td>@v</td>
+			</tr>
+			}
+		</table>
+		</div>
+	}
+
+@debugFooter()
+}

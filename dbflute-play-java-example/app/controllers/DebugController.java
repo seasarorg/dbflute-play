@@ -8,6 +8,7 @@ import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
@@ -32,9 +33,11 @@ import org.slf4j.LoggerFactory;
 import play.Application;
 import play.Configuration;
 import play.Play;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import com.example.dbflute.sastruts.web.DebugResourceForm;
 import com.google.common.base.Strings;
 import com.google.common.io.Closer;
 import com.typesafe.config.ConfigValue;
@@ -68,6 +71,21 @@ public class DebugController extends Controller {
      */
     public Result request1() {
         final Status ret = ok(views.html.debug.request1.render("DEBUG Your new application is ready."));
+        return ret;
+    }
+
+    public Result resources() throws IOException {
+        // query stringからもbindしてくれる
+        Form<DebugResourceForm> form = Form.form(DebugResourceForm.class).bindFromRequest();
+        final DebugResourceForm resourceForm = form.get();
+
+        final String resourceName = resourceForm.p;
+        final List<String> resources = new ArrayList<String>();
+        if (!Strings.isNullOrEmpty(resourceName)) {
+            collectResources(resourceName, resources);
+            Collections.sort(resources);
+        }
+        final Status ret = ok(views.html.debug.resources.render(form, resources));
         return ret;
     }
 
@@ -168,6 +186,15 @@ public class DebugController extends Controller {
                 }
                 destMap.put(key, sb.toString());
             }
+        }
+    }
+
+    private void collectResources(String path, final List<String> resources) throws IOException {
+        final ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        for (final Enumeration<URL> it = cl.getResources(path); it.hasMoreElements();) {
+            final URL url = it.nextElement();
+            final String externalForm = url.toExternalForm();
+            resources.add(externalForm);
         }
     }
 
