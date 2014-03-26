@@ -8,4 +8,13 @@ public class DebugResourceForm {
      */
     public String p;
 
+    /*
+     * sort
+     */
+    public String s;
+
+    public boolean isSort() {
+        return "t".equals(s);
+    }
+
 }

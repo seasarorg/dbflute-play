@@ -83,7 +83,9 @@ public class DebugController extends Controller {
         final List<String> resources = new ArrayList<String>();
         if (!Strings.isNullOrEmpty(resourceName)) {
             collectResources(resourceName, resources);
-            Collections.sort(resources);
+            if (resourceForm.isSort()) {
+                Collections.sort(resources);
+            }
         }
         final Status ret = ok(views.html.debug.resources.render(form, resources));
         return ret;
