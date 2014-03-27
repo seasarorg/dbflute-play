@@ -4,22 +4,16 @@
 
 	<h1>Debug</h1>
 	<h2>memory</h2>
-	@defining(Runtime.getRuntime()){ rt =>
 	<table>
 		<tr>
 			<th>key</th><th>value</th>
 		</tr>
+		@for(v <- props) {
 		<tr>
-			<td>freeMemory</td><td>@(rt.freeMemory() / 1024 / 1024)M</td>
+			<td>@v._1</td><td style="text-align: right;">@v._2</td>
 		</tr>
-		<tr>
-			<td>totalMemory</td><td>@(rt.totalMemory() / 1024 / 1024)M</td>
-		</tr>
-		<tr>
-			<td>maxMemory</td><td>@(rt.maxMemory() / 1024 / 1024)M</td>
-		</tr>
+		}
 	</table>
-	}
 
 @debugFooter()
 }

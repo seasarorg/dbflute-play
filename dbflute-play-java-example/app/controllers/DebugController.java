@@ -3,10 +3,12 @@ package controllers;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -136,8 +138,23 @@ public class DebugController extends Controller {
     }
 
     public Result memory() {
-        final Status ret = ok(views.html.debug.memory.render(null));
+        final Runtime runtime = Runtime.getRuntime();
+        final Map<String, String> props = new TreeMap<String, String>();
+        props.put("freeMemory", toMegaBinaryString(runtime.freeMemory()));
+        props.put("totalMemory", toMegaBinaryString(runtime.totalMemory()));
+        props.put("maxMemory", toMegaBinaryString(runtime.maxMemory()));
+        final Status ret = ok(views.html.debug.memory.render(props));
         return ret;
+    }
+
+    private String toMegaBinaryString(long value) {
+        final NumberFormat formatter = NumberFormat.getNumberInstance();
+        formatter.setRoundingMode(RoundingMode.HALF_UP);
+        formatter.setMinimumFractionDigits(0);
+        formatter.setMaximumFractionDigits(0);
+
+        final double d = value / (1024.0 * 1024.0);
+        return formatter.format(d) + "MiB";
     }
 
     public Result play1() throws IOException {
