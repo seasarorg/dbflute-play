@@ -1,14 +1,38 @@
-@(props: Map[String, String])
+@(props: Map[String, String], heap: Map[String, String], nonHeap: Map[String, String])
 
 @main("memory") {
 
 	<h1>Debug</h1>
-	<h2>memory</h2>
+	<h2>Runtime</h2>
 	<table>
 		<tr>
 			<th>key</th><th>value</th>
 		</tr>
 		@for(v <- props) {
+		<tr>
+			<td>@v._1</td><td style="text-align: right;">@v._2</td>
+		</tr>
+		}
+	</table>
+
+	<h2>HeapMemoryUsage</h2>
+	<table>
+		<tr>
+			<th>key</th><th>value</th>
+		</tr>
+		@for(v <- heap) {
+		<tr>
+			<td>@v._1</td><td style="text-align: right;">@v._2</td>
+		</tr>
+		}
+	</table>
+
+	<h2>NonHeapMemoryUsage</h2>
+	<table>
+		<tr>
+			<th>key</th><th>value</th>
+		</tr>
+		@for(v <- nonHeap) {
 		<tr>
 			<td>@v._1</td><td style="text-align: right;">@v._2</td>
 		</tr>

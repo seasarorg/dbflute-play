@@ -3,6 +3,9 @@ package controllers;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.MemoryUsage;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.net.URLConnection;
@@ -13,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -139,11 +143,29 @@ public class DebugController extends Controller {
 
     public Result memory() {
         final Runtime runtime = Runtime.getRuntime();
-        final Map<String, String> props = new TreeMap<String, String>();
-        props.put("freeMemory", toMegaBinaryString(runtime.freeMemory()));
-        props.put("totalMemory", toMegaBinaryString(runtime.totalMemory()));
-        props.put("maxMemory", toMegaBinaryString(runtime.maxMemory()));
-        final Status ret = ok(views.html.debug.memory.render(props));
+        final Map<String, String> runtimeProp = new LinkedHashMap<String, String>();
+        runtimeProp.put("freeMemory", toMegaBinaryString(runtime.freeMemory()));
+        runtimeProp.put("totalMemory", toMegaBinaryString(runtime.totalMemory()));
+        runtimeProp.put("maxMemory", toMegaBinaryString(runtime.maxMemory()));
+
+        final MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
+        final MemoryUsage heapUsage = memoryMXBean.getHeapMemoryUsage();
+        final Map<String, String> heapProp = new LinkedHashMap<String, String>();
+        logger.debug("heapUsage: {}", heapUsage);
+        heapProp.put("init", toMegaBinaryString(heapUsage.getInit()));
+        heapProp.put("used", toMegaBinaryString(heapUsage.getUsed()));
+        heapProp.put("committed", toMegaBinaryString(heapUsage.getCommitted()));
+        heapProp.put("max", toMegaBinaryString(heapUsage.getMax()));
+
+        final MemoryUsage nonHeapUsage = memoryMXBean.getNonHeapMemoryUsage();
+        logger.debug("nonHeapUsage: {}", nonHeapUsage);
+        final Map<String, String> nonHeapProp = new LinkedHashMap<String, String>();
+        nonHeapProp.put("init", toMegaBinaryString(nonHeapUsage.getInit()));
+        nonHeapProp.put("used", toMegaBinaryString(nonHeapUsage.getUsed()));
+        nonHeapProp.put("committed", toMegaBinaryString(nonHeapUsage.getCommitted()));
+        nonHeapProp.put("max", toMegaBinaryString(nonHeapUsage.getMax()));
+
+        final Status ret = ok(views.html.debug.memory.render(runtimeProp, heapProp, nonHeapProp));
         return ret;
     }
 
