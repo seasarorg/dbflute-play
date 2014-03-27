@@ -1,0 +1,25 @@
+@(props: Map[String, String])
+
+@main("memory") {
+
+	<h1>Debug</h1>
+	<h2>memory</h2>
+	@defining(Runtime.getRuntime()){ rt =>
+	<table>
+		<tr>
+			<th>key</th><th>value</th>
+		</tr>
+		<tr>
+			<td>freeMemory</td><td>@(rt.freeMemory() / 1024 / 1024)M</td>
+		</tr>
+		<tr>
+			<td>totalMemory</td><td>@(rt.totalMemory() / 1024 / 1024)M</td>
+		</tr>
+		<tr>
+			<td>maxMemory</td><td>@(rt.maxMemory() / 1024 / 1024)M</td>
+		</tr>
+	</table>
+	}
+
+@debugFooter()
+}

@@ -135,6 +135,11 @@ public class DebugController extends Controller {
         return ret;
     }
 
+    public Result memory() {
+        final Status ret = ok(views.html.debug.memory.render(null));
+        return ret;
+    }
+
     public Result play1() throws IOException {
         final Application application = Play.application();
         final Map<String, String> props = new TreeMap<String, String>();

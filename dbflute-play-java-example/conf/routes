@@ -20,6 +20,7 @@ GET    /debug/request                                @controllers.DebugControlle
 GET    /debug/resources                              @controllers.DebugController.resources()
 GET    /debug/jars                                   @controllers.DebugController.jars()
 GET    /debug/system                                 @controllers.DebugController.system()
+GET    /debug/memory                                 @controllers.DebugController.memory()
 GET    /debug/play                                   @controllers.DebugController.play1()
 GET    /debug/database                               @controllers.DebugController.database()
 
