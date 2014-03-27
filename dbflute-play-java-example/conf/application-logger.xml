@@ -12,7 +12,7 @@
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%d{"HH:mm:ss,SSS"} %coloredLevel %logger{15} - %message%n%xException{5}</pattern>
+      <pattern>%d{"HH:mm:ss,SSS"} %coloredLevel [%thread] %logger{15} - %message%n%xException{5}</pattern>
     </encoder>
   </appender>
   
