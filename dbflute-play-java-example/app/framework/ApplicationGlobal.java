@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.joda.time.Interval;
 import org.seasar.dbflute.AccessContext;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
@@ -152,8 +153,10 @@ public class ApplicationGlobal extends GlobalSettings {
                 return result;
             } finally {
                 final long end = System.currentTimeMillis();
+                final Interval interval = new Interval(begin, end);
                 final String ret = success ? "Success" : "Failure";
-                logger.debug(String.format("[%s] END: %s, %sms, args=%s", reqCount, ret, (end - begin), ctx.args));
+                logger.debug(String.format("[%s] END: %s, %sms, args=%s", reqCount, ret, interval.toDurationMillis(),
+                        ctx.args));
             }
         }
 
