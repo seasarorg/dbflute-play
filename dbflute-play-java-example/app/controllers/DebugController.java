@@ -192,20 +192,22 @@ public class DebugController extends Controller {
          * ConfigurationにはSystem.propertyも含まれている。
          * ここではplay側の情報に興味があるので、分離して表示する。
          */
-        final List<Tuple3<String, String, String>> configs = new ArrayList<>();
-        final List<Tuple3<String, String, String>> systemConfigs = new ArrayList<>();
+
+        final Map<String, List<Tuple3<String, String, String>>> configs = new TreeMap<String, List<Tuple3<String, String, String>>>();
         final Configuration configuration = application.configuration();
-        Set<Map.Entry<String, ConfigValue>> keys = configuration.entrySet();
+        final Set<Map.Entry<String, ConfigValue>> keys = configuration.entrySet();
         for (final Map.Entry<String, ConfigValue> entry : keys) {
             final String key = entry.getKey();
             final ConfigValue configValue = entry.getValue();
             final String value = configValue.render();
             final ConfigOrigin origin = configValue.origin();
-            if (Strings.isNullOrEmpty(System.getProperty(key))) {
-                configs.add(new Tuple3(key, value, _toStr(origin)));
-            } else {
-                systemConfigs.add(new Tuple3(key, value, _toStr(origin)));
+            final String orig = _toStr(origin);
+            List<Tuple3<String, String, String>> values = configs.get(orig);
+            if (values == null) {
+                values = new ArrayList<Tuple3<String, String, String>>();
+                configs.put(orig, values);
             }
+            values.add(new Tuple3(key, value, orig));
         }
         final Comparator<Tuple3<String, String, String>> comparator = new Comparator<Tuple3<String, String, String>>() {
             @Override
@@ -213,8 +215,9 @@ public class DebugController extends Controller {
                 return o1._1().compareTo(o2._1());
             }
         };
-        Collections.sort(configs, comparator);
-        Collections.sort(systemConfigs, comparator);
+        for (final List<Tuple3<String, String, String>> value : configs.values()) {
+            Collections.sort(value, comparator);
+        }
 
         scala.collection.Seq<play.api.Plugin> plugins = application.getWrappedApplication().plugins();
         // java側でscalaのループを回すのは手間なので、scalaテンプレート側で扱う
@@ -222,7 +225,7 @@ public class DebugController extends Controller {
         //
         //        }
 
-        final Status ret = ok(views.html.debug.play1.render(props, configs, systemConfigs, plugins));
+        final Status ret = ok(views.html.debug.play1.render(props, configs, plugins));
         return ret;
     }
 

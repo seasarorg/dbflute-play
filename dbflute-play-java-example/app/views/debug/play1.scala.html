@@ -1,7 +1,6 @@
 @(props: Map[String, String],
-configs: List[Tuple3[String, String, String]],
-systemConfigs: List[Tuple3[String, String, String]],
-plugins: Seq[play.api.Plugin] 
+configs: Map[String, List[Tuple3[String, String, String]]],
+plugins: Seq[play.api.Plugin]
 )
 
 @main("play") {
@@ -31,29 +30,20 @@ plugins: Seq[play.api.Plugin]
 	}
 	</table>
 
-	<h2>configs (exclude system)</h2>
-	<table>
-		<tr>
-			<th>key</th><th>value</th><th>origin</th>
-		</tr>
-	@for(v <- configs) {
-		<tr>
-            <td>@v._1</td><td>@v._2</td><td>@v._3</td>
-		</tr>
+	<h2>configs</h2>
+	@for(config <- configs) {
+		<h3>@config._1</h3>
+		<table>
+			<tr>
+				<th>key</th><th>value</th>
+			</tr>
+			@for(v <- config._2) {
+				<tr>
+					<td>@v._1</td><td>@v._2</td>
+				</tr>
+			}
+		</table>
 	}
-	</table>
-
-	<h2>configs (system only)</h2>
-	<table>
-		<tr>
-            <th>key</th><th>value</th><th>origin</th>
-		</tr>
-	@for(v <- systemConfigs) {
-		<tr>
-            <td>@v._1</td><td>@v._2</td><td>@v._3</td>
-		</tr>
-	}
-	</table>
 
 @debugFooter()
 }
