@@ -14,6 +14,7 @@ import java.sql.DatabaseMetaData;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -42,10 +43,12 @@ import play.Play;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import scala.Tuple3;
 
 import com.example.dbflute.sastruts.web.DebugResourceForm;
 import com.google.common.base.Strings;
 import com.google.common.io.Closer;
+import com.typesafe.config.ConfigOrigin;
 import com.typesafe.config.ConfigValue;
 
 public class DebugController extends Controller {
@@ -189,20 +192,29 @@ public class DebugController extends Controller {
          * ConfigurationにはSystem.propertyも含まれている。
          * ここではplay側の情報に興味があるので、分離して表示する。
          */
-        final Map<String, String> configs = new TreeMap<String, String>();
-        final Map<String, String> systemConfigs = new TreeMap<String, String>();
+        final List<Tuple3<String, String, String>> configs = new ArrayList<>();
+        final List<Tuple3<String, String, String>> systemConfigs = new ArrayList<>();
         final Configuration configuration = application.configuration();
         Set<Map.Entry<String, ConfigValue>> keys = configuration.entrySet();
         for (final Map.Entry<String, ConfigValue> entry : keys) {
             final String key = entry.getKey();
             final ConfigValue configValue = entry.getValue();
             final String value = configValue.render();
+            final ConfigOrigin origin = configValue.origin();
             if (Strings.isNullOrEmpty(System.getProperty(key))) {
-                configs.put(key, value);
+                configs.add(new Tuple3(key, value, _toStr(origin)));
             } else {
-                systemConfigs.put(key, value);
+                systemConfigs.add(new Tuple3(key, value, _toStr(origin)));
             }
         }
+        final Comparator<Tuple3<String, String, String>> comparator = new Comparator<Tuple3<String, String, String>>() {
+            @Override
+            public int compare(Tuple3<String, String, String> o1, Tuple3<String, String, String> o2) {
+                return o1._1().compareTo(o2._1());
+            }
+        };
+        Collections.sort(configs, comparator);
+        Collections.sort(systemConfigs, comparator);
 
         scala.collection.Seq<play.api.Plugin> plugins = application.getWrappedApplication().plugins();
         // java側でscalaのループを回すのは手間なので、scalaテンプレート側で扱う
@@ -212,6 +224,14 @@ public class DebugController extends Controller {
 
         final Status ret = ok(views.html.debug.play1.render(props, configs, systemConfigs, plugins));
         return ret;
+    }
+
+    private String _toStr(final ConfigOrigin origin) {
+        final URL url = origin.url();
+        if (url != null) {
+            return url.toExternalForm();
+        }
+        return origin.description();
     }
 
     private void toMap(final Map properties, final Map<String, String> destMap) {

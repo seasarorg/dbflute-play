@@ -1,6 +1,6 @@
 @(props: Map[String, String],
-configs: Map[String, String],
-systemConfigs: Map[String, String],
+configs: List[Tuple3[String, String, String]],
+systemConfigs: List[Tuple3[String, String, String]],
 plugins: Seq[play.api.Plugin] 
 )
 
@@ -34,11 +34,11 @@ plugins: Seq[play.api.Plugin]
 	<h2>configs (exclude system)</h2>
 	<table>
 		<tr>
-			<th>key</th><th>value</th>
+			<th>key</th><th>value</th><th>origin</th>
 		</tr>
 	@for(v <- configs) {
 		<tr>
-			<td>@v._1</td><td>@v._2</td>
+            <td>@v._1</td><td>@v._2</td><td>@v._3</td>
 		</tr>
 	}
 	</table>
@@ -46,11 +46,11 @@ plugins: Seq[play.api.Plugin]
 	<h2>configs (system only)</h2>
 	<table>
 		<tr>
-			<th>key</th><th>value</th>
+            <th>key</th><th>value</th><th>origin</th>
 		</tr>
 	@for(v <- systemConfigs) {
 		<tr>
-			<td>@v._1</td><td>@v._2</td>
+            <td>@v._1</td><td>@v._2</td><td>@v._3</td>
 		</tr>
 	}
 	</table>
