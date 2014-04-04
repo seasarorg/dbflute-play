@@ -181,7 +181,7 @@ public class DebugController extends Controller {
 
     public Result play1() throws IOException {
         final Application application = Play.application();
-        final Map<String, String> props = new TreeMap<String, String>();
+        final Map<String, String> props = new LinkedHashMap<String, String>();
         props.put("mode", application.getWrappedApplication().mode().toString());
         props.put("path", application.path().getCanonicalPath());
 
