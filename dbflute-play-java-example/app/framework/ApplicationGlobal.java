@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.joda.time.Interval;
 import org.seasar.dbflute.AccessContext;
@@ -34,7 +33,7 @@ public class ApplicationGlobal extends GlobalSettings {
     /**
      * リクエスト通番(1オリジン)
      */
-    private final AtomicLong requestCounter = new AtomicLong();
+    private final RequestCounter requestCounter = new RequestCounter();
 
     public ApplicationGlobal() {
         logger.debug("<init>");
@@ -75,7 +74,7 @@ public class ApplicationGlobal extends GlobalSettings {
     @Override
     public Action onRequest(final Request request, final Method actionMethod) {
         // 1始まりの通番
-        final long reqCount = requestCounter.incrementAndGet();
+        final RequestCount reqCount = requestCounter.next();
         final long begin = System.currentTimeMillis();
         if (logger.isDebugEnabled()) {
             final String sb = toString(request);
@@ -127,12 +126,12 @@ public class ApplicationGlobal extends GlobalSettings {
 
         private final Logger logger = LoggerFactory.getLogger(AppAction.class);
         private final String COUNTER_KEY = AppAction.class.getName() + ".requestCounter";
-        private final long reqCount;
+        private final RequestCount reqCount;
         private final Request request;
         private final Method actionMethod;
         private final long begin;
 
-        public AppAction(long reqCount, final Request request, final Method actionMethod, long begin) {
+        public AppAction(final RequestCount reqCount, final Request request, final Method actionMethod, long begin) {
             this.reqCount = reqCount;
             this.request = request;
             this.actionMethod = actionMethod;
