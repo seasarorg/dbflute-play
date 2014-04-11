@@ -231,6 +231,11 @@ public class DebugController extends Controller {
         return ret;
     }
 
+    public Result exception() {
+        logger.debug("例外を投げます");
+        throw new RuntimeException("dummy");
+    }
+
     private String _toStr(final ConfigOrigin origin) {
         final URL url = origin.url();
         if (url != null) {
