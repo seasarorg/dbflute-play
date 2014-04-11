@@ -110,7 +110,8 @@ public class ApplicationGlobal extends GlobalSettings {
             if (values.length == 1) {
                 sb.append(values[0]);
             } else {
-                sb.append("Array: " + Arrays.toString(values));
+                sb.append("Array: ");
+                sb.append(Arrays.toString(values));
             }
         }
 
