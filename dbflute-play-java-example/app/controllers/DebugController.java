@@ -71,7 +71,9 @@ public class DebugController extends Controller {
     }
 
     public Result index() {
+        logger.debug("before OK");
         final Status ret = ok(views.html.debug.debug.render("DEBUG Your new application is ready."));
+        logger.debug("after OK");
         return ret;
     }
 
