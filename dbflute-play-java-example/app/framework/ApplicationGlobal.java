@@ -17,13 +17,14 @@ import org.slf4j.LoggerFactory;
 
 import play.Application;
 import play.GlobalSettings;
-import play.libs.F.Promise;
+import play.libs.F;
 import play.mvc.Action;
 import play.mvc.Http;
 import play.mvc.Http.Context;
 import play.mvc.Http.Request;
 import play.mvc.Http.RequestBody;
 import play.mvc.Http.Session;
+import play.mvc.Result;
 
 public class ApplicationGlobal extends GlobalSettings {
 
@@ -78,8 +79,8 @@ public class ApplicationGlobal extends GlobalSettings {
         final long begin = System.currentTimeMillis();
         if (logger.isDebugEnabled()) {
             final String sb = toString(request);
-            logger.debug(String.format("[%s] BEGIN: request={%s}\n  action=%s\n  %s", requestCount, request, actionMethod,
-                    sb));
+            logger.debug(String.format("[%s] BEGIN: request={%s}\n  action=%s\n  %s", requestCount, request,
+                    actionMethod, sb));
         }
 
         final Action origAction = super.onRequest(request, actionMethod);
@@ -139,7 +140,7 @@ public class ApplicationGlobal extends GlobalSettings {
         }
 
         @Override
-        public Promise call(final Context ctx) throws Throwable {
+        public F.Promise<Result> call(final Context ctx) throws Throwable {
             ctx.args.put(COUNTER_KEY, String.format("[req-%s]", requestCount.getCount()));
             if (logger.isDebugEnabled()) {
                 final Session session = ctx.session();
@@ -148,15 +149,50 @@ public class ApplicationGlobal extends GlobalSettings {
 
             boolean success = false;
             try {
-                final Promise result = call0(ctx);
+                /*
+                 * 3つのPromiseは全て異なるスレッドで実行される可能性がある。
+                 */
+                final F.Promise<String> beforeAction = F.Promise.promise(new F.Function0<String>() {
+                    @Override
+                    public String apply() {
+                        logger.info(String.format("[%s] BEGIN: Function", requestCount));
+                        return null;
+                    }
+                });
+                final F.Promise<Result> controllerAction = beforeAction
+                        .flatMap(new F.Function<String, F.Promise<Result>>() {
+                            @Override
+                            public F.Promise<Result> apply(final String dummy) throws Throwable {
+                                return call0(ctx);
+                            }
+                        });
+                final F.Promise<Result> result = controllerAction.map(new F.Function<Result, Result>() {
+                    @Override
+                    public Result apply(final Result o) throws Throwable {
+                        final long end = System.currentTimeMillis();
+                        final Interval interval = new Interval(begin, end);
+                        logger.info(String.format("[%s] END: Success, %sms", requestCount, interval.toDurationMillis()));
+                        return o;
+                    }
+                });
+                final F.Callback<Throwable> onFailure = new F.Callback<Throwable>() {
+                    @Override
+                    public void invoke(final Throwable th) throws Throwable {
+                        final long end = System.currentTimeMillis();
+                        final Interval interval = new Interval(begin, end);
+                        logger.warn(
+                                String.format("[%s] END: Failure, %sms", requestCount, interval.toDurationMillis()), th);
+                    }
+                };
+                result.onFailure(onFailure);
                 success = true;
                 return result;
             } finally {
                 final long end = System.currentTimeMillis();
                 final Interval interval = new Interval(begin, end);
                 final String ret = success ? "Success" : "Failure";
-                logger.debug(String.format("[%s] END: %s, %sms, args=%s", requestCount, ret, interval.toDurationMillis(),
-                        ctx.args));
+                logger.debug(String.format("[%s] END: %s, %sms, args=%s", requestCount, ret,
+                        interval.toDurationMillis(), ctx.args));
             }
         }
 
@@ -167,7 +203,7 @@ public class ApplicationGlobal extends GlobalSettings {
          * delegateはplay側に設定されるので、1段しか作れないようなので、
          * 諦めて元のActionにDBFlute用ロジックも組み込んだ。
          */
-        private Promise call0(final Context ctx) throws Throwable {
+        private F.Promise<Result> call0(final Context ctx) throws Throwable {
             // ログインするシステムならばログイン者のID等にする
             final String user = request.remoteAddress();
             final String processName = String.format("%s#%s", actionMethod.getDeclaringClass().getSimpleName(),
@@ -179,7 +215,8 @@ public class ApplicationGlobal extends GlobalSettings {
             context.setAccessProcess(processName);
             try {
                 AccessContext.setAccessContextOnThread(context);
-                return delegate.call(ctx);
+                final F.Promise<Result> call = delegate.call(ctx);
+                return call;
             } finally {
                 AccessContext.clearAccessContextOnThread();
             }
