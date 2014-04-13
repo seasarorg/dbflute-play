@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    
+
+  <conversionRule conversionWord="phc" converterClass="com.example.dbflute.logback.PlayHttpContextConverter" />
+
   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
      <file>${application.home}/logs/application.log</file>
      <encoder>
@@ -10,7 +12,7 @@
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%d{"HH:mm:ss,SSS"} %highlight(%-5level) [%thread] %boldCyan(%logger{15}) - %message%n%xException{5}</pattern>
+      <pattern>%d{"HH:mm:ss,SSS"} %highlight(%-5level) %phc{requestCount}[%thread] %boldCyan(%logger{15}) - %message%n%xException{5}</pattern>
     </encoder>
   </appender>
   
