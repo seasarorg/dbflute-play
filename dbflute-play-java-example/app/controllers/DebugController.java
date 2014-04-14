@@ -285,6 +285,10 @@ public class DebugController extends Controller {
         return String.format("%08x, %s", System.identityHashCode(ctx), ctx);
     }
 
+    private String _identityHashCode(final Object o) {
+        return String.format("%08x", System.identityHashCode(o));
+    }
+
     private String _toStr(final ConfigOrigin origin) {
         final URL url = origin.url();
         if (url != null) {
