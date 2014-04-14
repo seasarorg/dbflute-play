@@ -1,15 +1,22 @@
 package framework.seasar;
 
+import java.util.Map;
+
+import javax.transaction.Status;
+
 import org.seasar.extension.jta.ExtendedTransaction;
 import org.seasar.extension.jta.TransactionManagerImpl;
 import org.seasar.framework.util.TransactionUtil;
+
 import play.mvc.Http;
 
-import javax.transaction.Status;
-import java.util.Map;
-
-/*
- * see: org.seasar.extension.jta.TransactionManagerImpl
+/**
+ * {@link java.lang.ThreadLocal} の代わりにPlayFramework2の {@link play.mvc.Http.Context} をトランザクション保存先とする
+ * {@link javax.transaction.TransactionManager} です。
+ *
+ * @see org.seasar.extension.jta.TransactionManagerImpl
+ *
+ * @author manhole
  */
 public class HttpContextBoundTransactionManager extends TransactionManagerImpl {
 
@@ -17,8 +24,7 @@ public class HttpContextBoundTransactionManager extends TransactionManagerImpl {
 
     protected ExtendedTransaction getCurrent() {
         final ExtendedTransaction tx = _getTransaction();
-        if (tx != null
-                && TransactionUtil.getStatus(tx) == Status.STATUS_NO_TRANSACTION) {
+        if (tx != null && TransactionUtil.getStatus(tx) == Status.STATUS_NO_TRANSACTION) {
             setCurrent(null);
             return null;
         }

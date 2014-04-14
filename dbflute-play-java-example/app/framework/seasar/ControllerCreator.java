@@ -8,6 +8,11 @@ import org.seasar.framework.convention.NamingConvention;
 
 import play.mvc.Controller;
 
+/**
+ * {@link play.mvc.Controller} サブクラスを対象とする {@link org.seasar.framework.container.ComponentCreator} です。
+ *
+ * @author manhole
+ */
 public class ControllerCreator extends ComponentCreatorImpl {
 
     public ControllerCreator(final NamingConvention namingConvention) {

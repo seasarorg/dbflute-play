@@ -10,6 +10,12 @@ import play.libs.F;
 import play.libs.F.Callback;
 import play.mvc.Result;
 
+/**
+ * {@link play.libs.F.Promise} が完了してからトランザクションをcommit/rollbackさせる
+ * {@link org.seasar.extension.tx.TransactionManagerAdapter}です。
+ * 
+ * @author manhole
+ */
 public class AsyncJTATransactionManagerAdapter extends JTATransactionManagerAdapter {
 
     public AsyncJTATransactionManagerAdapter(final UserTransaction userTransaction,
