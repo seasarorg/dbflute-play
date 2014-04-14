@@ -25,5 +25,5 @@
 
 	<!-- JTA の TransactionManager を利用する TransactionManagerAdapter -->
 	<component
-		class="org.seasar.extension.tx.adapter.JTATransactionManagerAdapter"/>
+		class="framework.tx.AsyncJTATransactionManagerAdapter"/>
 </components>
