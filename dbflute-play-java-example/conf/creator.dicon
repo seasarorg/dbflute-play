@@ -13,5 +13,5 @@
 	<component class="org.seasar.framework.container.creator.HelperCreator"/>
 	<component class="org.seasar.framework.container.creator.InterceptorCreator"/>
 	-->
-	<component class="framework.ControllerCreator" />
+	<component class="framework.seasar.ControllerCreator" />
 </components>

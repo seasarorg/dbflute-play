@@ -17,7 +17,7 @@
 		class="org.seasar.extension.jta.UserTransactionImpl"/>
 
 	<component name="TransactionManager"
-		class="framework.HttpContextBoundTransactionManager"/>
+		class="framework.seasar.HttpContextBoundTransactionManager"/>
 
 	<!-- TransactionManager を利用する TransactionSynchronizationRegistry -->
 	<component name="TransactionSynchronizationRegistry"
@@ -25,5 +25,5 @@
 
 	<!-- JTA の TransactionManager を利用する TransactionManagerAdapter -->
 	<component
-		class="framework.tx.AsyncJTATransactionManagerAdapter"/>
+		class="framework.seasar.AsyncJTATransactionManagerAdapter"/>
 </components>

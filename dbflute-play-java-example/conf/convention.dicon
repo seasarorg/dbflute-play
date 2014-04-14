@@ -2,7 +2,7 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN" 
 	"http://www.seasar.org/dtd/components24.dtd">
 <components>
-	<component class="framework.PlayNamingConvention">
+	<component class="framework.seasar.PlayNamingConvention">
 		<initMethod name="addRootPackageName">
 			<!--
 			 set your root package here

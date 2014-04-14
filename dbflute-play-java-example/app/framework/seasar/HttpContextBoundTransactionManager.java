@@ -1,4 +1,4 @@
-package framework;
+package framework.seasar;
 
 import org.seasar.extension.jta.ExtendedTransaction;
 import org.seasar.extension.jta.TransactionManagerImpl;

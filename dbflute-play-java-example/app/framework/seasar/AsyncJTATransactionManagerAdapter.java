@@ -1,4 +1,4 @@
-package framework.tx;
+package framework.seasar;
 
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;

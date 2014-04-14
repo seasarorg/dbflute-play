@@ -1,4 +1,4 @@
-package framework;
+package framework.seasar;
 
 import org.seasar.framework.aop.Pointcut;
 import org.seasar.framework.container.customizer.AspectCustomizer;

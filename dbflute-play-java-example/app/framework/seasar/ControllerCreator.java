@@ -1,4 +1,4 @@
-package framework;
+package framework.seasar;
 
 import org.seasar.framework.container.ComponentCustomizer;
 import org.seasar.framework.container.ComponentDef;
