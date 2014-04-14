@@ -31,11 +31,18 @@ public class AsyncJTATransactionManagerAdapter extends JTATransactionManagerAdap
             throw th;
         }
 
-        // Controllerに仕掛けるのでpromiseが返ってくるはず
-        F.Promise<Result> promise = (F.Promise<Result>) executed;
-        final F.Promise<Object> result = promise.map(new F.Function<Result, Object>() {
+        // play.mvc.Result などの場合は同期処理。
+        if (!(executed instanceof F.Promise)) {
+            if (began) {
+                end();
+            }
+            return executed;
+        }
+
+        final F.Promise<Result> promise = (F.Promise<Result>) executed;
+        final F.Promise<Result> result = promise.map(new F.Function<Result, Result>() {
             @Override
-            public Object apply(final Result o) throws Throwable {
+            public Result apply(final Result o) throws Throwable {
                 if (began) {
                     end();
                 }
