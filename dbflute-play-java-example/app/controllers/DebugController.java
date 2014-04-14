@@ -285,6 +285,24 @@ public class DebugController extends Controller {
         return promiseOfResult;
     }
 
+    public Promise<Result> async2() throws SQLException {
+        final Promise<String> promise = Promise.promise(new Function0<String>() {
+            public String apply() throws Exception {
+                _sleep(500L);
+                return "dummy async2";
+            }
+        });
+        final Promise<Result> result = promise.map(new Function<String, Result>() {
+            @Override
+            public Result apply(final String result) throws Throwable {
+                _sleep(500L);
+                throw new RuntimeException(result);
+            }
+        });
+        logger.debug("END async2");
+        return result;
+    }
+
     private void _sleep(final long millis) {
         logger.debug("sleep {}ms ...", millis);
         try {
