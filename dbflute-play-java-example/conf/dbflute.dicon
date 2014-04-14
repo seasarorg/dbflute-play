@@ -3,7 +3,7 @@
     "http://www.seasar.org/dtd/components21.dtd">
 
 <components namespace="dbflute">
-    <include path="j2ee.dicon"/>
+    <include path="app-j2ee.dicon"/>
 
     <!-- The components of DBFlute Runtime. -->
     <component name="introduction" class="com.example.dbflute.sastruts.dbflute.allcommon.DBFluteInitializer"/>

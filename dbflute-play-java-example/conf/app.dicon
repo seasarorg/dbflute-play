@@ -9,6 +9,6 @@
 	<include path="cooldeploy-autoregister.dicon"/>
 	<include path="dbflute.dicon"/>
 
-	<include path="j2ee.dicon" />
+	<include path="app-j2ee.dicon" />
 
 </components>
