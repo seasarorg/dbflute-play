@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicLong;
 
+import org.joda.time.Interval;
 import org.seasar.dbflute.AccessContext;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
@@ -33,7 +33,7 @@ public class ApplicationGlobal extends GlobalSettings {
     /**
      * リクエスト通番(1オリジン)
      */
-    private final AtomicLong requestCounter = new AtomicLong();
+    private final RequestCounter requestCounter = new RequestCounter();
 
     public ApplicationGlobal() {
         logger.debug("<init>");
@@ -74,16 +74,16 @@ public class ApplicationGlobal extends GlobalSettings {
     @Override
     public Action onRequest(final Request request, final Method actionMethod) {
         // 1始まりの通番
-        final long reqCount = requestCounter.incrementAndGet();
+        final RequestCount requestCount = requestCounter.next();
         final long begin = System.currentTimeMillis();
         if (logger.isDebugEnabled()) {
             final String sb = toString(request);
-            logger.debug(String.format("[%s] BEGIN: request={%s}\n  action=%s\n  %s", reqCount, request, actionMethod,
+            logger.debug(String.format("[%s] BEGIN: request={%s}\n  action=%s\n  %s", requestCount, request, actionMethod,
                     sb));
         }
 
         final Action origAction = super.onRequest(request, actionMethod);
-        final AppAction appAction = new AppAction(reqCount, request, actionMethod, begin);
+        final AppAction appAction = new AppAction(requestCount, request, actionMethod, begin);
         //dbFluteAction.delegate = origAction;
         //appAction.delegate = dbFluteAction;
         // delegateはplayによって設定されるようだ。
@@ -109,7 +109,8 @@ public class ApplicationGlobal extends GlobalSettings {
             if (values.length == 1) {
                 sb.append(values[0]);
             } else {
-                sb.append("Array: " + Arrays.toString(values));
+                sb.append("Array: ");
+                sb.append(Arrays.toString(values));
             }
         }
 
@@ -125,13 +126,13 @@ public class ApplicationGlobal extends GlobalSettings {
 
         private final Logger logger = LoggerFactory.getLogger(AppAction.class);
         private final String COUNTER_KEY = AppAction.class.getName() + ".requestCounter";
-        private final long reqCount;
+        private final RequestCount requestCount;
         private final Request request;
         private final Method actionMethod;
         private final long begin;
 
-        public AppAction(long reqCount, final Request request, final Method actionMethod, long begin) {
-            this.reqCount = reqCount;
+        public AppAction(final RequestCount requestCount, final Request request, final Method actionMethod, long begin) {
+            this.requestCount = requestCount;
             this.request = request;
             this.actionMethod = actionMethod;
             this.begin = begin;
@@ -139,10 +140,10 @@ public class ApplicationGlobal extends GlobalSettings {
 
         @Override
         public Promise call(final Context ctx) throws Throwable {
-            ctx.args.put(COUNTER_KEY, reqCount);
+            ctx.args.put(COUNTER_KEY, requestCount);
             if (logger.isDebugEnabled()) {
                 final Session session = ctx.session();
-                logger.debug(String.format("[%s] args=%s\n  session=%s", reqCount, ctx.args, session));
+                logger.debug(String.format("[%s] args=%s\n  session=%s", requestCount, ctx.args, session));
             }
 
             boolean success = false;
@@ -152,8 +153,10 @@ public class ApplicationGlobal extends GlobalSettings {
                 return result;
             } finally {
                 final long end = System.currentTimeMillis();
+                final Interval interval = new Interval(begin, end);
                 final String ret = success ? "Success" : "Failure";
-                logger.debug(String.format("[%s] END: %s, %sms, args=%s", reqCount, ret, (end - begin), ctx.args));
+                logger.debug(String.format("[%s] END: %s, %sms, args=%s", requestCount, ret, interval.toDurationMillis(),
+                        ctx.args));
             }
         }
 
