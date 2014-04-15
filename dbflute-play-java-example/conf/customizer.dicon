@@ -84,7 +84,7 @@
 	<component name="controllerCustomizer" class="org.seasar.framework.container.customizer.CustomizerChain">
 		<initMethod name="addCustomizer">
 			<arg>
-				<component class="framework.ControllerAspectCustomizer">
+				<component class="framework.seasar.ControllerAspectCustomizer">
 					<initMethod name="addInterceptorName">
 						<arg>"j2ee.requiredTx"</arg>
 					</initMethod>

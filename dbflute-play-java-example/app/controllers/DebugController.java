@@ -11,6 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -244,11 +245,20 @@ public class DebugController extends Controller {
      * http://www.playframework.com/documentation/2.2.x/JavaAsync
      * Async results
      */
-    public Promise<Result> async1() {
+    public Promise<Result> async1() throws SQLException {
         logger.debug("ctx: {}", _toStr(ctx()));
+
+        final List<String> connectionIds = new ArrayList<String>();
+        final String h = _connectionHashCode();
+        logger.debug("conn1: {}", h);
+        connectionIds.add(h);
+
         final Promise<Integer> promiseOfInt = Promise.promise(new Function0<Integer>() {
-            public Integer apply() {
+            public Integer apply() throws SQLException {
                 logger.debug("ctx: {}", _toStr(ctx()));
+                final String h = _connectionHashCode();
+                logger.debug("conn2: {}", h);
+                connectionIds.add(h);
                 /*
                  * ここに来た時点でTransactionは終了してしまっている...
                  * 
@@ -259,8 +269,12 @@ public class DebugController extends Controller {
             }
         });
         final Promise<Result> promiseOfResult = promiseOfInt.map(new Function<Integer, Result>() {
-            public Result apply(final Integer i) {
+            public Result apply(final Integer i) throws SQLException {
                 logger.debug("ctx: {}", _toStr(ctx()));
+                final String h = _connectionHashCode();
+                logger.debug("conn3: {}", h);
+                connectionIds.add(h);
+                logger.debug("connections: {}", connectionIds);
                 /*
                  * ここは、上のFunction0と同じスレッド
                  */
@@ -269,6 +283,24 @@ public class DebugController extends Controller {
             }
         });
         return promiseOfResult;
+    }
+
+    public Promise<Result> async2() throws SQLException {
+        final Promise<String> promise = Promise.promise(new Function0<String>() {
+            public String apply() throws Exception {
+                _sleep(500L);
+                return "dummy async2";
+            }
+        });
+        final Promise<Result> result = promise.map(new Function<String, Result>() {
+            @Override
+            public Result apply(final String result) throws Throwable {
+                _sleep(500L);
+                throw new RuntimeException(result);
+            }
+        });
+        logger.debug("END async2");
+        return result;
     }
 
     private void _sleep(final long millis) {
@@ -281,8 +313,22 @@ public class DebugController extends Controller {
         logger.debug("... wakeup from sleep {}ms", millis);
     }
 
+    private String _connectionHashCode() throws SQLException {
+        final Connection conn = dataSource.getConnection();
+        try {
+            final String h = _identityHashCode(conn);
+            return h;
+        } finally {
+            ConnectionUtil.close(conn);
+        }
+    }
+
     private String _toStr(Http.Context ctx) {
         return String.format("%08x, %s", System.identityHashCode(ctx), ctx);
+    }
+
+    private String _identityHashCode(final Object o) {
+        return String.format("%08x", System.identityHashCode(o));
     }
 
     private String _toStr(final ConfigOrigin origin) {

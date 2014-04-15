@@ -1,4 +1,4 @@
-package framework;
+package framework.seasar;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -12,8 +12,10 @@ import org.slf4j.LoggerFactory;
 
 import play.mvc.Controller;
 
-/*
- * play.mvc.Controllerサブクラスで、getter/setter以外のメソッドを対象とする。
+/**
+ * {@link play.mvc.Controller} サブクラスで、getter/setter以外のメソッドを対象とする {@link org.seasar.framework.aop.Pointcut} です。
+ *
+ * @author manhole
  */
 class ControllerPointcut implements Pointcut {
 

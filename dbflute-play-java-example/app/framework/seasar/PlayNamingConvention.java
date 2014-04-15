@@ -1,4 +1,4 @@
-package framework;
+package framework.seasar;
 
 import org.seasar.framework.convention.impl.NamingConventionImpl;
 import org.seasar.framework.util.StringUtil;
