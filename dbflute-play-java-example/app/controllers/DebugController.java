@@ -41,7 +41,11 @@ import play.Application;
 import play.Configuration;
 import play.Play;
 import play.data.Form;
+import play.libs.F.Function;
+import play.libs.F.Function0;
+import play.libs.F.Promise;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import scala.Tuple3;
 
@@ -234,6 +238,51 @@ public class DebugController extends Controller {
     public Result exception() {
         logger.debug("例外を投げます");
         throw new RuntimeException("dummy");
+    }
+
+    /*
+     * http://www.playframework.com/documentation/2.2.x/JavaAsync
+     * Async results
+     */
+    public Promise<Result> async1() {
+        logger.debug("ctx: {}", _toStr(ctx()));
+        final Promise<Integer> promiseOfInt = Promise.promise(new Function0<Integer>() {
+            public Integer apply() {
+                logger.debug("ctx: {}", _toStr(ctx()));
+                /*
+                 * ここに来た時点でTransactionは終了してしまっている...
+                 * 
+                 * ここはControllerが呼ばれたのとは別のスレッドになる。
+                 */
+                _sleep(5000L);
+                return 23;
+            }
+        });
+        final Promise<Result> promiseOfResult = promiseOfInt.map(new Function<Integer, Result>() {
+            public Result apply(final Integer i) {
+                logger.debug("ctx: {}", _toStr(ctx()));
+                /*
+                 * ここは、上のFunction0と同じスレッド
+                 */
+                _sleep(10L);
+                return ok("Got result: " + i);
+            }
+        });
+        return promiseOfResult;
+    }
+
+    private void _sleep(final long millis) {
+        logger.debug("sleep {}ms ...", millis);
+        try {
+            Thread.sleep(millis);
+        } catch (final InterruptedException e) {
+            logger.debug(e.getMessage(), e);
+        }
+        logger.debug("... wakeup from sleep {}ms", millis);
+    }
+
+    private String _toStr(Http.Context ctx) {
+        return String.format("%08x, %s", System.identityHashCode(ctx), ctx);
     }
 
     private String _toStr(final ConfigOrigin origin) {

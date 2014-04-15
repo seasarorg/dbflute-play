@@ -24,6 +24,7 @@ GET    /debug/memory                                 @controllers.DebugControlle
 GET    /debug/play                                   @controllers.DebugController.play1()
 GET    /debug/database                               @controllers.DebugController.database()
 GET    /debug/exception                              @controllers.DebugController.exception()
+GET    /debug/async1                                 @controllers.DebugController.async1()
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                                 controllers.Assets.at(path="/public", file)

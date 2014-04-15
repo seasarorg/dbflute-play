@@ -125,7 +125,7 @@ public class ApplicationGlobal extends GlobalSettings {
     static class AppAction extends Action {
 
         private final Logger logger = LoggerFactory.getLogger(AppAction.class);
-        private final String COUNTER_KEY = AppAction.class.getName() + ".requestCounter";
+        private final String COUNTER_KEY = "requestCount";
         private final RequestCount requestCount;
         private final Request request;
         private final Method actionMethod;
@@ -140,7 +140,7 @@ public class ApplicationGlobal extends GlobalSettings {
 
         @Override
         public Promise call(final Context ctx) throws Throwable {
-            ctx.args.put(COUNTER_KEY, requestCount);
+            ctx.args.put(COUNTER_KEY, String.format("[req-%s]", requestCount.getCount()));
             if (logger.isDebugEnabled()) {
                 final Session session = ctx.session();
                 logger.debug(String.format("[%s] args=%s\n  session=%s", requestCount, ctx.args, session));
