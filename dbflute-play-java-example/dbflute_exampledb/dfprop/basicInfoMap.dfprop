@@ -106,7 +106,7 @@ map:{
     #     [app-solution]/source/[app-project(top-namespace)]/[part-namespace]/...
     #     [app-solution]/source/[app-project(top-namespace)]/Resources/...
     #
-    #; generateOutputDirectory = ../src/main/java
+    ; generateOutputDirectory = ../app
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -114,7 +114,7 @@ map:{
     #  The base output directory for resource files that contain DI configurations.
     #  Basically you don't need to specify this if your project is under the Maven.
     #
-    #; resourceOutputDirectory = ../resources
+    ; resourceOutputDirectory = ../conf
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -41,7 +41,7 @@ map:{
     #  The file name of J2EE DI configuration.
     #
     # @JavaSeasarOnly
-    #; j2eeDiconResourceName = j2ee.dicon
+    ; j2eeDiconResourceName = app-j2ee.dicon
     # - - - - - - - - - -/
 
     # /- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
