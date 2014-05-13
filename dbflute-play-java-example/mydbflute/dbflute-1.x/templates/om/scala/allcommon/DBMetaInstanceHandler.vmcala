@@ -18,6 +18,7 @@ ${database.allClassCopyright}package ${glPackageBaseCommon};
 import java.util.Collections;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Set;
 import java.lang.reflect.Method;
 
 import org.seasar.dbflute.Entity;
@@ -55,7 +56,8 @@ public class ${glDBMetaInstanceHandler} implements DBMetaProvider {
     /** The flexible map of table DB name. This is for conversion at finding. */
     protected static final Map<String, String> _tableDbNameFlexibleMap = StringKeyMap.createAsFlexible();
     static {
-        for (String tableDbName : _tableDbNameClassNameMap.keySet()) {
+        final Set<String> tableDbNameSet = _tableDbNameClassNameMap.keySet();
+        for (String tableDbName : tableDbNameSet) {
             _tableDbNameFlexibleMap.put(tableDbName, tableDbName);
         }
     }
@@ -83,7 +85,8 @@ public class ${glDBMetaInstanceHandler} implements DBMetaProvider {
                 findDBMeta(tableDbName); // initialize
             }
             if (!isInitialized()) {
-                String msg = "Failed to initialize tableDbNameInstanceMap: " + _tableDbNameInstanceMap;
+                String msg = "Failed to initialize tableDbNameInstanceMap:";
+                msg = msg + " tableDbNameInstanceMap=" + _tableDbNameInstanceMap;
                 throw new IllegalStateException(msg);
             }
         }
@@ -152,7 +155,7 @@ public class ${glDBMetaInstanceHandler} implements DBMetaProvider {
     }
 
     // ===================================================================================
-    //                                                                       by Table Name
+    //                                                                       By Table Name
     //                                                                       =============
     /**
      * @param tableFlexibleName The flexible name of table. (NotNull)
@@ -217,7 +220,7 @@ public class ${glDBMetaInstanceHandler} implements DBMetaProvider {
     }
 
     // ===================================================================================
-    //                                                                      by Entity Type
+    //                                                                      By Entity Type
     //                                                                      ==============
     /**
      * @param entityType The entity type of table, which should implement the entity interface. (NotNull)
@@ -247,20 +250,19 @@ public class ${glDBMetaInstanceHandler} implements DBMetaProvider {
             if (dbmetaName == null) {
                 return null;
             }
-            _tableDbNameInstanceMap.put(tableDbName, toDBMetaInstance(dbmetaName));
+            _tableDbNameInstanceMap.put(tableDbName, getDBMeta(dbmetaName));
             return _tableDbNameInstanceMap.get(tableDbName);
         }
     }
 
-    protected static DBMeta toDBMetaInstance(String dbmetaName) {
+    protected static DBMeta getDBMeta(String className) {
         try {
-            Class<?> dbmetaType = Class.forName(dbmetaName);
-            Method method = dbmetaType.getMethod("getInstance", (Class[])null);
-            Object result = method.invoke(null, (Object[])null);
+            Class<?> clazz = Class.forName(className);
+            Method methoz = clazz.getMethod("getInstance", (Class[])null);
+            Object result = methoz.invoke(null, (Object[])null);
             return (DBMeta)result;
         } catch (Exception e) {
-            String msg = "Failed to get the instance: " + dbmetaName;
-            throw new IllegalStateException(msg, e);
+            throw new RuntimeException("Failed to get the instance: " + className, e);
         }
     }
 
@@ -292,8 +294,7 @@ public class ${glDBMetaInstanceHandler} implements DBMetaProvider {
         try {
             return (Entity)entityType.newInstance();
         } catch (Exception e) {
-            String msg = "Failed to new the instance: " + entityType;
-            throw new IllegalStateException(msg, e);
+            throw new RuntimeException("Failed to new the instance: " + entityType, e);
         }
     }
 

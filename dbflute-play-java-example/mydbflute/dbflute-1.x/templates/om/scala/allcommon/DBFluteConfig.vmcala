@@ -56,16 +56,13 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 /**
  * @author ${database.classAuthor}
  */
-public class ${glDBFluteConfig} {
+object ${glDBFluteConfig} {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
     /** Log instance. */
-    private static final Log _log = LogFactory.getLog(${glDBFluteConfig}.class);
-
-    /** Singleton instance. */
-    private static final ${glDBFluteConfig} _instance = new ${glDBFluteConfig}();
+    private val _log: Log = LogFactory.getLog(getClass());
 
     // ===================================================================================
     //                                                                           Attribute
@@ -74,55 +71,55 @@ public class ${glDBFluteConfig} {
     //                                         Configuration
     //                                         -------------
     // condition-bean or parameter-bean
-    protected boolean _pagingCountLater = ${database.isPagingCountLater()};
-    protected boolean _pagingCountLeastJoin = ${database.isPagingCountLeastJoin()};
-    protected boolean _innerJoinAutoDetect = ${database.isInnerJoinAutoDetect()};
-    protected boolean _thatsBadTimingDetect = ${database.isThatsBadTimingDetect()};
-    protected boolean _emptyStringQueryAllowed;
-    protected boolean _emptyStringParameterAllowed;
-    protected boolean _invalidQueryChecked;
-    protected boolean _disableSelectIndex;
-    protected boolean _checkCountBeforeQueryUpdate = ${database.isCheckCountBeforeQueryUpdate()};
+    protected var _pagingCountLater: Boolean = ${database.isPagingCountLater()};
+    protected var _pagingCountLeastJoin: Boolean = ${database.isPagingCountLeastJoin()};
+    protected var _innerJoinAutoDetect: Boolean = ${database.isInnerJoinAutoDetect()};
+    protected var _thatsBadTimingDetect: Boolean = ${database.isThatsBadTimingDetect()};
+    protected var _emptyStringQueryAllowed: Boolean = false;
+    protected var _emptyStringParameterAllowed: Boolean = false;
+    protected var _invalidQueryChecked: Boolean = false;
+    protected var _disableSelectIndex: Boolean = false;
+    protected var _checkCountBeforeQueryUpdate: Boolean = ${database.isCheckCountBeforeQueryUpdate()};
 
     // logging
-    protected boolean _queryLogLevelInfo;
-    protected boolean _executeStatusLogLevelInfo;
-    protected String _logDateFormat;
-    protected String _logTimestampFormat;
+    protected var _queryLogLevelInfo: Boolean = false;
+    protected var _executeStatusLogLevelInfo: Boolean = false;
+    protected var _logDateFormat: String = null;
+    protected var _logTimestampFormat: String = null;
 
     // environment
-    protected StatementConfig _defaultStatementConfig;
+    protected var _defaultStatementConfig: StatementConfig = null;
 #if (${database.isCursorSelectFetchSizeValid()})
-    protected Integer _cursorSelectFetchSize = ${database.cursorSelectFetchSize};
+    protected var _cursorSelectFetchSize: Integer = ${database.cursorSelectFetchSize};
 #else
-    protected Integer _cursorSelectFetchSize;
+    protected var _cursorSelectFetchSize: Integer;
 #end
-    protected DataSourceHandler _dataSourceHandler;
-    protected PhysicalConnectionDigger _physicalConnectionDigger;
-    protected SQLExceptionDigger _sqlExceptionDigger;
+    protected var _dataSourceHandler: DataSourceHandler = null;
+    protected var _physicalConnectionDigger: PhysicalConnectionDigger = null;
+    protected var _sqlExceptionDigger: SQLExceptionDigger = null;
 #if ($database.isOutsideSqlPackageValid())
-    protected String _outsideSqlPackage = "${database.outsideSqlPackage}";
+    protected var _outsideSqlPackage: String = "${database.outsideSqlPackage}";
 #else
-    protected String _outsideSqlPackage;
+    protected var _outsideSqlPackage: String = null;
 #end
-    protected boolean _useSqlLogRegistry = ${database.isSqlLogRegistryValid()};
+    protected var _useSqlLogRegistry: Boolean = ${database.isSqlLogRegistryValid()};
 
     // extension
-    protected SequenceCacheKeyGenerator _sequenceCacheKeyGenerator;
-    protected SqlClauseCreator _sqlClauseCreator;
-    protected SqlNameFilter _tableSqlNameFilter;
-    protected OutsideSqlExecutorFactory _outsideSqlExecutorFactory;
-    protected GearedCipherManager _gearedCipherManager;
+    protected var _sequenceCacheKeyGenerator: SequenceCacheKeyGenerator = null;
+    protected var _sqlClauseCreator: SqlClauseCreator = null;
+    protected var _tableSqlNameFilter: SqlNameFilter = null;
+    protected var _outsideSqlExecutorFactory: OutsideSqlExecutorFactory = null;
+    protected var _gearedCipherManager: GearedCipherManager = null;
 
     // internal
-    protected boolean _internalDebug;
+    protected var _internalDebug: Boolean = false;
 
     // -----------------------------------------------------
     //                                   Database Dependency
     //                                   -------------------
 #if ($database.isAvailableDatabaseDependency())
 #if ($database.isDatabasePostgreSQL())
-    protected org.seasar.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch _fullTextSearchOperand
+    protected var _fullTextSearchOperand: org.seasar.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch
             = org.seasar.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch.FULL_TEXT_SEARCH;
 #end
 #end
@@ -130,51 +127,36 @@ public class ${glDBFluteConfig} {
     // -----------------------------------------------------
     //                                                  Lock
     //                                                  ----
-    protected boolean _locked = true; // at first locked
+    protected var _locked: Boolean = true; // at first locked
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    /**
-     * Constructor.
-     */
-    private ${glDBFluteConfig}() { // adjusts default settings
-        _physicalConnectionDigger = new ImplementedPhysicalConnectionDigger();
-        _sqlExceptionDigger = new ImplementedSQLExceptionDigger();
+    // adjusts default settings
+    _physicalConnectionDigger = new ImplementedPhysicalConnectionDigger();
+    _sqlExceptionDigger = new ImplementedSQLExceptionDigger();
 
-        if (isCurrentDBDef(DBDef.Oracle)) {
-            // date formatting has two points:
-            //   o the DATE type of Oracle has seconds  
-            //   o it uses a date literal of Oracle
-            _logDateFormat = "timestamp $df:{yyyy-MM-dd HH:mm:ss}";
-            _logTimestampFormat = "timestamp $df:{" + DisplaySqlBuilder.DEFAULT_TIMESTAMP_FORMAT + "}";
-        }
+    if (isCurrentDBDef(DBDef.Oracle)) {
+        // date formatting has two points:
+        //   o the DATE type of Oracle has seconds  
+        //   o it uses a date literal of Oracle
+        _logDateFormat = "timestamp $df:{yyyy-MM-dd HH:mm:ss}";
+        _logTimestampFormat = "timestamp $df:{" + DisplaySqlBuilder.DEFAULT_TIMESTAMP_FORMAT + "}";
+    }
 #if ($database.isDatabaseOracle() && $database.isAvailableDatabaseNativeJDBC())
 
-        // treats as uses Oracle date of database native JDBC to get best performances
-        TnValueTypes.registerBasicValueType(DBDef.Oracle, java.util.Date.class, new ImplementedOracleDateType());
+    // treats as uses Oracle date of database native JDBC to get best performances
+    TnValueTypes.registerBasicValueType(DBDef.Oracle, java.util.Date.class, new ImplementedOracleDateType());
 #end
-    }
-
-    // ===================================================================================
-    //                                                                           Singleton
-    //                                                                           =========
-    /**
-     * Get singleton instance.
-     * @return Singleton instance. (NotNull)
-     */
-    public static ${glDBFluteConfig} getInstance() {
-        return _instance;
-    }
 
     // ===================================================================================
     //                                                                       Paging Select
     //                                                                       =============
-    public boolean isPagingCountLater() {
+    def isPagingCountLater(): Boolean = {
         return _pagingCountLater;
     }
 
-    public void setPagingCountLater(boolean pagingCountLater) {
+    def setPagingCountLater(pagingCountLater: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting pagingCountLater: " + pagingCountLater);
@@ -182,11 +164,11 @@ public class ${glDBFluteConfig} {
         _pagingCountLater = pagingCountLater;
     }
 
-    public boolean isPagingCountLeastJoin() {
+    def isPagingCountLeastJoin(): Boolean = {
         return _pagingCountLeastJoin;
     }
 
-    public void setPagingCountLeastJoin(boolean pagingCountLeastJoin) {
+    def setPagingCountLeastJoin(pagingCountLeastJoin: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting pagingCountLeastJoin: " + pagingCountLeastJoin);
@@ -195,13 +177,13 @@ public class ${glDBFluteConfig} {
     }
 
     // ===================================================================================
-    //                                                              Inner Join Auto Detect
-    //                                                              ======================
-    public boolean isInnerJoinAutoDetect() {
+    //                                                                          Inner Join
+    //                                                                          ==========
+    def isInnerJoinAutoDetect(): Boolean = {
         return _innerJoinAutoDetect;
     }
 
-    public void setInnerJoinAutoDetect(boolean innerJoinAutoDetect) {
+    def setInnerJoinAutoDetect(innerJoinAutoDetect: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting innerJoinAutoDetect: " + innerJoinAutoDetect);
@@ -210,13 +192,13 @@ public class ${glDBFluteConfig} {
     }
 
     // ===================================================================================
-    //                                                            That's-Bad-Timing Detect
-    //                                                            ========================
-    public boolean isThatsBadTimingDetect() {
+    //                                                                   That's Bad Timing
+    //                                                                   =================
+    def isThatsBadTimingDetect(): Boolean = {
         return _thatsBadTimingDetect;
     }
 
-    public void setThatsBadTimingDetect(boolean thatsBadTimingDetect) {
+    def setThatsBadTimingDetect(thatsBadTimingDetect: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting thatsBadTimingDetect: " + thatsBadTimingDetect);
@@ -227,7 +209,7 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                                       Invalid Query
     //                                                                       =============
-    public boolean isEmptyStringQueryAllowed() {
+    def isEmptyStringQueryAllowed(): Boolean = {
         return _emptyStringQueryAllowed;
     }
 
@@ -236,7 +218,7 @@ public class ${glDBFluteConfig} {
      * This configuration is only for ConditionBean.
      * @param emptyStringQueryAllowed Determination.
      */
-    public void setEmptyStringQueryAllowed(boolean emptyStringQueryAllowed) {
+    def setEmptyStringQueryAllowed(emptyStringQueryAllowed: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting emptyStringQueryAllowed: " + emptyStringQueryAllowed);
@@ -244,7 +226,7 @@ public class ${glDBFluteConfig} {
         _emptyStringQueryAllowed = emptyStringQueryAllowed;
     }
 
-    public boolean isEmptyStringParameterAllowed() {
+    def isEmptyStringParameterAllowed(): Boolean = {
         return _emptyStringParameterAllowed;
     }
 
@@ -253,7 +235,7 @@ public class ${glDBFluteConfig} {
      * This configuration is only for ParameterBean.
      * @param emptyStringParameterAllowed Determination.
      */
-    public void setEmptyStringParameterAllowed(boolean emptyStringParameterAllowed) {
+    def setEmptyStringParameterAllowed(emptyStringParameterAllowed: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting emptyStringParameterAllowed: " + emptyStringParameterAllowed);
@@ -261,7 +243,7 @@ public class ${glDBFluteConfig} {
         _emptyStringParameterAllowed = emptyStringParameterAllowed;
     }
 
-    public boolean isInvalidQueryChecked() {
+    def isInvalidQueryChecked(): Boolean = {
         return _invalidQueryChecked;
     }
 
@@ -270,7 +252,7 @@ public class ${glDBFluteConfig} {
      * This configuration is only for ConditionBean.
      * @param invalidQueryChecked Determination.
      */
-    public void setInvalidQueryChecked(boolean invalidQueryChecked) {
+    def setInvalidQueryChecked(invalidQueryChecked: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting invalidQueryChecked: " + invalidQueryChecked);
@@ -281,11 +263,11 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                                        Select Index
     //                                                                        ============
-    public boolean isDisableSelectIndex() {
+    def isDisableSelectIndex(): Boolean = {
         return _disableSelectIndex;
     }
 
-    public void setDisableSelectIndex(boolean disableSelectIndex) {
+    def setDisableSelectIndex(disableSelectIndex: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting disableSelectIndex: " + disableSelectIndex);
@@ -296,11 +278,11 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                                        Query Update
     //                                                                        ============
-    public boolean isCheckCountBeforeQueryUpdate() {
+    def isCheckCountBeforeQueryUpdate(): Boolean = {
         return _checkCountBeforeQueryUpdate;
     }
 
-    public void setCheckCountBeforeQueryUpdate(boolean checkCountBeforeQueryUpdate) {
+    def setCheckCountBeforeQueryUpdate(checkCountBeforeQueryUpdate: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting checkCountBeforeQueryUpdate: " + checkCountBeforeQueryUpdate);
@@ -311,7 +293,7 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                                Query Log Level Info
     //                                                                ====================
-    public void setQueryLogLevelInfo(boolean queryLogLevelInfo) {
+    def setQueryLogLevelInfo(queryLogLevelInfo: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting queryLogLevelInfo: " + queryLogLevelInfo);
@@ -324,7 +306,7 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                       Execute Status Log Level Info
     //                                                       =============================
-    public void setExecuteStatusLogLevelInfo(boolean executeStatusLogLevelInfo) {
+    def setExecuteStatusLogLevelInfo(executeStatusLogLevelInfo: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting executeStatusLogLevelInfo: " + executeStatusLogLevelInfo);
@@ -337,11 +319,11 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                                          Log Format
     //                                                                          ==========
-    public String getLogDateFormat() {
+    def getLogDateFormat(): String = {
         return _logDateFormat;
     }
 
-    public void setLogDateFormat(String logDateFormat) {
+    def setLogDateFormat(logDateFormat: String): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting logDateFormat: " + logDateFormat);
@@ -349,11 +331,11 @@ public class ${glDBFluteConfig} {
         _logDateFormat = logDateFormat;
     }
 
-    public String getLogTimestampFormat() {
+    def getLogTimestampFormat(): String = {
         return _logTimestampFormat;
     }
 
-    public void setLogTimestampFormat(String logTimestampFormat) {
+    def setLogTimestampFormat(logTimestampFormat: String): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting logTimestampFormat: " + logTimestampFormat);
@@ -364,11 +346,11 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                             Default StatementConfig
     //                                                             =======================
-    public StatementConfig getDefaultStatementConfig() {
+    def getDefaultStatementConfig(): StatementConfig = {
         return _defaultStatementConfig;
     }
 
-    public void setDefaultStatementConfig(StatementConfig defaultStatementConfig) {
+    def setDefaultStatementConfig(defaultStatementConfig: StatementConfig): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting defaultStatementConfig: " + defaultStatementConfig);
@@ -379,11 +361,11 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                              CursorSelect FetchSize
     //                                                              ======================
-    public Integer getCursorSelectFetchSize() {
+    def getCursorSelectFetchSize(): Integer = {
         return _cursorSelectFetchSize;
     }
 
-    public void setCursorSelectFetchSize(Integer cursorSelectFetchSize) {
+    def setCursorSelectFetchSize(cursorSelectFetchSize: Integer): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting cursorSelectFetchSize: " + cursorSelectFetchSize);
@@ -398,14 +380,14 @@ public class ${glDBFluteConfig} {
     /**
      * @return The handler of data source. (NullAllowed)
      */
-    public DataSourceHandler getDataSourceHandler() {
+    def getDataSourceHandler(): DataSourceHandler = {
         return _dataSourceHandler;
     }
 
     /**
      * @param dataSourceHandler The handler of data source. (NullAllowed)
      */
-    public void setDataSourceHandler(DataSourceHandler dataSourceHandler) {
+    def setDataSourceHandler(dataSourceHandler: DataSourceHandler): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting dataSourceHandler: " + dataSourceHandler);
@@ -420,14 +402,14 @@ public class ${glDBFluteConfig} {
     /**
      * @return The digger of physical connection. (NotNull: has a default instance)
      */
-    public PhysicalConnectionDigger getPhysicalConnectionDigger() {
+    def getPhysicalConnectionDigger(): PhysicalConnectionDigger = {
         return _physicalConnectionDigger;
     }
 
     /**
      * @param physicalConnectionDigger The digger of physical connection. (NotNull)
      */
-    public void setPhysicalConnectionDigger(PhysicalConnectionDigger physicalConnectionDigger) {
+    def setPhysicalConnectionDigger(physicalConnectionDigger: PhysicalConnectionDigger): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting physicalConnectionDigger: " + physicalConnectionDigger);
@@ -445,14 +427,14 @@ public class ${glDBFluteConfig} {
     /**
      * @return The digger of SQLException. (NotNull: has a default instance)
      */
-    public SQLExceptionDigger getSQLExceptionDigger() {
+    def getSQLExceptionDigger(): SQLExceptionDigger = {
         return _sqlExceptionDigger;
     }
 
     /**
      * @param sqlExceptionDigger The digger of SQLException. (NotNull)
      */
-    public void setSQLExceptionDigger(SQLExceptionDigger sqlExceptionDigger) {
+    def setSQLExceptionDigger(sqlExceptionDigger: SQLExceptionDigger): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting sqlExceptionDigger: " + sqlExceptionDigger);
@@ -469,14 +451,14 @@ public class ${glDBFluteConfig} {
     /**
      * @return The package of outside SQL. (NullAllowed)
      */
-    public String getOutsideSqlPackage() {
+    def getOutsideSqlPackage(): String = {
         return _outsideSqlPackage;
     }
 
     /**
      * @param outsideSqlPackage The package of outside SQL. (NullAllowed)
      */
-    public void setOutsideSqlPackage(String outsideSqlPackage) {
+    def setOutsideSqlPackage(outsideSqlPackage: String): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting outsideSqlPackage: " + outsideSqlPackage);
@@ -488,11 +470,11 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                                    SQL Log Registry
     //                                                                    ================
-    public boolean isUseSqlLogRegistry() {
+    def isUseSqlLogRegistry(): Boolean = {
         return _useSqlLogRegistry;
     }
 
-    public void setUseSqlLogRegistry(boolean useSqlLogRegistry) {
+    def setUseSqlLogRegistry(useSqlLogRegistry: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting useSqlLogRegistry: " + useSqlLogRegistry);
@@ -507,14 +489,14 @@ public class ${glDBFluteConfig} {
     /**
      * @return The key generator of sequence cache. (NullAllowed)
      */
-    public SequenceCacheKeyGenerator getSequenceCacheKeyGenerator() {
+    def getSequenceCacheKeyGenerator(): SequenceCacheKeyGenerator = {
         return _sequenceCacheKeyGenerator;
     }
 
     /**
      * @param sequenceCacheKeyGenerator The key generator of sequence cache. (NullAllowed)
      */
-    public void setSequenceCacheKeyGenerator(SequenceCacheKeyGenerator sequenceCacheKeyGenerator) {
+    def setSequenceCacheKeyGenerator(sequenceCacheKeyGenerator: SequenceCacheKeyGenerator): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting sequenceCacheKeyGenerator: " + sequenceCacheKeyGenerator);
@@ -529,14 +511,14 @@ public class ${glDBFluteConfig} {
     /**
      * @return The creator of SQL clause. (NullAllowed)
      */
-    public SqlClauseCreator getSqlClauseCreator() {
+    def getSqlClauseCreator(): SqlClauseCreator = {
         return _sqlClauseCreator;
     }
 
     /**
      * @param sqlClauseCreator The creator of SQL clause. (NullAllowed)
      */
-    public void setSqlClauseCreator(SqlClauseCreator sqlClauseCreator) {
+    def setSqlClauseCreator(sqlClauseCreator: SqlClauseCreator): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting sqlClauseCreator: " + sqlClauseCreator);
@@ -551,7 +533,7 @@ public class ${glDBFluteConfig} {
     /**
      * @return The SQL name filter for table. (NullAllowed)
      */
-    public SqlNameFilter getTableSqlNameFilter() {
+    def getTableSqlNameFilter(): SqlNameFilter = {
         return _tableSqlNameFilter;
     }
 
@@ -561,7 +543,7 @@ public class ${glDBFluteConfig} {
      * (its exact meaning is: before class loading of DBMeta for table)
      * @param tableSqlNameFilter The SQL name filter for table. (NullAllowed)
      */
-    public void setTableSqlNameFilter(SqlNameFilter tableSqlNameFilter) {
+    def setTableSqlNameFilter(tableSqlNameFilter: SqlNameFilter): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting tableSqlNameFilter: " + tableSqlNameFilter);
@@ -573,11 +555,11 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                                 OutsideSql Executor
     //                                                                 ===================
-    public OutsideSqlExecutorFactory getOutsideSqlExecutorFactory() {
+    def getOutsideSqlExecutorFactory(): OutsideSqlExecutorFactory = {
         return _outsideSqlExecutorFactory;
     }
 
-    public void setOutsideSqlExecutorFactory(OutsideSqlExecutorFactory outsideSqlExecutorFactory) {
+    def setOutsideSqlExecutorFactory(outsideSqlExecutorFactory: OutsideSqlExecutorFactory): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting outsideSqlExecutorFactory: " + outsideSqlExecutorFactory);
@@ -589,11 +571,11 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                               Geared Cipher Manager
     //                                                               =====================
-    public GearedCipherManager getGearedCipherManager() {
+    def getGearedCipherManager(): GearedCipherManager = {
         return _gearedCipherManager;
     }
 
-    public void setGearedCipherManager(GearedCipherManager gearedCipherManager) {
+    def setGearedCipherManager(gearedCipherManager: GearedCipherManager): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting gearedCipherManager: " + gearedCipherManager);
@@ -609,11 +591,11 @@ public class ${glDBFluteConfig} {
     // -----------------------------------------------------
     //                              Full-Text Search Operand
     //                              ------------------------
-    public org.seasar.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch getFullTextSearchOperand() {
+    def getFullTextSearchOperand(): org.seasar.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch = {
         return _fullTextSearchOperand;
     }
 
-    public void useDefaultFullTextSearchOperand() {
+    def useDefaultFullTextSearchOperand(): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Using fullTextSearchOperand: Default");
@@ -621,7 +603,7 @@ public class ${glDBFluteConfig} {
         _fullTextSearchOperand = org.seasar.dbflute.dbway.WayOfPostgreSQL.OperandOfLikeSearch.FULL_TEXT_SEARCH; 
     }
 
-    public void useOldFullTextSearchOperand() {
+    def useOldFullTextSearchOperand(): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Using fullTextSearchOperand: Old");
@@ -634,11 +616,11 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                                      Internal Debug
     //                                                                      ==============
-    public boolean isInternalDebug() {
+    def isInternalDebug(): Boolean = {
         return _internalDebug;
     }
 
-    public void setInternalDebug(boolean internalDebug) {
+    def setInternalDebug(internalDebug: Boolean): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Setting internalDebug: " + internalDebug);
@@ -655,7 +637,7 @@ public class ${glDBFluteConfig} {
      * @param keyType The type as key. (NotNull)
      * @param valueType The basic value type. (NotNull)
      */
-    public void registerBasicValueType(Class<?> keyType, ValueType valueType) {
+    def registerBasicValueType(keyType: Class[_], valueType: ValueType): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Registering basic valueType: " + keyType + " = " + valueType);
@@ -663,7 +645,7 @@ public class ${glDBFluteConfig} {
         TnValueTypes.registerBasicValueType(currentDBDef(), keyType, valueType);
     }
 
-    public void removeBasicValueType(Class<?> keyType) {
+    def removeBasicValueType(keyType: Class[_]): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Removing basic valueType: " + keyType);
@@ -677,7 +659,7 @@ public class ${glDBFluteConfig} {
      * @param keyName The name as key. (NotNull)
      * @param valueType The plug-in value type. (NotNull)
      */
-    public void registerPluginValueType(String keyName, ValueType valueType) {
+    def registerPluginValueType(keyName: String, valueType: ValueType): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Registering plug-in valueType: " + keyName + " = " + valueType);
@@ -685,7 +667,7 @@ public class ${glDBFluteConfig} {
         TnValueTypes.registerPluginValueType(currentDBDef(), keyName, valueType);
     }
 
-    public void removePluginValueType(String keyName) {
+    def removePluginValueType(keyName: String): Unit = {
         assertNotLocked();
         if (_log.isInfoEnabled()) {
             _log.info("...Removing plug-in valueType: keyName=" + keyName);
@@ -696,11 +678,11 @@ public class ${glDBFluteConfig} {
     // ===================================================================================
     //                                                                  Configuration Lock
     //                                                                  ==================
-    public boolean isLocked() {
+    def isLocked(): Boolean = {
         return _locked;
     }
 
-    public void lock() {
+    def lock(): Unit = {
         if (_locked) {
             return;
         }
@@ -710,7 +692,7 @@ public class ${glDBFluteConfig} {
         _locked = true;
     }
 
-    public void unlock() {
+    def unlock(): Unit = {
         if (!_locked) {
             return;
         }
@@ -720,23 +702,23 @@ public class ${glDBFluteConfig} {
         _locked = false;
     }
 
-    protected void assertNotLocked() {
+    protected def assertNotLocked(): Unit = {
         if (!isLocked()) {
             return;
         }
-        String msg = "The configuration of DBFlute is locked.";
+        val msg = "The configuration of DBFlute is locked.";
         throw new IllegalDBFluteConfigAccessException(msg);
     }
 
     // ===================================================================================
     //                                                                       Assist Helper
     //                                                                       =============
-    protected DBDef currentDBDef() {
-        return ${glDBCurrent}.getInstance().currentDBDef();
+    protected def currentDBDef(): DBDef = {
+        return ${glDBCurrent}.currentDBDef();
     }
 
-    protected boolean isCurrentDBDef(DBDef currentDBDef) {
-        return ${glDBCurrent}.getInstance().isCurrentDBDef(currentDBDef);
+    protected def isCurrentDBDef(currentDBDef: DBDef): Boolean = {
+        return ${glDBCurrent}.isCurrentDBDef(currentDBDef);
     }
 
     // ===================================================================================
@@ -745,10 +727,10 @@ public class ${glDBFluteConfig} {
     // -----------------------------------------------------
     //                                                Spring
     //                                                ------
-    public static class SpringTransactionalDataSourceHandler implements DataSourceHandler {
+    class SpringTransactionalDataSourceHandler extends DataSourceHandler {
 
-        public Connection getConnection(DataSource ds) throws SQLException {
-            final Connection conn = getConnectionFromUtils(ds);
+        def getConnection(ds: DataSource): Connection = {
+            val conn: Connection = getConnectionFromUtils(ds);
             if (isConnectionTransactional(conn, ds)) {
                 return new NotClosingConnectionWrapper(conn);
             } else {
@@ -756,7 +738,7 @@ public class ${glDBFluteConfig} {
             }
         }
 
-        public Connection getConnectionFromUtils(DataSource ds) {
+        def getConnectionFromUtils(ds: DataSource): Connection = {
 #if ($database.isTargetContainerSpring())
             return DataSourceUtils.getConnection(ds);
 #else
@@ -764,7 +746,7 @@ public class ${glDBFluteConfig} {
 #end
         }
 
-        public boolean isConnectionTransactional(Connection conn, DataSource ds) {
+        def isConnectionTransactional(conn: Connection, ds: DataSource): Boolean = {
 #if ($database.isTargetContainerSpring())
             return DataSourceUtils.isConnectionTransactional(conn, ds);
 #else
@@ -776,9 +758,9 @@ public class ${glDBFluteConfig} {
     // -----------------------------------------------------
     //                                                Oracle
     //                                                ------
-    public static class ImplementedOracleAgent implements OracleAgent {
+    class ImplementedOracleAgent extends OracleAgent {
 
-        public Object toOracleDate(Timestamp timestamp) {
+        def toOracleDate(timestamp: Timestamp): Object = {
 #if ($database.isAvailableOracleNativeJDBC())
             return new oracle.sql.DATE(timestamp);
 #else
@@ -786,7 +768,7 @@ public class ${glDBFluteConfig} {
 #end
         }
 
-        public Object toOracleArray(Connection conn, String arrayTypeName, Object arrayValue) throws SQLException {
+        def toOracleArray(conn: Connection, arrayTypeName: String, arrayValue: Object): Object = {
 #if ($database.isAvailableOracleNativeJDBC())
             oracle.sql.ArrayDescriptor desc = oracle.sql.ArrayDescriptor.createDescriptor(arrayTypeName, conn);
             return new oracle.sql.ARRAY(desc, conn, arrayValue);
@@ -795,7 +777,7 @@ public class ${glDBFluteConfig} {
 #end
         }
 
-        public Object toStandardArray(Object oracleArray) throws SQLException {
+        def toStandardArray(oracleArray: Object): Object = {
 #if ($database.isAvailableOracleNativeJDBC())
             return ((oracle.sql.ARRAY)oracleArray).getArray();
 #else
@@ -803,7 +785,7 @@ public class ${glDBFluteConfig} {
 #end
         }
 
-        public boolean isOracleArray(Object obj) {
+        def isOracleArray(obj: Object): Boolean = {
 #if ($database.isAvailableOracleNativeJDBC())
             return obj instanceof oracle.sql.ARRAY;
 #else
@@ -811,7 +793,7 @@ public class ${glDBFluteConfig} {
 #end
         }
 
-        public Object toOracleStruct(Connection conn, String structTypeName, Object[] attrs) throws SQLException {
+        def toOracleStruct(conn: Connection, structTypeName: String, attrs: Array[Object]): Object = {
 #if ($database.isAvailableOracleNativeJDBC())
             oracle.sql.StructDescriptor desc = new oracle.sql.StructDescriptor(structTypeName, conn);
             return new ImplementedOracleStructWrapper(new oracle.sql.STRUCT(desc, conn, attrs));
@@ -820,7 +802,7 @@ public class ${glDBFluteConfig} {
 #end
         }
 
-        public Object[] toStandardStructAttributes(Object oracleStruct) throws SQLException {
+        def toStandardStructAttributes(oracleStruct: Object): Array[Object] = {
 #if ($database.isAvailableOracleNativeJDBC())
             return ((oracle.sql.STRUCT)oracleStruct).getAttributes();
 #else
@@ -828,7 +810,7 @@ public class ${glDBFluteConfig} {
 #end
         }
 
-        public boolean isOracleStruct(Object obj) {
+        def isOracleStruct(obj: Object): Boolean = {
 #if ($database.isAvailableOracleNativeJDBC())
             return obj instanceof oracle.sql.STRUCT;
 #else
@@ -836,51 +818,39 @@ public class ${glDBFluteConfig} {
 #end
         }
 
-        public PhysicalConnectionDigger getPhysicalConnectionDigger() {
-            return ${glDBFluteConfig}.getInstance().getPhysicalConnectionDigger();
+        def getPhysicalConnectionDigger(): PhysicalConnectionDigger = {
+            return ${glDBFluteConfig}.getPhysicalConnectionDigger();
         }
     }
 #if ($database.isAvailableOracleNativeJDBC())
 
-    public static class ImplementedOracleStructWrapper implements oracle.sql.ORAData {
-        protected oracle.sql.STRUCT _struct;
-        public ImplementedOracleStructWrapper(oracle.sql.STRUCT struct) {
-            _struct = struct;
-        }
-        public oracle.sql.Datum toDatum(Connection conn) throws SQLException {
-            return _struct;
+    class ImplementedOracleStructWrapper(struct: oracle.sql.STRUCT) implements oracle.sql.ORAData {
+        def toDatum(conn: Connection): oracle.sql.Datum = {
+            return struct;
         }
     }
 #end
 
-    public static class ImplementedOracleDateType extends OracleDateType {
+    class ImplementedOracleDateType extends OracleDateType {
 
         @Override
-        protected OracleAgent createOracleAgent() {
+        protected def createOracleAgent(): OracleAgent = {
             return new ImplementedOracleAgent();
         }
     }
 
-    public static class ImplementedOracleArrayType extends OracleArrayType {
-
-        public ImplementedOracleArrayType(String arrayTypeName, Class<?> elementType) {
-            super(arrayTypeName, elementType);
-        }
+    class ImplementedOracleArrayType(arrayTypeName: String, elementType: Class[_]) extends OracleArrayType(arrayTypeName, elementType) {
 
         @Override
-        protected OracleAgent createOracleAgent() {
+        protected def createOracleAgent(): OracleAgent = {
             return new ImplementedOracleAgent();
         }
     }
 
-    public static class ImplementedOracleStructType extends OracleStructType {
-
-        public ImplementedOracleStructType(String structTypeName, Class<?> entityType) {
-            super(structTypeName, entityType);
-        }
+    class ImplementedOracleStructType(structTypeName: String, entityType: Class[_]) extends OracleStructType(structTypeName, entityType) {
 
         @Override
-        protected OracleAgent createOracleAgent() {
+        protected def createOracleAgent(): OracleAgent = {
             return new ImplementedOracleAgent();
         }
     }
@@ -888,33 +858,33 @@ public class ${glDBFluteConfig} {
     // -----------------------------------------------------
     //                                   Physical Connection
     //                                   -------------------
-    public static class ImplementedPhysicalConnectionDigger implements PhysicalConnectionDigger {
+    class ImplementedPhysicalConnectionDigger extends PhysicalConnectionDigger {
 
-        public Connection digUp(Connection conn) throws SQLException {
-            Connection digged = unwrap(conn);
+        def digUp(conn: Connection): Connection = {
+            var digged: Connection = unwrap(conn);
             digged = resolveS2DBCP(digged);
             digged = resolveCommonsDBCP(digged);
             return digged;
         }
 
-        protected Connection unwrap(Connection conn) {
-            if (conn instanceof NotClosingConnectionWrapper) {
-                return ((NotClosingConnectionWrapper)conn).getActualConnection();
+        protected def unwrap(conn: Connection): Connection = {
+            if (conn.isInstanceOf[NotClosingConnectionWrapper]) {
+                return conn.asInstanceOf[NotClosingConnectionWrapper].getActualConnection();
             }
             return conn;
         }
 
-        protected Connection resolveS2DBCP(Connection conn) {
+        protected def resolveS2DBCP(conn: Connection): Connection = {
 #if ($database.isTargetContainerSeasar())
-            if (conn instanceof ConnectionWrapper) {
-                return ((ConnectionWrapper)conn).getPhysicalConnection();
+            if (conn.isInstanceOf[ConnectionWrapper]) {
+                return conn.asInstanceOf[ConnectionWrapper].getPhysicalConnection();
             }
 #end
             return conn;
         }
 
-        protected Connection resolveCommonsDBCP(Connection conn) {
-            Connection resolved = conn;
+        protected def resolveCommonsDBCP(conn: Connection): Connection = {
+            var resolved: Connection = conn;
             if ("org.apache.commons.dbcp.PoolingDataSource$PoolGuardConnectionWrapper".equals(resolved.getClass().getName())) {
                 resolved = getFieldConnection(resolved, "delegate");
             }
@@ -924,19 +894,19 @@ public class ${glDBFluteConfig} {
             return resolved;
         }
 
-        protected Connection getFieldConnection(Connection conn, String fieldName) {
-            Field field = DfReflectionUtil.getWholeField(conn.getClass(), fieldName);
-            return (Connection)DfReflectionUtil.getValueForcedly(field, conn);
+        protected def getFieldConnection(conn: Connection, fieldName: String): Connection = {
+            val field: Field = DfReflectionUtil.getWholeField(conn.getClass(), fieldName);
+            return DfReflectionUtil.getValueForcedly(field, conn).asInstanceOf[Connection];
         }
     }
 
     // -----------------------------------------------------
     //                                          SQLException
     //                                          ------------
-    public static class ImplementedSQLExceptionDigger implements SQLExceptionDigger {
+    class ImplementedSQLExceptionDigger extends SQLExceptionDigger {
 
-        public SQLException digUp(Throwable cause) {
-            SQLException found = resolveS2DBCP(cause);
+        def digUp(cause: Throwable): SQLException = {
+            var found: SQLException = resolveS2DBCP(cause);
             if (found != null) {
                 return found;
             }
@@ -947,10 +917,10 @@ public class ${glDBFluteConfig} {
             return null;
         }
 
-        protected SQLException resolveS2DBCP(Throwable cause) {
+        protected def resolveS2DBCP(cause: Throwable): SQLException = {
 #if ($database.isTargetContainerSeasar())
             if (cause instanceof SQLRuntimeException) {
-                Throwable nestedCause = ((SQLRuntimeException)cause).getCause();
+                val nestedCause: Throwable = ((SQLRuntimeException)cause).getCause();
                 if (nestedCause instanceof SQLException) {
                     return (SQLException)nestedCause;
                 }
@@ -959,10 +929,10 @@ public class ${glDBFluteConfig} {
             return null;
         }
 
-        protected SQLException resolveDefault(Throwable cause) {
-            Throwable nestedCause = cause.getCause();
-            if (nestedCause instanceof SQLException) {
-                return (SQLException)nestedCause;
+        protected def resolveDefault(cause: Throwable):SQLException = {
+            val nestedCause: Throwable = cause.getCause();
+            if (nestedCause.isInstanceOf[SQLException]) {
+                return nestedCause.asInstanceOf[SQLException];
             }
             return null;
         }

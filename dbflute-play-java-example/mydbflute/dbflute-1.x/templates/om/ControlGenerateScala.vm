@@ -184,24 +184,24 @@ $database.info("public void parseContainerConfig() {")
 #end
 #end
 #if ($database.isTargetContainerSpring())
-  #foreach ($dbfluteBeansPackageName in $database.DBFluteBeansPackageNameList)
+#foreach ($dbfluteBeansPackageName in $database.DBFluteBeansPackageNameList)
   #set ($path = "${dbfluteBeansPackageName}" )
   $database.makeDirectory($path)
 
   #set ($path = "${dbfluteBeansPackageName}/${glDBFluteBeansFileName}" )
   $database.info("    parse('${path}')")
   $generator.parse("om/${glResourceDirectory}/allcommon/container/spring/SpringDBFluteBeans.${glTemplateFileExtension}", $path, "", "")
-  #end
+#end
 #end
 #if ($database.isTargetContainerLucy())
-  #foreach ($dbfluteBeansPackageName in $database.DBFluteBeansPackageNameList)
+#foreach ($dbfluteBeansPackageName in $database.DBFluteBeansPackageNameList)
   #set ($path = "${dbfluteBeansPackageName}" )
   $database.makeDirectory($path)
 
   #set ($path = "${dbfluteBeansPackageName}/${glDBFluteBeansFileName}" )
   $database.info("    parse('${path}')")
   $generator.parse("om/${glResourceDirectory}/allcommon/container/lucy/LucyDBFluteBeans.${glTemplateFileExtension}", $path, "", "")
-  #end
+#end
 #end
 #if ($database.isTargetContainerGuice())
   #set ( $path = "${database.getPackageAsPath(${glPackageBaseCommon})}${glDBFluteModule}.${glClassFileExtension}" )

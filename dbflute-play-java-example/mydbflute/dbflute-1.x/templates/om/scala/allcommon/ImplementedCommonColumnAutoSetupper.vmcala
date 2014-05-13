@@ -70,10 +70,6 @@ public class ${glImplementedCommonColumnAutoSetupper} implements CommonColumnAut
         if (isInternalDebugEnabled()) {
             logSettingUp(entity, "INSERT");
         }
-        doHandleCommonColumnOfInsertIfNeeds(entity);
-    }
-
-    protected void doHandleCommonColumnOfInsertIfNeeds(${glEntityDefinedCommonColumn} entity) {
 #foreach ($columnName in ${database.commonColumnNameList})
 #set ($filteredColumnName = ${database.filterCommonColumn(${columnName})})
 #set ($entityCommonColumnMap = ${database.commonColumnMap})
@@ -107,10 +103,6 @@ public class ${glImplementedCommonColumnAutoSetupper} implements CommonColumnAut
         if (isInternalDebugEnabled()) {
             logSettingUp(entity, "UPDATE");
         }
-        doHandleCommonColumnOfUpdateIfNeeds(entity);
-    }
-
-    protected void doHandleCommonColumnOfUpdateIfNeeds(${glEntityDefinedCommonColumn} entity) {
 #foreach ($columnName in ${database.commonColumnNameList})
 #set ($filteredColumnName = ${database.filterCommonColumn(${columnName})})
 #set ($entityCommonColumnMap = ${database.CommonColumnMap})
